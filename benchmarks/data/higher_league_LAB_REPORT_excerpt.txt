@@ -1,0 +1,160 @@
+﻿==============================================================================================================
+STAGE 1 â€” HIGHER LEAGUE (Top-40 Core Pool)
+rounds=400  reps=2  seeds=[42, 7, 99, 13, 21, 77, 123]  out=results_higher_league
+focus: ZeroResp v2.1 vs ZeroResp v2.2 (+ family / elite customs)
+==============================================================================================================
+Higher League Core Pool: 40 bots
+  sandbox jailers : 15
+  ZeroResp family : 6
+  customs+epoch   : 3
+  axelrod elites  : 17
+
+Roster:
+   1. Alternator
+   2. AlwaysCooperate
+   3. AlwaysDefect
+   4. Contrite Tit For Tat
+   5. EpochRedLineBot <<
+   6. EvolvedLookerUp1_1_1
+   7. ExploitPattern
+   8. Fool Me Once
+   9. Friedman
+  10. GTFT
+  11. GenerousTFT
+  12. GrimTrigger
+  13. Grudger
+  14. Handshake
+  15. Hard Tit For Tat
+  16. HardMajority
+  17. Joss
+  18. MEM2
+  19. Meta Hunter
+  20. Omega TFT
+  21. Once Bitten
+  22. Pavlov
+  23. Prober
+  24. Random
+  25. Soft Joss
+  26. SoftMajority
+  27. Sovereign v9 <<
+  28. Suspicious Tit For Tat
+  29. Tester
+  30. TitForTat
+  31. TitForTwoTats
+  32. Two Tits For Tat
+  33. ZD-Extort-2
+  34. ZD-GTFT-2
+  35. ZeroResp <<
+  36. ZeroResp v2 <<
+  37. ZeroResp v2.1 <<
+  38. ZeroResp v2.2 <<
+  39. ZeroResp v3 <<
+  40. hybrid_zero_parasite <<
+
+--- seed=42 ---
+====================================================================================================
+HIGHER LEAGUE Top-40 | seed=42 | 400x2
+players=40  rounds/match=400  matches=1560  seed=42
+====================================================================================================
+  #  Bot                       Score   Avg/R    W    D    L    Win%   Coop%  Share%
+----------------------------------------------------------------------------------------------------
+  1  ZeroResp v2.2             86126    2.76   62    8    8   79.5%   79.3%   52.0%
+  2  Omega TFT                 86112    2.76    6   58   14    7.7%   79.6%   51.9%
+  3  ZeroResp v2.1             86036    2.76    8   60   10   10.3%   79.7%   51.9%
+  4  GenerousTFT               85238    2.73    0   56   22    0.0%   87.4%   49.3%
+  5  Soft Joss                 85214    2.73    0   58   20    0.0%   87.5%   49.2%
+  6  ZD-GTFT-2                 85120    2.73    0   58   20    0.0%   89.5%   48.6%
+  7  GTFT                      84588    2.71    0   56   22    0.0%   91.8%   47.8%
+  8  Contrite Tit For Tat      83944    2.69    0   60   18    0.0%   82.6%   50.0%
+  9  TitForTat                 83944    2.69    0   60   18    0.0%   82.6%   50.0%
+ 10  SoftMajority              83230    2.67    0   56   22    0.0%   87.6%   48.4%
+ 11  ZeroResp v2               83038    2.66    6   56   16    7.7%   74.9%   52.0%
+ 12  ZeroResp v3               83038    2.66    6   56   16    7.7%   74.9%   52.0%
+ 13  TitForTwoTats             82352    2.64    0   52   26    0.0%   86.6%   48.5%
+ 14  EvolvedLookerUp1_1_1      81710    2.62   12   56   10   15.4%   72.8%   51.7%
+ 15  MEM2                      81468    2.61   10   58   10   12.8%   72.1%   52.1%
+ 16  Fool Me Once              81434    2.61    8   54   16   10.3%   72.2%   52.1%
+ 17  HardMajority              80302    2.57    2   58   18    2.6%   78.4%   49.5%
+ 18  Meta Hunter               80092    2.57    8   54   16   10.3%   71.6%   51.5%
+ 19  EpochRedLineBot           80070    2.57    6   56   16    7.7%   70.1%   52.1%
+ 20  ZeroResp                  79916    2.56    6   58   14    7.7%   69.8%   52.1%
+ 21  Friedman                  79858    2.56   12   58    8   15.4%   69.4%   52.2%
+ 22  GrimTrigger               79858    2.56   12   58    8   15.4%   69.4%   52.2%
+ 23  Grudger                   79858    2.56   12   58    8   15.4%   69.4%   52.2%
+ 24  Hard Tit For Tat          79704    2.55   12   58    8   15.4%   69.8%   52.0%
+ 25  Two Tits For Tat          79314    2.54   12   58    8   15.4%   71.0%   51.4%
+ 26  Pavlov                    78904    2.53    6   54   18    7.7%   83.1%   47.1%
+ 27  Once Bitten               78704    2.52    2   52   24    2.6%   78.3%   49.1%
+ 28  AlwaysCooperate           77568    2.49    0   52   26    0.0%  100.0%   42.7%
+ 29  Prober                    66282    2.12   22   30   26   28.2%   44.7%   52.7%
+ 30  Suspicious Tit For Tat    64556    2.07   28   50    0   35.9%   48.1%   50.1%
+ 31  Sovereign v9              60572    1.94   30   26   22   38.5%   29.7%   56.2%
+ 32  hybrid_zero_parasite      60556    1.94   24   22   32   30.8%   34.8%   54.1%
+ 33  Alternator                52668    1.69   30    4   44   38.5%   50.0%   39.6%
+ 34  Joss                      49226    1.58   54   22    2   69.2%   21.0%   52.1%
+ 35  ExploitPattern            48916    1.57   24    2   52   30.8%   66.5%   33.7%
+ 36  Random                    47926    1.54   24    2   52   30.8%   50.7%   37.3%
+ 37  ZD-Extort-2               45148    1.45   54   16    8   69.2%   12.4%   53.9%
+ 38  Tester                    44954    1.44   54   16    8   69.2%    3.2%   59.0%
+ 39  AlwaysDefect              44392    1.42   76    2    0   97.4%    0.0%   61.4%
+ 40  Handshake                 43530    1.40   66    4    8   84.6%    7.9%   55.2%
+
+MARKET LENSES (supply/demand of trust)
+----------------------------------------------------------------------------------------------------
+  #  Bot                        vs Nice     vs Mean   vs Exploit  Î” rank note
+----------------------------------------------------------------------------------------------------
+  1  ZeroResp v2.2                 3.00        2.49         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+  2  Omega TFT                     3.00        2.50         1.90  harvests-coop,hard-vs-mean,punishes-exploit
+  3  ZeroResp v2.1                 3.00        2.49         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+  4  GenerousTFT                   3.00        2.11         1.87  harvests-coop,hard-vs-mean,punishes-exploit,nice
+  5  Soft Joss                     3.00        2.11         1.87  harvests-coop,hard-vs-mean,punishes-exploit,nice
+  6  ZD-GTFT-2                     3.00        2.05         1.90  harvests-coop,hard-vs-mean,punishes-exploit,nice
+  7  GTFT                          3.00        1.93         1.88  harvests-coop,hard-vs-mean,punishes-exploit,nice
+  8  Contrite Tit For Tat          3.00        2.19         1.57  harvests-coop,hard-vs-mean,punishes-exploit
+  9  TitForTat                     3.00        2.19         1.57  harvests-coop,hard-vs-mean,punishes-exploit
+ 10  SoftMajority                  3.00        1.92         1.90  harvests-coop,hard-vs-mean,punishes-exploit,nice
+ 11  ZeroResp v2                   3.00        2.49         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+ 12  ZeroResp v3                   3.00        2.49         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+ 13  TitForTwoTats                 3.00        1.85         1.90  harvests-coop,hard-vs-mean,punishes-exploit,nice
+ 14  EvolvedLookerUp1_1_1          3.00        2.50         1.67  harvests-coop,hard-vs-mean,punishes-exploit
+ 15  MEM2                          3.00        2.50         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+ 16  Fool Me Once                  3.00        2.50         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+ 17  HardMajority                  3.00        1.95         1.35  harvests-coop,hard-vs-mean
+ 18  Meta Hunter                   3.00        2.49         1.93  harvests-coop,hard-vs-mean,punishes-exploit
+ 19  EpochRedLineBot               3.00        2.50         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+ 20  ZeroResp                      3.00        2.50         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+ 21  Friedman                      3.00        2.50         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+ 22  GrimTrigger                   3.00        2.50         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+ 23  Grudger                       3.00        2.50         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+ 24  Hard Tit For Tat              3.00        2.46         1.89  harvests-coop,hard-vs-mean,punishes-exploit
+ 25  Two Tits For Tat              3.00        2.41         1.78  harvests-coop,hard-vs-mean,punishes-exploit
+ 26  Pavlov                        3.00        2.00         1.74  harvests-coop,hard-vs-mean,punishes-exploit
+ 27  Once Bitten                   3.00        2.02         1.36  harvests-coop,hard-vs-mean
+ 28  AlwaysCooperate               3.00        1.51         1.57  harvests-coop,hard-vs-mean,punishes-exploit,nice
+ 29  Prober                        2.38        2.06         1.90  hard-vs-mean,punishes-exploit
+ 30  Suspicious Tit For Tat        2.25        1.69         2.06  hard-vs-mean,punishes-exploit
+ 31  Sovereign v9                  2.53        2.06         1.89  hard-vs-mean,punishes-exploit
+ 32  hybrid_zero_parasite          2.52        2.51         1.89  hard-vs-mean,punishes-exploit
+ 33  Alternator                    2.56        1.76         1.87  hard-vs-mean,punishes-exploit
+ 34  Joss                          2.15        1.74         1.89  hard-vs-mean,punishes-exploit,harsh
+ 35  ExploitPattern                2.40        2.00         2.54  hard-vs-mean,punishes-exploit
+ 36  Random                        2.21        1.62         1.79  hard-vs-mean,punishes-exploit
+ 37  ZD-Extort-2                   1.92        1.76         1.64  hard-vs-mean,punishes-exploit,harsh
+ 38  Tester                        1.81        2.01         1.83  hard-vs-mean,punishes-exploit,harsh
+ 39  AlwaysDefect                  1.81        2.35         1.89  hard-vs-mean,punishes-exploit,harsh
+ 40  Handshake                     1.81        1.26         2.46  hard-vs-mean,punishes-exploit,harsh
+====================================================================================================
+LEADER: ZeroResp v2.2  |  total=86126  avg/r=2.760  W-D-L=62-8-8
+====================================================================================================
+  pool mean Coop%=64.3%  leader=ZeroResp v2.2 avg=2.760
+  FOCUS:
+    # 1/40  ZeroResp v2.2          avg=2.760  coop= 79.3%  W-D-L=62-8-8
+    # 3/40  ZeroResp v2.1          avg=2.758  coop= 79.7%  W-D-L=8-60-10
+    #11/40  ZeroResp v2            avg=2.662  coop= 74.9%  W-D-L=6-56-16
+    #12/40  ZeroResp v3            avg=2.662  coop= 74.9%  W-D-L=6-56-16
+    #19/40  EpochRedLineBot        avg=2.566  coop= 70.1%  W-D-L=6-56-16
+    #20/40  ZeroResp               avg=2.561  coop= 69.8%  W-D-L=6-58-14
+    #31/40  Sovereign v9           avg=1.941  coop= 29.7%  W-D-L=30-26-22
+    #32/40  hybrid_zero_parasite   avg=1.941  coop= 34.8%  W-D-L=24-22-32
+
+--- seed=7 ---
