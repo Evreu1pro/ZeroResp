@@ -6,6 +6,9 @@ Version **2.2** · Compatible with [Axelrod-Python](https://github.com/Axelrod-P
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Axelrod](https://img.shields.io/badge/axelrod-4.x-green.svg)](https://axelrod.readthedocs.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Upstream PR](https://img.shields.io/badge/Axelrod%20PR-1496-blue.svg)](https://github.com/Axelrod-Python/Axelrod/pull/1496)
+
+**Upstream submission:** [Axelrod-Python/Axelrod#1496](https://github.com/Axelrod-Python/Axelrod/pull/1496) — ZeroResp + ZeroResp v2 (rev 2.2)
 
 ZeroResp is a long-memory state-machine strategy designed for tournament evaluation: delayed adaptive retaliation, epoch-based debt accounting, noise-tolerant forgiveness, deadlock recovery, and cautious finite-horizon end-game logic.
 
@@ -111,16 +114,15 @@ python -m unittest tests.test_zeroresp -v
 
 ---
 
-## Submit to Axelrod-Python
+## Axelrod-Python submission status
 
-This package is prepared for review by the Axelrod-Python maintainers and game-theory committees.
+| Item | Link / status |
+|------|----------------|
+| Upstream PR | [**#1496**](https://github.com/Axelrod-Python/Axelrod/pull/1496) (open, CI re-running after rev 2.2) |
+| Superseded PR | [#1495](https://github.com/Axelrod-Python/Axelrod/pull/1495) closed (merged into #1496) |
+| Contributing guide | [Adding a strategy](https://axelrod.readthedocs.io/en/stable/tutorials/contributing/strategy/index.html) |
 
-1. Fork [Axelrod-Python/Axelrod](https://github.com/Axelrod-Python/Axelrod).  
-2. Copy `axelrod/strategies/zeroresp.py` into the library tree.  
-3. Copy tests under `axelrod/tests/strategies/`.  
-4. Register the class — see [`REGISTRATION.md`](REGISTRATION.md).  
-5. Open a PR using [`PR_BODY.md`](PR_BODY.md) as a starting point.  
-6. Contributing guide: [Adding a strategy](https://axelrod.readthedocs.io/en/stable/tutorials/contributing/strategy/index.html).
+Local drop-in copies live under `axelrod/` for offline inspection. Registration snippets: [`REGISTRATION.md`](REGISTRATION.md).
 
 ---
 
