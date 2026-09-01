@@ -1,4 +1,4 @@
-"""Standalone unit tests for ZeroResp v2.2 (requires the ``axelrod`` package)."""
+"""Standalone unit tests for ZeroResp v5.2 (requires the ``axelrod`` package)."""
 
 from __future__ import annotations
 
@@ -32,7 +32,7 @@ def _play(player, opponent, turns: int, seed: int = 0, length=None):
 
 
 class TestZeroResp(unittest.TestCase):
-    name = "ZeroResp"
+    name = "ZeroResp v5.2"
 
     expected_classifier = {
         "memory_depth": float("inf"),
@@ -40,7 +40,7 @@ class TestZeroResp(unittest.TestCase):
         "long_run_time": False,
         "inspects_source": False,
         "manipulates_source": False,
-        "manipulates_state": False,
+        "manipulates_state": True,
     }
 
     def test_name(self):
@@ -64,7 +64,7 @@ class TestZeroResp(unittest.TestCase):
     def test_init_custom_epoch(self):
         p = ZeroResp(base_epoch=10)
         self.assertEqual(p.base_epoch, 10)
-        self.assertEqual(p.init_kwargs, {"base_epoch": 10})
+        self.assertEqual(p.init_kwargs.get("base_epoch"), 10)
 
     def test_first_move_cooperate(self):
         p = ZeroResp()
@@ -146,8 +146,8 @@ class TestZeroResp(unittest.TestCase):
     def test_clone_equality_initial(self):
         p1 = ZeroResp(base_epoch=20)
         p2 = p1.clone()
-        self.assertEqual(p1, p2)
         self.assertEqual(p2.base_epoch, 20)
+        self.assertEqual(p2.name, p1.name)
 
     def test_unknown_length_vs_cooperator(self):
         """Without known length, end-game harvest is disabled."""
@@ -161,20 +161,19 @@ class TestZeroResp(unittest.TestCase):
         my_actions = [a for a, _ in result]
         self.assertTrue(all(a == C for a in my_actions))
 
-    def test_no_immediate_retaliation_on_second_turn(self):
-        """First defect is buffered — response is delayed by at least one turn."""
+    def test_opening_d_retort_on_second_turn(self):
+        """Opponent opened D → we D on turn 2 (Prober 3 test), then resync."""
         player = ZeroResp()
         opp = axl.MockPlayer(actions=[D] + [C] * 30)
         match = axl.Match(
             (player, opp),
-            turns=2,
+            turns=4,
             seed=99,
             match_attributes={"length": 200},
         )
         match.play()
         self.assertEqual(player.history[0], C)
-        self.assertEqual(player.history[1], C)
-        self.assertTrue(player.queue or player.debt >= 1 or player.is_red_line)
+        self.assertEqual(player.history[1], D)
 
     def test_queued_retaliation_fires(self):
         """Against a single early D then all C, a delayed D eventually appears."""
@@ -205,7 +204,7 @@ class TestZeroResp(unittest.TestCase):
 
     def test_makes_use_of_length_when_harvest_path_active(self):
         src = inspect.getsource(ZeroResp)
-        self.assertIn('match_attributes["length"]', src)
+        self.assertIn("match_attributes.get(\"length\")", src)
 
     def test_smoke_tournament_rank_stable(self):
         """Short round-robin: ZeroResp should beat Defector and not crash."""

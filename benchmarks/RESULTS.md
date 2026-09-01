@@ -1,4 +1,23 @@
-# ZeroResp v2.2 — Benchmark Report for Review
+# ZeroResp — Benchmark Report
+
+**Current production: v5.2** (see README). v2.2 numbers below are historical.
+
+---
+
+## v5.2 field pack (Axelrod 4.14, 2026-09)
+
+32 default ARX opponents, 200 turns, 8 repetitions, seed 42.
+
+| Noise | SPT | Self | Reciprocators / Grudger | Defector |
+|------:|----:|-----:|-------------------------|---------:|
+| 0% | 2.843 | 598 | 602 | 199 |
+| 5% | 2.375 | ~579 | noisy | 224 |
+
+Delta vs v5.1 at 5%: **+0.033 SPT**. Punisher +136, TF2T +60, Once Bitten +43.
+
+---
+
+# ZeroResp v2.2 — Benchmark Report for Review (historical)
 
 **Strategy:** ZeroResp (implementation v2.2)  
 **Author:** Evreu1pro  

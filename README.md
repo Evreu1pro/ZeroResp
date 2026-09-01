@@ -1,16 +1,13 @@
 # ZeroResp
 
 **Adaptive strategy for the Iterated Prisoner's Dilemma**  
-Version **2.2** · Compatible with [Axelrod-Python](https://github.com/Axelrod-Python/Axelrod)
+Version **5.2** · Compatible with [Axelrod-Python](https://github.com/Axelrod-Python/Axelrod) 4.x
 
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Axelrod](https://img.shields.io/badge/axelrod-4.x-green.svg)](https://axelrod.readthedocs.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Upstream PR](https://img.shields.io/badge/Axelrod%20PR-1496-blue.svg)](https://github.com/Axelrod-Python/Axelrod/pull/1496)
 
-**Upstream submission:** [Axelrod-Python/Axelrod#1496](https://github.com/Axelrod-Python/Axelrod/pull/1496) — ZeroResp + ZeroResp v2 (rev 2.2)
-
-ZeroResp is a long-memory state-machine strategy designed for tournament evaluation: delayed adaptive retaliation, epoch-based debt accounting, noise-tolerant forgiveness, deadlock recovery, and cautious finite-horizon end-game logic.
+ZeroResp is a long-memory IPD player: epoch debt, delayed retaliation, noise-aware forgiveness, opening disambiguation for D-starters, and finite-horizon harvest. **v5.2 is the production build.** Later probes (cycle-break vs Calculator, WSLS reset, Handshake C,D matching) failed field ablation and are not shipped.
 
 ---
 
@@ -18,43 +15,26 @@ ZeroResp is a long-memory state-machine strategy designed for tournament evaluat
 
 | Property | Value |
 |----------|--------|
-| Class name | `ZeroResp` |
-| Memory | Infinite (`memory_depth: inf`) |
-| Stochastic | Yes (short retaliation delay 1–2; end-game probe) |
-| Uses match length | Yes, when finite (`match_attributes["length"]`) |
-| Source inspection / state manipulation | No |
+| Display name | `ZeroResp v5.2` |
+| Memory | Infinite |
+| Stochastic | Yes (forgiveness / harvest jitter) |
+| Uses match length | Yes, when finite |
+| Class-level profiles | Yes (`manipulates_state: True`) |
 
 ---
 
-## Pre-submission benchmarks
+## Field results (Axelrod 4.14, 32-strategy pack)
 
-Results from an independent PD sandbox (Top-40 pool: classic jailers, Axelrod elites, and family variants). Full tables: [`benchmarks/RESULTS.md`](benchmarks/RESULTS.md).
+Standard PD payoffs R=3, T=5, S=0, P=1. **200 turns × 8 reps × seed 42.**
 
-### Higher League (Stage 1)
+| Noise | Score / turn | Self-match | Notes |
+|------:|-------------:|-----------:|-------|
+| 0% | **2.843** | 598 / 600 | Reciprocators & Grudger **602** (last-move harvest) |
+| 5% | **2.375** | ~579 | +0.033 SPT vs v5.1 on the same pack |
 
-- **Pool:** 40 strategies  
-- **Match length:** 400 rounds · **reps:** 2 · **seeds:** 7  
+Empirical best-response oracle (max of always-C, always-D, TFT, Alternator, STFT) shows remaining “gaps” are **exploiter ceilings** (always-D vs Cooperator, Alternator vs Handshake), not failed reciprocity tests. Chasing them grim-triggers Grudger. We stopped there.
 
-| Rank (avg) | Strategy | Avg score / round | Coop % |
-|------------|----------|-------------------|--------|
-| **#2** | **ZeroResp v2.2** | **2.760** | **79.3%** |
-| #1 | Omega TFT | 2.761 | 79.8% |
-| #3 | ZeroResp v2.1 | 2.758 | 79.8% |
-| #4 | Generous TFT | 2.721 | 87.0% |
-
-Best single seed (42): **#1 / 40** (avg 2.760, win rate 79.5%).
-
-### Deep validation (summary)
-
-| Block | Setting | Outcome for ZeroResp v2.2 |
-|-------|---------|---------------------------|
-| H2H titans | vs Omega TFT, 1000 & 5000 turns | Near-ideal mutual C (~2.999 avg/r); tiny edge via end-game |
-| Endurance | Top-40 × 1501 × 5 seeds | Stable **#2–#3** (avg rank 2.40); no memory collapse |
-| Noise | 0% / 1% / 3% flip noise | Strong at 0%; degrades under sustained 1–3% noise |
-| Survival league | Eliminate bottom-5 until Top-5 | **#1 every round**; final avg/r ≈ 3.000, coop ≈ 99.5% |
-
-**Strengths:** elite placement (#1–#3), clean H2H with Omega TFT, survival champion in cooperator markets.  
-**Limitation:** channel noise 1–3% hurts more than Omega TFT; not claimed as noise-optimal.
+v5.1 → v5.2 on 5% noise: Punisher +136, Two Tits For Tat +60, Once Bitten +43, STFT +38. 0% noise essentially unchanged.
 
 ---
 
@@ -71,7 +51,6 @@ from zeroresp import ZeroResp
 match = axl.Match((ZeroResp(), axl.TitForTat()), turns=200, seed=0)
 match.play()
 print(match.final_score())
-# → e.g. (600, 600) under mutual cooperation
 ```
 
 ### Unit tests
@@ -82,15 +61,25 @@ python -m unittest tests.test_zeroresp -v
 
 ---
 
-## Algorithm (v2.2)
+## Algorithm (v5.2)
 
-1. **Dynamic epochs** (`base_epoch=25`) — systemic counters reset only when debt and the retaliation queue are empty.  
-2. **Short adaptive buffer** — retaliate after **1–2** turns (delay **1** under hostility / late pressure).  
-3. **Noise-aware forgiveness** — echo-forgive after own strike; limited one-shot forgive after long clean peace.  
-4. **Deadlock break** — detect CD↔DC alternation; offer cooperation to exit spirals.  
-5. **Red line** — permanent `D` after 2–3 systemic abuse events (threshold tightens under hostility).  
-6. **Anti-raider** — ≥2 late-game opponent defects → immediate red line.  
-7. **Smart harvest / grim probe** — only with known finite length and short remaining horizon; cautious vs never-defectors.
+1. **Opening D retort** — if the opponent’s first move is D, answer D on turn 2; if their second was C, resync with C (Prober 3 / Prober). Does **not** D after a C-opener (that would pass Axelrod Handshake and grim-trigger Grudger).
+2. **Contrite / bad standing** — if our intended C was realized as D (match noise), the opponent’s reply D is not treated as an attack.
+3. **Generous forgiveness** — under estimated noise (`p_noise_est > 1.5%` and enough CC pairs), stochastic forgive; hard-forgive very high coop rates.
+4. **Red-line cooldown** — in a noisy regime, grim is temporary with periodic C probes; clean matches still use permanent red line.
+5. **End-game harvest** — only with known finite length and a short remaining window; skipped under noisy regime except the last couple of turns.
+6. **Profiles** — class-level memory across rematches in a tournament process.
+
+---
+
+## What we did not ship
+
+| Idea | Why it died |
+|------|-------------|
+| Handshake = play C,D after their C | +~400 vs Handshake, **−400 vs Grudger** |
+| Cycle-break D on turn ~20 vs AllC | Calculator hunter; on the field Joss-lock / 5% noise self-match collapse |
+| WSLS “C after DD” | Nukes Alternator / Negation |
+| v5.3 cycle-break when `opp_defects == 0` | Grudger 602 → 239 |
 
 ---
 
@@ -98,61 +87,15 @@ python -m unittest tests.test_zeroresp -v
 
 ```
 .
-├── zeroresp.py                 # Canonical strategy module
-├── tests/test_zeroresp.py      # Standalone unit tests
-├── axelrod/
-│   ├── strategies/zeroresp.py  # Drop-in for Axelrod-Python
-│   └── tests/strategies/...
-├── benchmarks/
-│   ├── RESULTS.md              # Commission-ready summary
-│   └── data/                   # Aggregate rankings & executive summary
-├── REGISTRATION.md             # How to register in Axelrod
-├── PR_BODY.md                  # Pull-request template
-├── LICENSE
-└── README.md
+├── zeroresp.py                      # Canonical v5.2 module
+├── tests/test_zeroresp.py
+├── axelrod/strategies/zeroresp.py   # Same module, Axelrod drop-in path
+├── benchmarks/RESULTS.md
+└── REGISTRATION.md
 ```
 
 ---
 
-## Axelrod-Python submission status
-
-| Item | Link / status |
-|------|----------------|
-| Upstream PR | [**#1496**](https://github.com/Axelrod-Python/Axelrod/pull/1496) (open, CI re-running after rev 2.2) |
-| Superseded PR | [#1495](https://github.com/Axelrod-Python/Axelrod/pull/1495) closed (merged into #1496) |
-| Contributing guide | [Adding a strategy](https://axelrod.readthedocs.io/en/stable/tutorials/contributing/strategy/index.html) |
-
-Local drop-in copies live under `axelrod/` for offline inspection. Registration snippets: [`REGISTRATION.md`](REGISTRATION.md).
-
----
-
-## Classifier
-
-| Key | Value |
-|-----|--------|
-| `memory_depth` | `inf` |
-| `stochastic` | `True` |
-| `long_run_time` | `False` |
-| `inspects_source` | `False` |
-| `manipulates_source` | `False` |
-| `manipulates_state` | `False` |
-
----
-
-## Parameter
-
-| Name | Default | Meaning |
-|------|---------|---------|
-| `base_epoch` | `25` | Clean epoch length before systemic reset |
-
----
-
-## Author
-
-**Evreu1pro** · [github.com/Evreu1pro](https://github.com/Evreu1pro)
-
-Prepared as a professional submission package for independent evaluation and possible inclusion in public strategy lists / Axelrod-Python.
-
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
