@@ -2,7 +2,7 @@
 
 **Adaptive strategy for the Iterated Prisoner's Dilemma**  
 Version **5.2** · Compatible with [Axelrod-Python](https://github.com/Axelrod-Python/Axelrod) 4.x
-
+![Logo](790880281_1788846858820320_6174675951499772971_n.webp)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Axelrod](https://img.shields.io/badge/axelrod-4.x-green.svg)](https://axelrod.readthedocs.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
