@@ -1,10 +1,23 @@
 # ZeroResp — Benchmark Report
 
-**Current production: v5.2** (see README). v2.2 numbers below are historical.
+**Current production: v5.3** (see README and [`RESEARCH_v53.md`](../RESEARCH_v53.md)). Older numbers below are historical.
 
 ---
 
-## v5.2 field pack (Axelrod 4.14, 2026-09)
+## v5.3 field pack (Axelrod 4.14, 2026-10)
+
+32 default ARX opponents, 200 turns, 8 repetitions, seed 42. Mean H2H SPT over the pack.
+
+| Noise | SPT v5.3 | SPT v5.2 | Self v5.3 | Self v5.2 | Rank |
+|------:|---------:|---------:|----------:|----------:|-----:|
+| 0% | 3.0374 | 3.0371 | 598 | 598 | 1/33 |
+| 5% | 2.6504 | 2.6444 | **592.5** | 550.2 | 1/33 |
+
+Full short-run library @ 5%: v5.3 **4/222**, v5.2 3/222. Soft regression: TrickyCooperator −0.24 SPT.
+
+---
+
+## v5.2 field pack (Axelrod 4.14, 2026-09) — historical
 
 32 default ARX opponents, 200 turns, 8 repetitions, seed 42.
 

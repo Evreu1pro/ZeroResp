@@ -1,0 +1,137 @@
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+{
+  "config": {
+    "pack": "full",
+    "vs": null,
+    "turns": 200,
+    "reps": 1,
+    "seed": 42,
+    "noise": [
+      0.05
+    ],
+    "out": "benchmarks/results/research/full_v53_5",
+    "no_ladder": false
+  },
+  "runs": [
+    {
+      "noise": 0.05,
+      "round_robin": {
+        "rank": 4,
+        "of": 222,
+        "spt_round_robin": 536.855,
+        "ranked_head": [
+          [
+            "Evolved ANN 5 Noise 05",
+            0
+          ],
+          [
+            "Evolved FSM 16 Noise 05",
+            1
+          ],
+          [
+            "Second by RichardHufford",
+            2
+          ],
+          [
+            "ZeroResp v5.2: 25, True",
+            3
+          ],
+          [
+            "Revised Downing",
+            4
+          ],
+          [
+            "Second by Mikkelson",
+            5
+          ],
+          [
+            "Second by Rowsam",
+            6
+          ],
+          [
+            "Evolved ANN",
+            7
+          ]
+        ]
+      },
+      "h2h_spt": {
+        "ALLCorALLD": 2.93,
+        "AON2": 2.205,
+        "APavlov2006": 2.755,
+        "APavlov2011": 2.755,
+        "Adaptive": 2.97,
+        "AdaptiveTitForTat": 2.755,
+        "AdaptorBrief": 1.355,
+        "AdaptorLong": 2.11,
+        "Aggravater": 1.15,
+        "Alexei": 2.74,
+        "Alternator": 2.875,
+        "AlternatorHunter": 2.98,
+        "AntiCycler": 4.265,
+        "AntiTitForTat": 4.35,
+        "Appeaser": 2.59,
+        "ArrogantQLearner": 2.805,
+        "AverageCopier": 2.825,
+        "BackStabber": 1.26,
+        "BetterAndBetter": 1.63,
+        "Bully": 4.285,
+        "BurnBothEnds": 2.43,
+        "BushMosteller": 1.71,
+        "Calculator": 2.715,
+        "Capri": 1.415,
+        "CautiousQLearner": 2.805,
+        "CollectiveStrategy": 1.155,
+        "ContriteTitForTat": 2.755,
+        "Cooperator": 2.98,
+        "CooperatorHunter": 4.58,
+        "CycleHunter": 2.98,
+        "CyclerCCCCCD": 4.07,
+        "CyclerCCCD": 3.68,
+        "CyclerCCCDCD": 3.45,
+        "CyclerCCD": 3.54,
+        "CyclerDC": 2.815,
+        "CyclerDDC": 2.185,
+        "Defector": 1.15,
+        "DefectorHunter": 2.98,
+        "DelayedAON1": 2.815,
+        "Desperate": 2.845,
+        "Detective": 1.465,
+        "DoubleCrosser": 2.75,
+        "DoubleResurrection": 2.49,
+        "Doubler": 2.98,
+        "DynamicTwoTitsForTat": 2.87,
+        "EasyGo": 4.565,
+        "EugineNier": 1.21,
+        "EventualCycleHunter": 2.98,
+        "EvolvedANN": 1.24,
+        "EvolvedANN5": 1.315,
+        "EvolvedANNNoise05": 2.635,
+        "EvolvedFSM16": 2.975,
+        "EvolvedFSM16Noise05": 2.665,
+        "EvolvedFSM4": 3.07,
+        "EvolvedFSM6": 1.88,
+        "EvolvedHMM5": 2.215,
+        "EvolvedLookerUp1_1_1": 1.245,
+        "EvolvedLookerUp2_2_2": 3.545,
+        "FirmButFair": 2.73,
+        "FirstByAnonymous": 2.84,
+        "FirstByDavis": 1.16,
+        "FirstByDowning": 1.395,
+        "FirstByFeld": 2.075,
+        "FirstByGraaskamp": 2.705,
+        "FirstByGrofman": 3.21,
+        
+
+Saved: benchmarks\results\research\full_v53_5\field_20261004_204753.json
+Saved: benchmarks\results\research\full_v53_5\field_20261004_204753.md

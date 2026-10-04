@@ -1,4 +1,4 @@
-"""Standalone unit tests for ZeroResp v5.2 (requires the ``axelrod`` package)."""
+"""Standalone unit tests for ZeroResp v5.3 (requires the ``axelrod`` package)."""
 
 from __future__ import annotations
 
@@ -32,7 +32,7 @@ def _play(player, opponent, turns: int, seed: int = 0, length=None):
 
 
 class TestZeroResp(unittest.TestCase):
-    name = "ZeroResp v5.2"
+    name = "ZeroResp v5.3"
 
     expected_classifier = {
         "memory_depth": float("inf"),

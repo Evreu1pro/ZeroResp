@@ -13,3 +13,9 @@ venv/
 *.log
 .DS_Store
 Thumbs.db
+
+# Local experiment sandboxes (not part of the shipped build)
+variants/
+
+# Regenerable per-match HTML dumps (keep dashboard/index if present)
+benchmarks/viewer/match_*.html

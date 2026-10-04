@@ -1,24 +1,33 @@
 """
-ZeroResp v5.2 - v5.1 + online noise adaptation
+ZeroResp v5.3 - v5.2 + noise ladder (лестница эскалации по необъяснимым D)
 
-Фиксы vs v5.1:
+Наследует v5.2:
 1. Full contrite: если мой intended=C но realized=D (шум), D оппонента не считается атакой
 2. Generous forgiveness: под шумом прощение стохастическое p~f(p_noise_est), а не капами
 3. Red line cooldown: под шумом не перманентный, а с ре-пробой C каждые N ходов
-4. p_noise_est: unprovoked D / CC-pairs. Gating: все шумовые фичи off при p_est<0.015
+4. p_noise_est: unprovoked D + наши флипы / наблюдения. Gating: off при p_est<0.015
+
+v5.3-variantA (features.noise_ladder, по умолчанию on):
+5. Необъяснимый D (оппонент D при нашем реализованном C) идёт по лестнице evidence:
+   1-2 - чистое прощение (долг копится в nl_debt_ledger, удара нет); на evidence 2
+   при прощающем оппоненте может планироваться компенсационная акция (3-4 D);
+   >=3 при coop_rate<0.40 (под шумом >=8) - red line. Лестница сама не бьёт по
+   необъяснимым D - эскалацию ведут старый системный путь и красная линия.
 
 Совместим с axelrod.Match, сохраняет endgame логику v5.1
 """
 from __future__ import annotations
 
-from collections import defaultdict, deque
+from collections import deque
 from enum import Enum, auto
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 from axelrod.action import Action
 from axelrod.player import Player
 
 C, D = Action.C, Action.D
+
+# v5.3: стандартная матрица выигрышей (фолбэк для баланса nl_balance)
 PAYOFF = {(C, C): 3, (C, D): 0, (D, C): 5, (D, D): 1}
 
 class _State(Enum):
@@ -40,6 +49,8 @@ class Features:
         "contrite_full",
         "generous",
         "red_line_cooldown",
+        # v5.3 new
+        "noise_ladder",
     )
 
     def __init__(
@@ -54,6 +65,7 @@ class Features:
         contrite_full: bool = True,
         generous: bool = True,
         red_line_cooldown: bool = True,
+        noise_ladder: bool = True,
     ):
         self.profiles = profiles
         self.apology = apology
@@ -65,6 +77,7 @@ class Features:
         self.contrite_full = contrite_full
         self.generous = generous
         self.red_line_cooldown = red_line_cooldown
+        self.noise_ladder = noise_ladder
 
     def asdict(self):
         return {k: getattr(self, k) for k in self.__slots__}
@@ -75,7 +88,7 @@ class Features:
         return Features(**d)
 
 class ZeroResp(Player):
-    name = "ZeroResp v5.2"
+    name = "ZeroResp v5.3"
     classifier = {
         "memory_depth": float("inf"),
         "stochastic": True,
@@ -99,8 +112,17 @@ class ZeroResp(Player):
     ONE_SHOT_MAX = 2
     GRIM_LAST_SAFE = 1
     PROBE_WINDOW = 3
-    PROBE_PROB = 0.05
     FORGIVENESS_BASE = 3
+
+    # v5.3 noise ladder
+    NL_WINDOW_TURNS = 12
+    # v5.3-I: отложенное возмездие (теория I) - удар планируется со случайной
+    # задержкой (антиадаптация), исполняется только если оппонент не очистился
+    NL_DELAY_MIN = 8
+    NL_DELAY_MAX = 20
+    NL_PARDON_STREAK = 3
+    NL_HARVEST_MIN = 3
+    NL_HARVEST_MAX = 4
 
     _global_profiles: Dict[str, Dict] = {}
     _global_lengths: List[int] = []
@@ -128,6 +150,7 @@ class ZeroResp(Player):
         self.opp_coops_after_my_D = 0
         self.opp_defects_after_my_C = 0
         self.opp_coops_after_my_C = 0
+        self.opp_defects_after_my_D = 0
         self.last_my = C
         self.late_defects = 0
         self.opp_last3 = deque(maxlen=4)
@@ -149,12 +172,10 @@ class ZeroResp(Player):
         self._apology_max_tries = 2
         self._first_D_was_noise = False
         self._apology_opp_moves: List[Action] = []
-        self._score_total = 0
         self._my_hist = deque(maxlen=3)
         self._opp_hist = deque(maxlen=3)
         self._forgiveness_exploiter = 0
         self._opening_d = False
-        self._cycle_broke = False
 
         # v5.2 - noise adaptation
         self.cc_pairs = 0
@@ -165,8 +186,23 @@ class ZeroResp(Player):
         self._bad_standing = False
         self._bad_standing_turns = 0
         self._red_line_cooldown = 0
-        self._contrite_hits = 0
-        self._noise_d_total = 0
+
+        # v5.3 - noise ladder
+        self.nl_evidence = 0
+        self.nl_window = deque(maxlen=24) # ходы необъяснимых D
+        self.nl_scheduled: List[Dict] = [] # запланированные удары
+        self.nl_debt_ledger = 0
+        self.nl_pardoned = 0
+        self.nl_balance = 0
+        self.nl_harvest_left = 0
+        self.nl_harvest_size = 0
+        self.nl_harvest_postponed = 0
+        self.nl_harvest_scheduled_at = 0
+        self.nl_my_flips = 0
+        self.nl_my_obs = 0
+        self.nl_provoked_until = 0  # v5.3-G: их D после нашей акции спровоцированы
+        self.nl_pardon_step = 0
+        self._pending_reason: Optional[str] = None
 
         if self.features.harvest_jitter:
             self._harvest_window = int(self._random.randint(3, 6))
@@ -236,15 +272,6 @@ class ZeroResp(Player):
         greater.sort()
         return max(0, greater[len(greater)//2] - step + 1)
 
-    def _realized_payoff(self, my_a: Action, opp_a: Action) -> int:
-        game = self.match_attributes.get("game")
-        if game is not None:
-            try:
-                return int(game.score((my_a, opp_a))[0])
-            except Exception:
-                pass
-        return int(PAYOFF.get((my_a, opp_a), 0))
-
     def _is_hostile(self) -> bool:
         return self.opp_len >= self._LIVE_INTEL_MIN_SAMPLES and self._live_coop_rate() < self._HOSTILE_COOP_THRESHOLD
 
@@ -313,31 +340,103 @@ class ZeroResp(Player):
             self.warmth = max(0.10, min(0.90, self.warmth + (self.target_warmth - self.warmth) * 0.25))
 
     # ---- v5.2 noise ----
-    def _update_noise_est(self):
-        """CC -> D оппонента без провокации = оценка шума"""
-        if len(self.history) < 2 or len(self.history)!= len(self.history):
-            return
-        # нужно минимум 2 хода истории
-        if len(self.history) >= 2 and len(self.history) > 1:
-            # предыдущая пара была CC?
-            # self._realized_prev и opp prev уже учтены в предыдущем вызове
-            # здесь обновляем по последним двум реализованным ходам
-            if len(self.history) >= 2:
-                my_prev2 = self.history[-2]
-                opp_prev2 = self._opp_last_realized_prev if hasattr(self, '_opp_last_realized_prev') else C
-                # если была CC, а сейчас оппонент D - считаем как unprovoked
-                # логика вызывается после обновления opp_len, поэтому используем сохраненные
-                pass
-
-        if self.cc_pairs > 15:
-            raw = self.unprovoked_d / max(1, self.cc_pairs)
-            # сглаживание
-            self.p_noise_est = 0.9 * self.p_noise_est + 0.1 * raw if self.p_noise_est > 0 else raw
-
     def _is_noisy_regime(self) -> bool:
         if not self.features.noise_adaptive:
             return False
+        # v5.3: при доказанном шуме учитываем и наши наблюдения
+        if self._nl_active():
+            return self.p_noise_est > 0.015 and (self.cc_pairs + self.nl_my_obs) > 10
         return self.p_noise_est > 0.015 and self.cc_pairs > 10
+
+    # ---- v5.3 noise ladder ----
+    def _nl_noise_proven(self) -> bool:
+        # Канальный шум доказывается только НАШИМИ флипами C->D: D оппонента
+        # и наш шум не различить, а собственный флип — независимое доказательство.
+        # При 0% nl_my_flips == 0 и лестница уснёт (поведение как в v5.2 без потерь).
+        return self.nl_my_flips > 0
+
+    def _nl_active(self) -> bool:
+        # лестница работает только когда флаг on И доказан канальный шум
+        # v5.3-A+B: лестница активна только при доказанном шуме И пока мы
+        # не в минусе с этим оппонентом (в минусе работает строгий путь v5.2)
+        return (self.features.noise_ladder and self._nl_noise_proven()
+                and self.nl_balance >= 0)
+
+    def _nl_is_unexplained(self) -> bool:
+        # необъяснимый D: наш прошлый реализованный ход был C, не в contrite/bad_standing
+        if self._bad_standing or self._contrite:
+            return False
+        if not self.history:
+            return True
+        # v5.3-G: их D сразу после нашей компенсационной акции спровоцированы
+        # нами же (урок SlowTF2T2 seed 44) - уликами не считаются
+        if self.nl_provoked_until and self._nl_step_hint <= self.nl_provoked_until:
+            return False
+        return self.history[-1] == C
+
+    def _nl_ladder(self, step: int) -> bool:
+        """Лестница эскалации по необъяснимым D. True = текущий ход C."""
+        # сброс окна, если прошлый необъяснимый D был давно
+        if self.nl_window and (step - self.nl_window[-1]) > self.NL_WINDOW_TURNS:
+            self.nl_evidence = 0
+            self.nl_window.clear()
+        self.nl_evidence += 1
+        self.nl_window.append(step)
+
+        # exploit-детект: D вскоре после нашего помилования
+        if self.nl_pardon_step and (step - self.nl_pardon_step) <= 6:
+            self._forgiveness_exploiter += 1
+            self.nl_pardon_step = 0
+
+        if self.nl_evidence == 1:
+            # Первый в окне: чисто прощаем (текущий ход C). Это либо шум
+            # (оппонент вернётся к C — мир без потерь), либо укол — тогда
+            # долг копится в nl_debt_ledger, а эскалацию ведут старый
+            # системный путь и красная линия (evidence>=3).
+            self.nl_pardoned += 1
+            self.nl_debt_ledger += 1
+            self._pending_reason = "nl_deferred"
+            return True
+
+        if self.nl_evidence == 2:
+            # Второй в окне: такое же чистое прощение, как и первый (вариант A:
+            # немедленный удар по необъяснимым D перезапускал войны 1-к-1 со
+            # строгими реципрокаторами). Долг снова растёт, очередь ударов не
+            # трогаем. Компенсационная акция планируется по прежним гейтам:
+            # оппонент прощает наши D, баланс не хуже и не шумный режим.
+            self.nl_pardoned += 1
+            self.nl_debt_ledger += 1
+            self._pending_reason = "nl_deferred"
+            # v5.3-I: вторая улика подтверждает повторность - планируем
+            # отложенное возмездие со случайной задержкой (один план за окно)
+            if not any(r.get("kind") == "strike" for r in self.nl_scheduled):
+                self.nl_scheduled.append({
+                    "turn": step + self._random.randint(self.NL_DELAY_MIN, self.NL_DELAY_MAX),
+                    "kind": "strike",
+                })
+            forg = self.opp_coops_after_my_D / max(1, self.my_D)
+            # v5.3-H: при my_D<3 дробь forg нестабильна и запускала акцию
+            # против жёстких наказателей (урок SlowTF2T2 seed 44)
+            if forg > 0.6 and self.my_D >= 3 and self.nl_balance >= 0 and not self._is_noisy_regime():
+                self.nl_harvest_size = self._random.randint(self.NL_HARVEST_MIN, self.NL_HARVEST_MAX)
+                self.nl_harvest_left = 0
+                self.nl_harvest_postponed = 0
+                self.nl_harvest_scheduled_at = step + self._random.randint(6, 10)
+            return True
+
+        # evidence >= 3: красная линия против агрессивного (низкий кооп).
+        # В шумном режиме — только при очень плотной серии (evidence>=8):
+        # шумовые D накручивают улики, и ранний краситель ломает ритмы
+        # строгих реципрокаторов (Punisher/TF2T). Осцилляторы (~0.5 кооп)
+        # не красим вовсе — их D периодичны, а не враждебны; умеренных и
+        # «шумных» ведёт старый системный путь (debt/queue).
+        if self.nl_evidence >= 3:
+            if (self._live_coop_rate() < self._HOSTILE_COOP_THRESHOLD
+                    and (not self._is_noisy_regime() or self.nl_evidence >= 8)):
+                self._enter_red_line()
+                return False
+        # умеренный кооператив: контратака по старому пути (debt/queue, задержка 1)
+        return None
 
     def _enter_red_line(self):
         # v5.2: под шумом не перманентный
@@ -436,18 +535,10 @@ class ZeroResp(Player):
 
     def _on_defect(self, step: int, opp_action: Action) -> bool:
         """Возвращает True если простить, False если наказывать. v5.2 логика."""
+        self._nl_step_hint = step  # v5.3-G: шаг для иммунитета улик
 
         # === v5.2 CONTRITE FULL ===
         if self.features.contrite_full:
-            # если мой прошлый intended=C но realized=D - я в bad standing
-            if self._intended_prev == C and self._realized_prev == D:
-                # любое D оппонента сейчас - оправданное наказание
-                self._bad_standing = True
-                self._bad_standing_turns = 1
-                self._contrite_hits += 1
-                self._contrite = True
-                return True
-
             if self._bad_standing:
                 # принимаю одно наказание
                 self._bad_standing_turns -= 1
@@ -456,25 +547,15 @@ class ZeroResp(Player):
                 self._contrite = False
                 return True
 
-            # детект моего шума по расхождению intended/realized из истории axelrod
-            if self.history and self.history[-1]!= self._intended_prev and self.history[-1] == D:
-                self._noise_d_total += 1
-                self._bad_standing = True
-                self._bad_standing_turns = 1
-                return True
-
-        # старая contrite ветка v5.1 для совместимости
-        if self._contrite:
-            self._contrite = False
-            return True
-
         if self._last_D_reason in ("harvest", "probe") and self.tactical == "cooperator":
             self._last_D_reason = None
             return True
 
         if self.echo_forgive > 0:
-            self.echo_forgive -= 1
-            return True
+            # v5.3: echo не глотает необъяснимые D - их ведёт лестница
+            if not (self._nl_active() and self._nl_is_unexplained()):
+                self.echo_forgive -= 1
+                return True
 
         # === v5.2 GENEROUS FORGIVENESS ===
         if self.features.generous and self._is_noisy_regime():
@@ -511,8 +592,17 @@ class ZeroResp(Player):
             and self.warmth > 0.35
         ):
             self.one_shot_forgives += 1
+            if self.features.noise_ladder:
+                self.nl_pardon_step = step # v5.3: окно exploit-детекта
             return True
 
+        # === v5.3 NOISE LADDER: только необъяснимые D, после доказанного шума ===
+        if self._nl_active() and self._nl_is_unexplained():
+            handled = self._nl_ladder(step)
+            if handled is not None:
+                return handled
+
+        # provoked D (ответ на наш удар) - старая механика как есть
         if self.intent!= "noise":
             if self.debt > 0 or self.queue or self._state == _State.EQUALIZING:
                 self.systemic += 1
@@ -566,6 +656,8 @@ class ZeroResp(Player):
         self._last_opponent_name = getattr(opponent, "name", "Opponent")
         step = len(self.history) + 1
         remaining = self._estimate_remaining(step)
+        self._pending_reason = None # v5.3: одноразовый reason
+        self._nl_step_hint = 0      # v5.3-G: шаг для иммунитета улик
 
         # --- детект моего шума по истории ---
         if self.history:
@@ -574,9 +666,27 @@ class ZeroResp(Player):
             if last_realized!= self._intended_prev and last_realized == D and self._intended_prev == C:
                 self._contrite = True
                 self._first_D_was_noise = self.my_D <= 1
-                self._noise_d_total += 1
                 self._bad_standing = True
                 self._bad_standing_turns = 1
+                if self.features.noise_ladder:
+                    self.nl_my_flips += 1
+            # v5.3: наблюдения наших intended-C ходов (после первого)
+            if self.features.noise_ladder and self._intended_prev == C:
+                self.nl_my_obs += 1
+            # v5.3: баланс очков за последний разыгранный ход
+            if self.features.noise_ladder and opponent.history:
+                opp_last_move = opponent.history[-1]
+                game = self.match_attributes.get("game")
+                my_s = opp_s = None
+                if game is not None:
+                    try:
+                        my_s, opp_s = game.score((last_realized, opp_last_move))
+                    except Exception:
+                        my_s = opp_s = None
+                if my_s is None:
+                    my_s = PAYOFF[(last_realized, opp_last_move)]
+                    opp_s = PAYOFF[(opp_last_move, last_realized)]
+                self.nl_balance += my_s - opp_s
             # для оценки шума
             if len(self.history) >= 2 and len(opponent.history) >= 2:
                 my_prev = self.history[-2]
@@ -585,15 +695,15 @@ class ZeroResp(Player):
                     self.cc_pairs += 1
                     if opponent.history[-1] == D:
                         self.unprovoked_d += 1
-                    # обновление p_est каждые 5 пар
+                    # v5.2: обновление p_est каждые 5 пар; v5.3: при доказанном
+                    # шуме в числитель/знаменатель входят и наши флипы
                     if self.cc_pairs % 5 == 0 and self.cc_pairs > 10:
-                        self.p_noise_est = self.unprovoked_d / max(1, self.cc_pairs)
-
-        if self.history:
-            my_last = self.history[-1]
-            opp_last = opponent.history[-1] if opponent.history else C
-            self._score_total += self._realized_payoff(my_last, opp_last)
-            self._opp_last_realized_prev = opp_last
+                        if self._nl_active():
+                            total = self.cc_pairs + self.nl_my_obs
+                            est_n = self.unprovoked_d + self.nl_my_flips
+                        else:
+                            total, est_n = self.cc_pairs, self.unprovoked_d
+                        self.p_noise_est = est_n / max(1, total)
 
         # --- apology логика как в v5.1 ---
         if self.features.apology and self._apology_mode:
@@ -748,6 +858,8 @@ class ZeroResp(Player):
                     self.opp_defects_after_my_C += 1
                 if step > self._late_threshold():
                     self.late_defects += 1
+                if my_prev == D:
+                    self.opp_defects_after_my_D += 1
                 self._on_defect(step, opp_last)
                 self.clean_peace = 0
             else:
@@ -769,6 +881,48 @@ class ZeroResp(Player):
             self._save_profile(self._last_opponent_name)
             return opened
 
+        # --- v5.3 noise ladder: исполнение запланированного ---
+        if self.features.noise_ladder:
+            # активация компенсационной акции
+            if self.nl_harvest_scheduled_at != 0 and step >= self.nl_harvest_scheduled_at:
+                if opponent.history and opponent.history[-1] == C:
+                    self.nl_harvest_left = self.nl_harvest_size
+                    self.nl_harvest_scheduled_at = 0
+                    # v5.3-G: окно иммунитета улик на время акции + ответ
+                    self.nl_provoked_until = step + self.nl_harvest_size + 3
+                elif self.nl_harvest_postponed < 2:
+                    self.nl_harvest_postponed += 1
+                    self.nl_harvest_scheduled_at = step + 3
+                else:
+                    # после 2 переносов отменяем
+                    self.nl_harvest_scheduled_at = 0
+                    self.nl_harvest_size = 0
+            if self.nl_harvest_left > 0:
+                self.nl_harvest_left -= 1
+                return self._play(D, "nl_harvest_comp", intended=D)
+
+        # v5.3-I: исполнение отложенного возмездия. Чистому (3xC и ни разу
+        # не наказал наш D) - помилование: строгие реципрокаторы самоисцеляются
+        # и не получают внеочередной удар. Грязному - удар через очередь.
+        self.nl_scheduled = [r for r in self.nl_scheduled if r["turn"] >= step]
+        due = next((r for r in self.nl_scheduled if r["turn"] == step), None)
+        if due is not None:
+            self.nl_scheduled.remove(due)
+            last3 = list(self.opp_last3)[-self.NL_PARDON_STREAK:]
+            if (len(last3) >= self.NL_PARDON_STREAK
+                    and all(mv == C for mv in last3)
+                    and self.opp_defects_after_my_D == 0):
+                self.nl_debt_ledger += 1
+                self.nl_pardoned += 1
+                self.nl_pardon_step = step
+                if step in self.queue:
+                    self.queue.remove(step)
+                    self.debt = max(0, self.debt - 1)
+                self._pending_reason = "nl_pardon"
+            else:
+                self.queue.append(step)
+                self.nl_debt_ledger = max(0, self.nl_debt_ledger - 1)
+
         if self.opp_len % 5 == 0:
             self.intent = self._detect_intent()
             self.tactical = self._classify_tactical()
@@ -779,7 +933,15 @@ class ZeroResp(Player):
         # под шумом не входим в перманентный red_line по 3xD
         if self.intent!= "noise" and not self._is_noisy_regime():
             if len(self.opp_last3) >= 3 and list(self.opp_last3)[-3:] == [D, D, D]:
-                if not self._contrite and not self._bad_standing and self._consecutive_forgiven < 2 and not self._apology_mode:
+                # v5.3: серия необъяснимых D - эскалацию ведёт лестница
+                nl_governs = self._nl_active() and all(m == C for m in list(self.history)[-4:-1])
+                if (
+                    not nl_governs
+                    and not self._contrite
+                    and not self._bad_standing
+                    and self._consecutive_forgiven < 2
+                    and not self._apology_mode
+                ):
                     self._enter_red_line()
                     if self._state == _State.RED_LINE:
                         return self._play(D, "red_line", intended=D)
@@ -848,7 +1010,10 @@ class ZeroResp(Player):
         if self._contrite:
             self._contrite = False
         self._bad_standing = False
-        return self._play(C, "normal", intended=C)
+        # v5.3: одноразовый отложенный reason (nl_deferred / nl_pardon)
+        reason = self._pending_reason if self._pending_reason is not None else "normal"
+        self._pending_reason = None
+        return self._play(C, reason, intended=C)
 
 ZeroRespV5 = ZeroResp
 ZeroRespV51 = ZeroResp

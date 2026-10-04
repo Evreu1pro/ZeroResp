@@ -1,0 +1,176 @@
+{
+  "config": {
+    "pack": "field",
+    "vs": null,
+    "turns": 1000,
+    "reps": 2,
+    "seed": 42,
+    "noise": [
+      0.0,
+      0.05
+    ],
+    "out": "benchmarks/results/research/long_v53",
+    "no_ladder": false
+  },
+  "runs": [
+    {
+      "noise": 0.0,
+      "round_robin": {
+        "rank": 2,
+        "of": 33,
+        "spt_round_robin": 95.9885,
+        "ranked_head": [
+          [
+            "Gradual",
+            0
+          ],
+          [
+            "ZeroResp v5.2: 25, True",
+            1
+          ],
+          [
+            "Soft Joss: 0.9",
+            2
+          ],
+          [
+            "Soft Grudger",
+            3
+          ],
+          [
+            "Contrite Tit For Tat",
+            4
+          ],
+          [
+            "Tit For Tat",
+            5
+          ],
+          [
+            "Grudger",
+            6
+          ],
+          [
+            "GrudgerAlternator",
+            7
+          ]
+        ]
+      },
+      "h2h_spt": {
+        "Cooperator": 3.002,
+        "Defector": 0.999,
+        "TitForTat": 3.002,
+        "Grudger": 3.002,
+        "Random": 3.027,
+        "Alternator": 2.987,
+        "TitFor2Tats": 3.002,
+        "TwoTitsForTat": 3.002,
+        "SuspiciousTitForTat": 2.992,
+        "Bully": 4.975,
+        "GTFT": 3.002,
+        "SoftJoss": 3.002,
+        "Prober": 2.996,
+        "Prober2": 3.007,
+        "Prober3": 2.992,
+        "Calculator": 2.0035,
+        "Handshake": 1.0,
+        "OnceBitten": 3.002,
+        "Punisher": 3.002,
+        "HardTitForTat": 3.002,
+        "HardTitFor2Tats": 3.002,
+        "SoftGrudger": 3.002,
+        "FirmButFair": 3.002,
+        "TrickyCooperator": 4.98,
+        "FirstByGrofman": 3.002,
+        "ContriteTitForTat": 3.002,
+        "SlowTitForTwoTats2": 3.002,
+        "Gradual": 3.002,
+        "ShortMem": 3.002,
+        "GrudgerAlternator": 3.002,
+        "HardProber": 2.993,
+        "TrickyDefector": 4.983
+      },
+      "self_match_spt": 2.998,
+      "self_match_total_mean": 2998.0,
+      "reciprocators_mean_spt": 3.002
+    },
+    {
+      "noise": 0.05,
+      "round_robin": {
+        "rank": 1,
+        "of": 33,
+        "spt_round_robin": 83.889,
+        "ranked_head": [
+          [
+            "ZeroResp v5.2: 25, True",
+            0
+          ],
+          [
+            "Hard Prober",
+            1
+          ],
+          [
+            "Soft Joss: 0.9",
+            2
+          ],
+          [
+            "Calculator",
+            3
+          ],
+          [
+            "Contrite Tit For Tat",
+            4
+          ],
+          [
+            "Soft Grudger",
+            5
+          ],
+          [
+            "Suspicious Tit For Tat",
+            6
+          ],
+          [
+            "Firm But Fair",
+            7
+          ]
+        ]
+      },
+      "h2h_spt": {
+        "Cooperator": 2.983,
+        "Defector": 1.1115,
+        "TitForTat": 2.779,
+        "Grudger": 1.111,
+        "Random": 2.9595,
+        "Alternator": 2.883,
+        "TitFor2Tats": 2.9715,
+        "TwoTitsForTat": 2.149,
+        "SuspiciousTitForTat": 2.0485,
+        "Bully": 4.421,
+        "GTFT": 2.8595,
+        "SoftJoss": 2.8165,
+        "Prober": 2.7835,
+        "Prober2": 2.982,
+        "Prober3": 2.0485,
+        "Calculator": 2.042,
+        "Handshake": 1.1125,
+        "OnceBitten": 2.726,
+        "Punisher": 1.92,
+        "HardTitForTat": 1.392,
+        "HardTitFor2Tats": 2.959,
+        "SoftGrudger": 2.3155,
+        "FirmButFair": 2.799,
+        "TrickyCooperator": 4.217,
+        "FirstByGrofman": 3.237,
+        "ContriteTitForTat": 2.793,
+        "SlowTitForTwoTats2": 2.9335,
+        "Gradual": 1.338,
+        "ShortMem": 2.978,
+        "GrudgerAlternator": 2.896,
+        "HardProber": 2.0465,
+        "TrickyDefector": 3.993
+      },
+      "self_match_spt": 2.9535,
+      "self_match_total_mean": 2953.5,
+      "reciprocators_mean_spt": 2.2118
+    }
+  ],
+  "elapsed_sec": 18.2
+}

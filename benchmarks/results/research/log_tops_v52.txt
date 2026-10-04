@@ -1,0 +1,59 @@
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+{
+  "config": {
+    "pack": "field",
+    "vs": [
+      "Evolved FSM 6,EvolvedLookerUp2_2_2,Evolved FSM 16,Evolved HMM 5,PSO Gambler 1_1_1,Evolved ANN 5,Evolved FSM 16 Noise 05,Omega TFT,ZDExtort4,CollectiveStrategy"
+    ],
+    "turns": 200,
+    "reps": 5,
+    "seed": 42,
+    "noise": [
+      0.0,
+      0.05
+    ],
+    "out": "benchmarks/results/research/tops_v52",
+    "no_ladder": true
+  },
+  "runs": [
+    {
+      "noise": 0.0,
+      "h2h_spt": {
+        "EvolvedFSM6": 3.01,
+        "EvolvedLookerUp2_2_2": 3.01,
+        "EvolvedFSM16": 3.01,
+        "EvolvedHMM5": 3.01,
+        "PSOGambler1_1_1": 3.01,
+        "EvolvedANN5": 3.01,
+        "EvolvedFSM16Noise05": 3.01,
+        "OmegaTFT": 3.01,
+        "ZDExtort4": 1.038,
+        "CollectiveStrategy": 1.0
+      },
+      "self_match_spt": 2.99,
+      "self_match_total_mean": 598.0
+    },
+    {
+      "noise": 0.05,
+      "h2h_spt": {
+        "EvolvedFSM6": 1.922,
+        "EvolvedLookerUp2_2_2": 2.807,
+        "EvolvedFSM16": 2.636,
+        "EvolvedHMM5": 2.228,
+        "PSOGambler1_1_1": 1.865,
+        "EvolvedANN5": 1.488,
+        "EvolvedFSM16Noise05": 2.256,
+        "OmegaTFT": 2.778,
+        "ZDExtort4": 1.283,
+        "CollectiveStrategy": 1.107
+      },
+      "self_match_spt": 2.604,
+      "self_match_total_mean": 520.8
+    }
+  ],
+  "elapsed_sec": 0.4
+}
+
+Saved: benchmarks\results\research\tops_v52\field_20261004_202453.json
+Saved: benchmarks\results\research\tops_v52\field_20261004_202453.md
