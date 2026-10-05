@@ -1,0 +1,557 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>ZeroResp v5.3</title>
+<meta name="description" content="ZeroResp v5.3 — adaptive Iterated Prisoner's Dilemma strategy for Axelrod-Python with a proven-noise ladder.">
+<link rel="icon" href="logo.webp" type="image/webp">
+<meta property="og:title" content="ZeroResp v5.3">
+<meta property="og:description" content="Adaptive IPD strategy for Axelrod-Python. Field rank 1/33 at 0% and 5% noise.">
+<meta property="og:image" content="logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@500;700;900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: pixel bento — a 12-column grid of colour-blocked tiles; one live dot-matrix Z carries the motion, everything else stays still until touched. */
+:root{
+  color-scheme: dark;
+  --bg:#05070a; --panel:#0c1117; --line:#1b2530;
+  --fg:#eef2f6; --muted:#8996a5;
+  --cyan:#2fd6f2; --cyan-deep:#0b3540;
+  --cobalt:#1e3cff; --cobalt-fg:#eef1ff; --cobalt-muted:#b3c0ff;
+  --ice:#b4c9ea; --ice-fg:#07101f; --ice-muted:#3b4d6b;
+  --silver:#dfe3e8; --silver-fg:#0a0e13; --silver-muted:#56616e;
+  --f-display:'Doto', ui-monospace, 'Courier New', monospace;
+  --f-body:'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono:'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --r:14px; --gap:clamp(8px,1vw,12px);
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 var(--f-body);margin:0;padding-inline:16px;padding-block:0 40px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1280px;margin:0 auto}
+
+/* ---------- top bar ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg);text-decoration:none}
+.brand canvas{width:30px;height:26px;display:block}
+.bar nav{display:flex;gap:4px;flex-wrap:wrap}
+.bar nav a{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:8px}
+.bar nav a:hover,.bar nav a:focus-visible{color:var(--fg);background:var(--panel)}
+
+/* ---------- grid ---------- */
+.grid{display:grid;grid-template-columns:1fr;gap:var(--gap)}
+.sec-label{grid-column:1/-1;display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:18px 2px 4px;scroll-margin-top:70px}
+.sec-label::before{content:"";width:8px;height:8px;background:var(--cyan)}
+@media (min-width:640px){
+  .grid{grid-template-columns:repeat(6,1fr)}
+  .tile{grid-column:span var(--t,6)}
+}
+@media (min-width:1000px){
+  .grid{grid-template-columns:repeat(12,1fr)}
+  .tile{grid-column:span var(--c,12);grid-row:span var(--rows,1)}
+}
+
+/* ---------- tiles ---------- */
+.tile{position:relative;min-width:0;border-radius:var(--r);padding:clamp(18px,2.2vw,28px);overflow:hidden;isolation:isolate;
+  background:var(--panel);color:var(--fg);--dot:rgba(255,255,255,.22);--sub:var(--muted);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;display:flex;flex-direction:column;gap:14px}
+.tile::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(circle,var(--dot) 1.1px,transparent 1.6px);background-size:9px 9px;
+  -webkit-mask-image:radial-gradient(180px circle at var(--mx,-300px) var(--my,-300px),#000 0%,transparent 70%);
+          mask-image:radial-gradient(180px circle at var(--mx,-300px) var(--my,-300px),#000 0%,transparent 70%)}
+.tile:hover{transform:translateY(-2px) scale(1.006);box-shadow:0 18px 40px -24px rgba(0,0,0,.9)}
+.cobalt{background:var(--cobalt);color:var(--cobalt-fg);--dot:rgba(255,255,255,.35);--sub:var(--cobalt-muted)}
+.ice{background:var(--ice);color:var(--ice-fg);--dot:rgba(7,16,31,.28);--sub:var(--ice-muted)}
+.silver{background:var(--silver);color:var(--silver-fg);--dot:rgba(10,14,19,.25);--sub:var(--silver-muted)}
+.black{background:var(--panel);border:1px solid var(--line)}
+
+.eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);display:flex;align-items:center;gap:8px}
+.eyebrow i{width:7px;height:7px;background:currentColor;display:inline-block}
+.foot{margin-top:auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.dot-num{font-family:var(--f-display);font-weight:900;line-height:.86;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.unit{font-family:var(--f-mono);font-weight:500;font-size:.2em;letter-spacing:.06em;margin-left:.35em;vertical-align:.25em}
+p{margin:0;max-width:62ch;text-wrap:pretty}
+.sub{color:var(--sub);font-size:14px}
+h2{margin:0;font-weight:600;font-size:17px;letter-spacing:-.005em;text-wrap:balance}
+
+/* hero */
+.hero h1{margin:0;font-family:var(--f-display);font-weight:900;font-size:clamp(52px,9.4vw,132px);line-height:.86;letter-spacing:-.02em;text-wrap:balance}
+.hero h1 span{display:block}
+.hero .lede{font-size:clamp(15px,1.4vw,18px);max-width:44ch;color:var(--cobalt-fg)}
+.badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;border:1.5px solid currentColor;border-radius:8px;padding:5px 10px;width:max-content}
+.badge::before{content:"";width:7px;height:7px;background:currentColor;animation:blink 1.6s steps(2) infinite}
+@keyframes blink{50%{opacity:.15}}
+.hero-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+
+/* Z tile */
+.ztile{padding:0;min-height:420px;background:#020406;border:1px solid var(--line)}
+.ztile canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:crosshair}
+.ztile .zui{position:absolute;left:clamp(16px,2vw,24px);right:clamp(16px,2vw,24px);bottom:clamp(16px,2vw,22px);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;pointer-events:none}
+.ztile .zui > *{pointer-events:auto}
+.ztile .eyebrow.top{position:absolute;top:clamp(16px,2vw,24px);left:clamp(16px,2vw,24px)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;padding:3px;background:rgba(5,7,10,.7);backdrop-filter:blur(6px)}
+.seg button{font:500 11.5px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:none;border:0;padding:8px 11px;border-radius:6px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--cyan);color:#021014}
+.seg button:focus-visible,.btn:focus-visible,.bar a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.hint{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* metrics */
+.metric .dot-num{font-size:clamp(52px,6.2vw,92px);white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;padding:5px 9px;border-radius:7px;background:var(--cyan-deep);color:var(--cyan);width:max-content}
+.silver .chip{background:var(--silver-fg);color:var(--silver)}
+.kv{display:grid;grid-template-columns:1fr auto;gap:6px 16px;font-size:13.5px;border-top:1px solid color-mix(in srgb,currentColor 18%,transparent);padding-top:12px}
+.kv dt{color:var(--sub)} .kv dd{margin:0;font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right}
+
+/* scale chart */
+.scale{display:grid;grid-template-columns:auto 1fr auto;column-gap:14px;row-gap:12px;align-items:center;position:relative}
+.scale .lbl{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.scale .val{font-family:var(--f-display);font-weight:900;font-size:26px;line-height:1;font-variant-numeric:tabular-nums;min-width:4ch;text-align:right}
+.track{display:grid;grid-template-columns:repeat(50,1fr);gap:2px;height:22px}
+.track b{display:block;background:#18212b;border-radius:1px;transition:background .25s}
+.track.r0 b.on{background:var(--fg)}
+.track.r1 b.on{background:var(--cyan)}
+.track.r2 b.on{background:#4c6a7a}
+.track{position:relative}
+.track::before,.track::after{content:"";position:absolute;top:-7px;bottom:-7px;width:0;border-left:1px dashed rgba(238,242,246,.45);pointer-events:none}
+.track::before{left:20%}.track::after{left:60%}
+.axis{grid-column:2;position:relative;height:34px;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.axis span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap;text-align:center;line-height:1.35}
+.axis span:first-child{transform:none}.axis span:last-child{transform:translateX(-100%);text-align:right}
+.axis em{font-style:normal;color:var(--fg)}
+.scale-wrap{overflow-x:auto}
+.scale-wrap .scale{min-width:420px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+
+/* noise */
+.noise canvas{width:100%;aspect-ratio:1;max-width:100%;display:block;border-radius:6px}
+.btn{font:500 11.5px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;border:1.5px solid currentColor;background:none;color:inherit;border-radius:8px;padding:8px 11px;cursor:pointer}
+.btn:hover{background:color-mix(in srgb,currentColor 10%,transparent)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+
+/* setup / pair */
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pair div{display:flex;flex-direction:column;gap:6px}
+.pair .dot-num{font-size:clamp(56px,6vw,84px)}
+.pair small{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+
+/* payoff matrix */
+.matrix{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;font-family:var(--f-mono);font-size:12px}
+.matrix > div{display:flex;align-items:center;justify-content:center;min-height:62px;border-radius:8px}
+.matrix .h{color:var(--muted);min-height:auto;padding:2px 6px}
+.matrix .c{background:#121a22;flex-direction:column;gap:2px;transition:background .2s,color .2s}
+.matrix .c:hover{background:var(--cyan);color:#021014}
+.matrix .c:hover .k{color:#021014}
+.matrix .c strong{font-family:var(--f-display);font-weight:900;font-size:26px;line-height:1}
+.matrix .k{color:var(--muted);font-size:10.5px;letter-spacing:.1em}
+
+/* frozen */
+.flake{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;width:min(150px,60%);aspect-ratio:1}
+.flake b{background:transparent;border-radius:1px}
+.flake b.on{background:var(--ice-fg);transition:transform .3s}
+.frozen:hover .flake b.on{animation:twinkle 1.2s steps(3) infinite;animation-delay:calc(var(--i) * 23ms)}
+@keyframes twinkle{50%{opacity:.35}}
+
+/* code */
+pre{margin:0;font:13px/1.65 var(--f-mono);color:#c9d3dd;overflow-x:auto;padding:14px;background:#070a0e;border:1px solid var(--line);border-radius:10px}
+pre .c{color:#5f6e7d} pre .k{color:var(--cyan)} pre .n{color:#f1c27d}
+
+/* specimen */
+.specimen .dot-num{font-size:clamp(40px,7.4vw,104px);line-height:.95;word-break:break-word}
+.specimen .glyphs{font-family:var(--f-display);font-weight:700;font-size:clamp(20px,2.2vw,28px);letter-spacing:.06em;color:var(--cobalt-muted);line-height:1.3}
+
+footer{margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){
+  .tile,.tile:hover{transition:none;transform:none}
+  .badge::before,.frozen:hover .flake b.on{animation:none}
+}
+</style>
+
+<div class="wrap">
+  <header class="bar">
+    <a class="brand" href="#top" aria-label="ZeroResp, back to top"><canvas id="miniZ" width="60" height="52" aria-hidden="true"></canvas>ZeroResp</a>
+    <nav aria-label="Sections">
+      <a href="#results">Results</a>
+      <a href="#robustness">Robustness</a>
+      <a href="#method">Method</a>
+      <a href="https://github.com/Evreu1pro/ZeroResp" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="grid" id="top">
+    <!-- HERO -->
+    <section class="tile cobalt hero" style="--c:7;--t:6" aria-labelledby="h">
+      <div class="hero-head">
+        <span class="eyebrow"><i></i>Iterated Prisoner's Dilemma</span>
+        <span class="badge">PRODUCTION</span>
+      </div>
+      <h1 id="h"><span>ZERORESP</span><span>v5.3</span></h1>
+      <p class="lede">Long-memory Axelrod-Python player with a noise ladder that wakes only after proven channel noise. Field pack: 200 turns × 8 reps × seed 42.</p>
+      <div class="foot"><span>■ Axelrod-Python strategy</span><span>v5.3 production build</span></div>
+    </section>
+
+    <!-- PIXEL Z -->
+    <section class="tile ztile" style="--c:5;--t:6;--rows:2" aria-label="Interactive ZeroResp mark">
+      <canvas id="zc" aria-hidden="true"></canvas>
+      <span class="eyebrow top"><i style="color:var(--cyan)"></i>Mark · ZeroResp Z</span>
+      <div class="zui">
+        <div class="seg" role="group" aria-label="Cursor behaviour">
+          <button type="button" id="mRepel" aria-pressed="true">Repel</button>
+          <button type="button" id="mAttract" aria-pressed="false">Attract</button>
+        </div>
+        <span class="hint">Move the cursor over the mark</span>
+      </div>
+    </section>
+
+    <!-- METRICS -->
+    <section class="tile silver metric" style="--c:4;--t:3" aria-labelledby="m0h" data-scr>
+      <span class="eyebrow"><i></i><span id="m0h">Score per turn · 0% noise</span></span>
+      <div class="dot-num"><span data-v="3.0374">3.0374</span><span class="unit">SPT</span></div>
+      <span class="chip">Field rank 1 / 33</span>
+      <dl class="kv">
+        <dt>Ladder dormant at 0%</dt><dd>matches v5.2</dd>
+        <dt>Points per 200-turn match</dt><dd>≈ 607.5</dd>
+      </dl>
+    </section>
+
+    <section class="tile black metric" style="--c:3;--t:3" aria-labelledby="m5h" data-scr>
+      <span class="eyebrow"><i style="color:var(--cyan)"></i><span id="m5h">Score per turn · 5% noise</span></span>
+      <div class="dot-num" style="color:var(--cyan)"><span data-v="2.6504">2.6504</span><span class="unit">SPT</span></div>
+      <span class="chip">+0.006 vs v5.2</span>
+      <dl class="kv">
+        <dt>Retained vs 0% noise</dt><dd>87.3%</dd>
+        <dt>Self-match (5%)</dt><dd>592.5 pts</dd>
+      </dl>
+    </section>
+
+    <!-- ROBUSTNESS -->
+    <div class="sec-label" id="robustness">Robustness</div>
+
+    <section class="tile black" style="--c:8;--t:6" aria-labelledby="sch">
+      <div class="row">
+        <h2 id="sch">Score per turn on the payoff scale</h2>
+        <span class="eyebrow">1 cell = 0.1 SPT</span>
+      </div>
+      <div class="scale-wrap">
+        <div class="scale" id="scale">
+          <span class="lbl">v5.3 · 0%</span><div class="track r0" data-val="3.0374"></div><span class="val">3.037</span>
+          <span class="lbl">v5.3 · 5%</span><div class="track r1" data-val="2.6504"></div><span class="val" style="color:var(--cyan)">2.650</span>
+          <span class="lbl">v5.2 · 5%</span><div class="track r2" data-val="2.6444"></div><span class="val" style="color:#7d97a5">2.644</span>
+          <span></span>
+          <div class="axis" aria-hidden="true">
+            <span style="left:0">0<br><em>S</em></span>
+            <span style="left:20%">1<br><em>P</em></span>
+            <span style="left:40%">2</span>
+            <span style="left:60%">3<br><em>R</em></span>
+            <span style="left:80%">4</span>
+            <span style="left:100%">5<br><em>T</em></span>
+          </div>
+          <span></span>
+        </div>
+      </div>
+      <p class="sub">Dashed lines mark mutual defection (P = 1) and mutual cooperation (R = 3). At 5% noise v5.3 keeps 87.3% of its 0% SPT. Peak field gain vs v5.2 is +0.034 SPT at 3% noise.</p>
+    </section>
+
+    <section class="tile silver noise" style="--c:4;--t:3" aria-labelledby="nh">
+      <div class="row"><h2 id="nh">What 5% noise looks like</h2></div>
+      <canvas id="noise" width="400" height="400" aria-label="Grid of 400 moves with randomly flipped moves highlighted"></canvas>
+      <div class="row">
+        <span class="sub" id="nCount">Flipped: — / 400</span>
+        <button type="button" class="btn" id="resample">Resample</button>
+      </div>
+      <p class="sub">Each intended move is flipped with probability 0.05, so roughly 10 of every 200 turns arrive as the opposite action.</p>
+    </section>
+
+    <!-- RESULTS -->
+    <div class="sec-label" id="results">Results</div>
+
+    <section class="tile ice" style="--c:4;--t:3" aria-labelledby="seth" data-scr>
+      <span class="eyebrow"><i></i><span id="seth">Tournament setup</span></span>
+      <div class="pair">
+        <div><span class="dot-num" data-v="33">33</span><small>Field pack size</small></div>
+        <div><span class="dot-num" data-v="200">200</span><small>Turns / match</small></div>
+      </div>
+      <p class="sub">8 reps · seed 42 · noise ladder on by default.</p>
+    </section>
+
+    <section class="tile cobalt" style="--c:4;--t:3" aria-labelledby="gth" data-scr>
+      <span class="eyebrow"><i></i><span id="gth">Self-match · 5% noise</span></span>
+      <div class="pair" style="grid-template-columns:1fr">
+        <div><span class="dot-num" data-v="+42">+42</span><small>Points vs v5.2 (592.5 → 550.2)</small></div>
+      </div>
+      <p class="sub">The ladder’s main win: ZeroResp stops fighting itself under noise. Field rank stays 1 / 33 at 0% and 5%.</p>
+    </section>
+
+    <section class="tile black" style="--c:4;--t:6" aria-labelledby="pmh">
+      <div class="row"><h2 id="pmh">Payoff matrix</h2><span class="eyebrow">Row player, column player</span></div>
+      <div class="matrix" role="table" aria-label="Prisoner's Dilemma payoffs">
+        <div class="h" role="columnheader"></div><div class="h" role="columnheader">C</div><div class="h" role="columnheader">D</div>
+        <div class="h" role="rowheader">C</div>
+        <div class="c" role="cell"><strong>3,3</strong><span class="k">R · REWARD</span></div>
+        <div class="c" role="cell"><strong>0,5</strong><span class="k">S · SUCKER</span></div>
+        <div class="h" role="rowheader">D</div>
+        <div class="c" role="cell"><strong>5,0</strong><span class="k">T · TEMPTATION</span></div>
+        <div class="c" role="cell"><strong>1,1</strong><span class="k">P · PUNISHMENT</span></div>
+      </div>
+      <p class="sub">Axelrod-Python defaults. SPT is read against this scale.</p>
+    </section>
+
+    <section class="tile black" style="--c:5;--t:6" aria-labelledby="dh" data-scr>
+      <span class="eyebrow"><i style="color:var(--cyan)"></i><span id="dh">Peak field delta · 3% noise</span></span>
+      <div class="dot-num" style="font-size:clamp(64px,8vw,112px);color:var(--cyan)"><span data-v="+0.034">+0.034</span><span class="unit">SPT</span></div>
+      <dl class="kv">
+        <dt>v5.2 → v5.3 at 3%</dt><dd>2.734 → 2.768</dd>
+        <dt>At 5% field SPT</dt><dd>+0.006</dd>
+        <dt>Library rank @ 5%</dt><dd>4 / 222</dd>
+      </dl>
+    </section>
+
+    <section class="tile ice frozen" style="--c:3;--t:3" aria-labelledby="fh">
+      <span class="eyebrow"><i></i><span id="fh">Status</span></span>
+      <div class="flake" id="flake" aria-hidden="true"></div>
+      <h2 style="font-family:var(--f-display);font-weight:900;font-size:34px;letter-spacing:.02em">SHIPPED</h2>
+      <p class="sub">v5.3 is the production build.</p>
+    </section>
+
+    <!-- METHOD -->
+    <section class="tile black" style="--c:4;--t:3" aria-labelledby="ch" id="method">
+      <div class="row"><h2 id="ch">Quick start</h2><button type="button" class="btn" id="copy">Copy</button></div>
+<pre id="code"><span class="k">import</span> axelrod <span class="k">as</span> axl
+<span class="k">from</span> zeroresp <span class="k">import</span> ZeroResp
+
+match = axl.Match((ZeroResp(), axl.TitForTat()),
+    turns=<span class="n">200</span>, seed=<span class="n">0</span>)
+match.play()
+<span class="k">print</span>(match.final_score())</pre>
+      <p class="sub">Install Axelrod, drop in <code>zeroresp.py</code>, run a match. Ladder is on by default.</p>
+    </section>
+
+    <section class="tile cobalt specimen" style="--c:12;--t:6" aria-label="Score glyphs">
+      <span class="eyebrow"><i></i>Score per turn, the unit of every figure on this page</span>
+      <div class="dot-num">SPT 0123456789</div>
+      <div class="glyphs">C · D · R · T · S · P · ± · %</div>
+      <div class="foot"><span>■ ZeroResp v5.3</span><span>33 field · 200 turns · self-match +42 @ 5%</span></div>
+    </section>
+  </main>
+
+  <footer><span>ZeroResp v5.3 · Production</span><span><a href="https://github.com/Evreu1pro/ZeroResp" style="color:inherit">GitHub</a> · Axelrod-Python strategy</span></footer>
+</div>
+
+<script>
+(() => {
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Z geometry (100 × 84 units) ---------- */
+function zPaths(g){
+  // white: top arrow + upper diagonal
+  g.fillStyle='#f00'; g.beginPath();
+  [[4,14],[76,14],[76,4],[97,21],[82,36],[54,66],[51,46],[64,27],[4,27]].forEach((p,i)=>i?g.lineTo(...p):g.moveTo(...p));
+  g.closePath(); g.fill();
+  // cyan: lower diagonal + double-headed bottom bar
+  g.fillStyle='#0f0'; g.beginPath();
+  [[44,33],[55,43],[33,64],[82,64],[82,55],[98,71],[82,84],[82,77],[19,77],[19,84],[2,71],[19,55],[28,48]].forEach((p,i)=>i?g.lineTo(...p):g.moveTo(...p));
+  g.closePath(); g.fill();
+}
+function zMask(cols){
+  const rows = Math.round(cols*84/100);
+  const c = document.createElement('canvas'); c.width=cols; c.height=rows;
+  const g = c.getContext('2d'); g.scale(cols/100, rows/84); zPaths(g);
+  const d = g.getImageData(0,0,cols,rows).data;
+  const grid = [];
+  for(let y=0;y<rows;y++) for(let x=0;x<cols;x++){
+    const i=(y*cols+x)*4, a=d[i+3];
+    grid[y*cols+x] = a<110 ? 0 : (d[i] >= d[i+1] ? 1 : 2);
+  }
+  const pts=[];
+  for(let y=0;y<rows;y++) for(let x=0;x<cols;x++){
+    const v=grid[y*cols+x]; if(!v) continue;
+    const at=(xx,yy)=> (xx<0||yy<0||xx>=cols||yy>=rows)?0:grid[yy*cols+xx];
+    const edge = at(x-1,y)!==v||at(x+1,y)!==v||at(x,y-1)!==v||at(x,y+1)!==v;
+    pts.push({gx:x,gy:y,layer:v,edge});
+  }
+  return {pts,cols,rows};
+}
+
+/* ---------- mini mark in header ---------- */
+(() => {
+  const c=document.getElementById('miniZ'), g=c.getContext('2d');
+  const {pts}=zMask(20); const s=3;
+  pts.forEach(p=>{ g.fillStyle = p.layer===1 ? '#e8ecf0' : (p.edge ? '#2fd6f2' : '#0b3540'); g.fillRect(p.gx*s, p.gy*s+1, s-1, s-1); });
+})();
+
+/* ---------- interactive pixel Z ---------- */
+(() => {
+  const cv=document.getElementById('zc'), g=cv.getContext('2d');
+  const tile=cv.parentElement;
+  let W=0,H=0,dpr=1,dots=[],bg=[],cell=10;
+  let mx=-1e4,my=-1e4,inside=false,mode='repel',running=true,t0=performance.now();
+  const COLS=46;
+  const mask=zMask(COLS);
+
+  function layout(){
+    const r=tile.getBoundingClientRect();
+    dpr=Math.min(2,devicePixelRatio||1); W=r.width; H=r.height;
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+    g.setTransform(dpr,0,0,dpr,0,0);
+    cell=Math.min((W*0.82)/mask.cols,(H*0.62)/mask.rows);
+    const ox=(W-mask.cols*cell)/2, oy=(H-mask.rows*cell)/2 - H*0.02;
+    const prev=dots;
+    dots=mask.pts.map((p,i)=>{
+      const hx=ox+p.gx*cell+cell/2, hy=oy+p.gy*cell+cell/2;
+      const o=prev[i];
+      return {hx,hy,x:o?o.x:hx,y:o?o.y:hy,vx:0,vy:0,layer:p.layer,edge:p.edge,ph:Math.random()*6.28};
+    });
+    bg=[]; const sp=Math.max(9,cell*1.0);
+    for(let y=sp/2;y<H;y+=sp) for(let x=sp/2;x<W;x+=sp) bg.push(x,y);
+  }
+
+  function frame(now){
+    if(!running) return;
+    const t=(now-t0)/1000;
+    g.clearRect(0,0,W,H);
+    const R=Math.max(90,cell*9);
+    // background matrix
+    for(let i=0;i<bg.length;i+=2){
+      const x=bg[i],y=bg[i+1];
+      let a=.07;
+      if(inside){ const d=Math.hypot(x-mx,y-my); if(d<R*1.6) a+= .35*(1-d/(R*1.6)); }
+      g.fillStyle=`rgba(120,150,170,${a})`; g.fillRect(x-1,y-1,2,2);
+    }
+    const s0=cell*0.74;
+    // glow pass for cyan edges
+    g.globalCompositeOperation='lighter';
+    for(const d of dots){ if(d.layer===2&&d.edge){ g.fillStyle='rgba(47,214,242,0.07)'; const s=cell*2.4; g.fillRect(d.x-s/2,d.y-s/2,s,s);} }
+    g.globalCompositeOperation='source-over';
+    for(const d of dots){
+      // physics
+      let ax=(d.hx-d.x)*0.06, ay=(d.hy-d.y)*0.06, near=0;
+      if(inside){
+        const dx=d.x-mx, dy=d.y-my, dist=Math.hypot(dx,dy)||1;
+        if(dist<R){
+          near=1-dist/R; const f=near*near*(mode==='repel'?9:-5);
+          if(mode==='attract' && dist<cell*1.5){} else { ax+=dx/dist*f; ay+=dy/dist*f; }
+        }
+      }
+      if(RM){ d.x=d.hx; d.y=d.hy; } else {
+        d.vx=(d.vx+ax)*0.82; d.vy=(d.vy+ay)*0.82; d.x+=d.vx; d.y+=d.vy;
+      }
+      // shimmer sweep
+      const sweep = RM?0:Math.pow(Math.max(0,Math.sin((d.hx+d.hy)*0.012 - t*1.4)),14);
+      const scale = 1 + near*(mode==='repel'?0.55:-0.25);
+      const s=s0*scale;
+      let col;
+      if(d.layer===1){
+        const yy=(d.hy/H); const base=200+Math.round(40*(1-yy)) ; const b=Math.min(255,base+sweep*55+near*30);
+        col=`rgb(${b},${b+2>255?255:b+2},${Math.min(255,b+6)})`;
+      } else if(d.edge){
+        const k=0.75+0.25*Math.sin(t*2+d.ph)*(RM?0:1)+sweep*0.4+near*0.3;
+        col=`rgba(47,214,242,${Math.min(1,k)})`;
+      } else {
+        col=`rgba(${11+sweep*30},${53+sweep*90},${64+sweep*100},1)`;
+      }
+      g.fillStyle=col; g.fillRect(d.x-s/2,d.y-s/2,s,s);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const pos=e=>{ const r=cv.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top; };
+  cv.addEventListener('pointermove',e=>{inside=true;pos(e)});
+  cv.addEventListener('pointerdown',e=>{inside=true;pos(e)});
+  cv.addEventListener('pointerleave',()=>{inside=false});
+  const bR=document.getElementById('mRepel'), bA=document.getElementById('mAttract');
+  const setMode=m=>{mode=m;bR.setAttribute('aria-pressed',m==='repel');bA.setAttribute('aria-pressed',m==='attract')};
+  bR.onclick=()=>setMode('repel'); bA.onclick=()=>setMode('attract');
+  cv.addEventListener('click',()=>setMode(mode==='repel'?'attract':'repel'));
+
+  new ResizeObserver(layout).observe(tile);
+  new IntersectionObserver(es=>{ const v=es[0].isIntersecting; if(v&&!running){running=true;requestAnimationFrame(frame)} else if(!v) running=false; }).observe(tile);
+  layout(); requestAnimationFrame(frame);
+})();
+
+/* ---------- hover dot-reveal on tiles ---------- */
+document.querySelectorAll('.tile').forEach(el=>{
+  el.addEventListener('pointermove',e=>{ const r=el.getBoundingClientRect(); el.style.setProperty('--mx',(e.clientX-r.left)+'px'); el.style.setProperty('--my',(e.clientY-r.top)+'px'); });
+  el.addEventListener('pointerleave',()=>{ el.style.setProperty('--mx','-300px'); el.style.setProperty('--my','-300px'); });
+});
+
+/* ---------- digit scramble on hover ---------- */
+if(!RM) document.querySelectorAll('[data-scr]').forEach(tile=>{
+  let busy=false;
+  tile.addEventListener('pointerenter',()=>{
+    if(busy) return; busy=true;
+    tile.querySelectorAll('[data-v]').forEach(el=>{
+      const fin=el.dataset.v; let f=0;
+      const id=setInterval(()=>{
+        f++;
+        el.textContent=[...fin].map((ch,i)=> /\d/.test(ch)&&f<i*2+6 ? Math.floor(Math.random()*10) : ch).join('');
+        if(f>fin.length*2+6){clearInterval(id);el.textContent=fin;busy=false;}
+      },38);
+    });
+  });
+});
+
+/* ---------- scale tracks ---------- */
+document.querySelectorAll('.track').forEach(tr=>{
+  const v=+tr.dataset.val, cells=v/0.1;
+  for(let i=0;i<50;i++){
+    const b=document.createElement('b');
+    if(i<Math.floor(cells)) b.className='on';
+    else if(i===Math.floor(cells)){ b.className='on'; b.style.opacity=(cells-i).toFixed(2); }
+    tr.appendChild(b);
+  }
+});
+// sweep on hover
+(() => {
+  const sc=document.getElementById('scale'); let busy=false;
+  if(RM) return;
+  sc.closest('.tile').addEventListener('pointerenter',()=>{
+    if(busy) return; busy=true;
+    const rows=[...sc.querySelectorAll('.track')].map(t=>[...t.children].filter(b=>b.classList.contains('on')));
+    rows.forEach(r=>r.forEach(b=>b.classList.remove('on')));
+    let i=0; const id=setInterval(()=>{
+      rows.forEach(r=>{ if(r[i]) r[i].classList.add('on'); });
+      if(++i>30){clearInterval(id);busy=false;}
+    },22);
+  });
+})();
+
+/* ---------- noise grid ---------- */
+(() => {
+  const c=document.getElementById('noise'), g=c.getContext('2d'), out=document.getElementById('nCount');
+  const N=20, S=c.width/N;
+  function draw(){
+    g.fillStyle='#dfe3e8'; g.fillRect(0,0,c.width,c.height);
+    let n=0;
+    for(let y=0;y<N;y++) for(let x=0;x<N;x++){
+      const flip=Math.random()<0.05; if(flip) n++;
+      const cx=x*S+S/2, cy=y*S+S/2, a=S*0.28, w=S*0.13;
+      if(flip){
+        g.fillStyle='#1e3cff'; g.fillRect(x*S+2,y*S+2,S-4,S-4);
+        g.save(); g.translate(cx,cy); g.rotate(Math.PI/4); g.fillStyle='#2fd6f2';
+        g.fillRect(-a*1.2,-w/1.4,a*2.4,w*1.4); g.fillRect(-w/1.4,-a*1.2,w*1.4,a*2.4); g.restore();
+      } else {
+        g.fillStyle=((x+y)%2)?'#a9b6c6':'#c3ccd7';
+        g.fillRect(cx-a,cy-w/2,a*2,w); g.fillRect(cx-w/2,cy-a,w,a*2);
+      }
+    }
+    out.textContent=`Flipped: ${n} / 400 (expected 20)`;
+  }
+  draw(); document.getElementById('resample').onclick=draw;
+})();
+
+/* ---------- snowflake ---------- */
+(() => {
+  const m=['#...#...#','.#..#..#.','..#.#.#..','...###...','#########','...###...','..#.#.#..','.#..#..#.','#...#...#'];
+  const f=document.getElementById('flake'); let k=0;
+  m.join('').split('').forEach(ch=>{ const b=document.createElement('b'); if(ch==='#'){b.className='on';b.style.setProperty('--i',k++);} f.appendChild(b); });
+})();
+
+/* ---------- copy ---------- */
+document.getElementById('copy').addEventListener('click',e=>{
+  const btn=e.currentTarget, txt=document.getElementById('code').innerText;
+  const done=m=>{btn.textContent=m;setTimeout(()=>btn.textContent='Copy',1400)};
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById('code'));const s=getSelection();s.removeAllRanges();s.addRange(r);done('Selected')};
+  try{ navigator.clipboard.writeText(txt).then(()=>done('Copied'),sel); }catch(_){ sel(); }
+});
+})();
+</script>
+
+</body></html>

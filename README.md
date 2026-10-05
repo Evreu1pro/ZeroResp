@@ -1,9 +1,12 @@
 # ZeroResp — a long-memory IPD strategy with a noise ladder
 
-[[tests](https://img.shields.io/badge/tests-passing-brightgreen)](#)
-[[python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org)
-[[license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
-[[axelrod](https://img.shields.io/badge/axelrod-compatible-orange)](https://axelrod.readthedocs.io)
+[![tests](https://img.shields.io/badge/tests-passing-brightgreen)](#)
+[![python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org)
+[![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
+[![axelrod](https://img.shields.io/badge/axelrod-compatible-orange)](https://axelrod.readthedocs.io)
+[![Site](https://img.shields.io/badge/site-evreu1pro.github.io%2FZeroResp-2fd6f2.svg)](https://evreu1pro.github.io/ZeroResp/)
+
+**Project site:** [evreu1pro.github.io/ZeroResp](https://evreu1pro.github.io/ZeroResp/)
 
 **ZeroResp is an Iterated Prisoner's Dilemma player built around epoch debt, delayed retaliation, noise-aware forgiveness, opening disambiguation, and finite-horizon harvest.**
 
