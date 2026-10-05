@@ -1,6 +1,3 @@
-Вот готовый README в нормальном дизайне. Скопируй как `README.md`:
-
-```markdown
 # ZeroResp — a long-memory IPD strategy with a noise ladder
 
 [[tests](https://img.shields.io/badge/tests-passing-brightgreen)](#)
@@ -221,4 +218,3 @@ If you use the BHNS protocol or the perception-flip control in your own work, pl
 ### License
 
 MIT — see LICENSE.
-```
