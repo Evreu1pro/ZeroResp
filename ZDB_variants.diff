@@ -1,0 +1,524 @@
+
+======================================================================
+DIFF: v5.3 -> v5.4
+======================================================================
+--- zeroresp.py
++++ zeroresp_v54.py
+@@ -51,6 +51,11 @@
+         "red_line_cooldown",
+         # v5.3 new
+         "noise_ladder",
++        # v5.4 prototype new
++        "adaptive_harvest",
++        "balance_apology",
++        "tactical_prefilter",
++        "profile_memory",
+     )
+ 
+     def __init__(
+@@ -66,6 +71,10 @@
+         generous: bool = True,
+         red_line_cooldown: bool = True,
+         noise_ladder: bool = True,
++        adaptive_harvest: bool = False,
++        balance_apology: bool = False,
++        tactical_prefilter: bool = False,
++        profile_memory: bool = False,
+     ):
+         self.profiles = profiles
+         self.apology = apology
+@@ -78,6 +87,10 @@
+         self.generous = generous
+         self.red_line_cooldown = red_line_cooldown
+         self.noise_ladder = noise_ladder
++        self.adaptive_harvest = adaptive_harvest
++        self.balance_apology = balance_apology
++        self.tactical_prefilter = tactical_prefilter
++        self.profile_memory = profile_memory
+ 
+     def asdict(self):
+         return {k: getattr(self, k) for k in self.__slots__}
+@@ -88,7 +101,7 @@
+         return Features(**d)
+ 
+ class ZeroResp(Player):
+-    name = "ZeroResp v5.3"
++    name = "ZeroResp v5.4-proto"
+     classifier = {
+         "memory_depth": float("inf"),
+         "stochastic": True,
+@@ -123,6 +136,10 @@
+     NL_PARDON_STREAK = 3
+     NL_HARVEST_MIN = 3
+     NL_HARVEST_MAX = 4
++
++    # v5.4 prototype
++    NL_BALANCE_FLOOR = -4  # ниже этого баланса - принудительный откат в C
++    NL_SOFTNESS_FLOOR = 0.30  # ниже этого forg эксплуатация не пробуется
+ 
+     _global_profiles: Dict[str, Dict] = {}
+     _global_lengths: List[int] = []
+@@ -176,6 +193,8 @@
+         self._opp_hist = deque(maxlen=3)
+         self._forgiveness_exploiter = 0
+         self._opening_d = False
++        self._known_soft_opponent = False
++        self._profile_checked = False
+ 
+         # v5.2 - noise adaptation
+         self.cc_pairs = 0
+@@ -417,11 +436,40 @@
+             forg = self.opp_coops_after_my_D / max(1, self.my_D)
+             # v5.3-H: при my_D<3 дробь forg нестабильна и запускала акцию
+             # против жёстких наказателей (урок SlowTF2T2 seed 44)
+-            if forg > 0.6 and self.my_D >= 3 and self.nl_balance >= 0 and not self._is_noisy_regime():
+-                self.nl_harvest_size = self._random.randint(self.NL_HARVEST_MIN, self.NL_HARVEST_MAX)
+-                self.nl_harvest_left = 0
+-                self.nl_harvest_postponed = 0
+-                self.nl_harvest_scheduled_at = step + self._random.randint(6, 10)
++            min_d = self.my_D >= 3
++            if self.features.profile_memory and self._known_soft_opponent:
++                # уже знаем по прошлым раундам, что этот оппонент мягкий -
++                # не ждём накопления my_D>=3 в текущем матче
++                min_d = self.my_D >= 1
++            blocked_tactical = (
++                self.features.tactical_prefilter
++                and self.tactical in ("aggressor", "grudger")
++            )
++            if self.features.adaptive_harvest:
++                # v5.4: непрерывная вероятность/размер вместо бинарного 0.6-гейта
++                softness = (forg - self.NL_SOFTNESS_FLOOR) / (1.0 - self.NL_SOFTNESS_FLOOR)
++                softness = max(0.0, min(1.0, softness))
++                if (
++                    softness > 0 and min_d and not blocked_tactical
++                    and self.nl_balance >= 0 and not self._is_noisy_regime()
++                    and self._random.random() < softness
++                ):
++                    size = int(round(
++                        self.NL_HARVEST_MIN + softness * (self.NL_HARVEST_MAX - self.NL_HARVEST_MIN)
++                    ))
++                    self.nl_harvest_size = max(self.NL_HARVEST_MIN, size)
++                    self.nl_harvest_left = 0
++                    self.nl_harvest_postponed = 0
++                    self.nl_harvest_scheduled_at = step + self._random.randint(6, 10)
++            else:
++                if (
++                    forg > 0.6 and min_d and not blocked_tactical
++                    and self.nl_balance >= 0 and not self._is_noisy_regime()
++                ):
++                    self.nl_harvest_size = self._random.randint(self.NL_HARVEST_MIN, self.NL_HARVEST_MAX)
++                    self.nl_harvest_left = 0
++                    self.nl_harvest_postponed = 0
++                    self.nl_harvest_scheduled_at = step + self._random.randint(6, 10)
+             return True
+ 
+         # evidence >= 3: красная линия против агрессивного (низкий кооп).
+@@ -643,6 +691,7 @@
+     def _save_profile(self, opp_name: str):
+         if not self.use_profiles or not opp_name:
+             return
++        forgiveness = self.opp_coops_after_my_D / max(1, self.my_D)
+         self.__class__._global_profiles[opp_name] = {
+             "warmth": float(self.target_warmth),
+             "coop_rate": self._live_coop_rate(),
+@@ -650,6 +699,7 @@
+             "defects": self.opp_defects,
+             "len": self.opp_len,
+             "p_noise": self.p_noise_est,
++            "forgiveness": forgiveness if self.my_D >= 3 else None,
+         }
+ 
+     def strategy(self, opponent: Player) -> Action:
+@@ -658,6 +708,31 @@
+         remaining = self._estimate_remaining(step)
+         self._pending_reason = None # v5.3: одноразовый reason
+         self._nl_step_hint = 0      # v5.3-G: шаг для иммунитета улик
++
++        # v5.4: один раз за матч смотрим в профиль с прошлых встреч - знаем
++        # ли мы уже, что этот оппонент мягкий (forgiveness>0.6 в прошлый раз)
++        if self.features.profile_memory and not self._profile_checked:
++            self._profile_checked = True
++            if self.use_profiles:
++                prof = self.__class__._global_profiles.get(self._last_opponent_name)
++                if prof and prof.get("forgiveness") is not None and prof["forgiveness"] > 0.6:
++                    self._known_soft_opponent = True
++
++        # v5.4: баланс ушёл в минус из-за нашей же эксплуатации - откатываем
++        # запланированные удары/харвест и подталкиваем к примирению, не трогая
++        # обычный debt/queue (это реакция на риск от НАШЕЙ инициативы, а не
++        # капитуляция перед чужой агрессией)
++        if self.features.balance_apology and self.nl_balance <= self.NL_BALANCE_FLOOR:
++            self.nl_scheduled = []
++            self.nl_harvest_left = 0
++            self.nl_harvest_scheduled_at = 0
++            self.nl_harvest_postponed = 0
++            self.nl_harvest_size = 0
++            self.nl_evidence = 0
++            self.nl_window.clear()
++            self.echo_forgive = max(self.echo_forgive, 2)
++            self.warmth = max(self.warmth, 0.6)
++            self.target_warmth = max(self.target_warmth, 0.6)
+ 
+         # --- детект моего шума по истории ---
+         if self.history:
+@@ -1017,4 +1092,11 @@
+ 
+ ZeroRespV5 = ZeroResp
+ ZeroRespV51 = ZeroResp
+-ZeroRespV52 = ZeroResp+ZeroRespV52 = ZeroResp
++
++
++def ZeroRespV54Full(**kw):
++    """Прототип со всеми v5.4-экспериментами включёнными сразу."""
++    feats = Features(adaptive_harvest=True, balance_apology=True,
++                      tactical_prefilter=True, profile_memory=True)
++    return ZeroResp(features=feats, **kw)
+======================================================================
+DIFF: v5.4 -> v5.5
+======================================================================
+--- zeroresp_v54.py
++++ zeroresp_v55.py
+@@ -56,6 +56,11 @@
+         "balance_apology",
+         "tactical_prefilter",
+         "profile_memory",
++        # v5.5 new
++        "symmetric_noise_sensor",
++        "warmup_calibration",
++        "pulsed_harvest",
++        "circuit_breaker",
+     )
+ 
+     def __init__(
+@@ -71,10 +76,14 @@
+         generous: bool = True,
+         red_line_cooldown: bool = True,
+         noise_ladder: bool = True,
+-        adaptive_harvest: bool = False,
+-        balance_apology: bool = False,
+-        tactical_prefilter: bool = False,
+-        profile_memory: bool = False,
++        adaptive_harvest: bool = True,
++        balance_apology: bool = True,
++        tactical_prefilter: bool = True,
++        profile_memory: bool = True,
++        symmetric_noise_sensor: bool = True,
++        warmup_calibration: bool = True,
++        pulsed_harvest: bool = True,
++        circuit_breaker: bool = True,
+     ):
+         self.profiles = profiles
+         self.apology = apology
+@@ -91,6 +100,10 @@
+         self.balance_apology = balance_apology
+         self.tactical_prefilter = tactical_prefilter
+         self.profile_memory = profile_memory
++        self.symmetric_noise_sensor = symmetric_noise_sensor
++        self.warmup_calibration = warmup_calibration
++        self.pulsed_harvest = pulsed_harvest
++        self.circuit_breaker = circuit_breaker
+ 
+     def asdict(self):
+         return {k: getattr(self, k) for k in self.__slots__}
+@@ -101,7 +114,7 @@
+         return Features(**d)
+ 
+ class ZeroResp(Player):
+-    name = "ZeroResp v5.4-proto"
++    name = "ZeroResp v5.5"
+     classifier = {
+         "memory_depth": float("inf"),
+         "stochastic": True,
+@@ -140,6 +153,8 @@
+     # v5.4 prototype
+     NL_BALANCE_FLOOR = -4  # ниже этого баланса - принудительный откат в C
+     NL_SOFTNESS_FLOOR = 0.30  # ниже этого forg эксплуатация не пробуется
++    WARMUP_TURNS = 20         # раунды начальной калибровки
++    PULSE_COOLDOWN = 10       # минимальная пауза между импульсами харвеста под шумом
+ 
+     _global_profiles: Dict[str, Dict] = {}
+     _global_lengths: List[int] = []
+@@ -195,6 +210,8 @@
+         self._opening_d = False
+         self._known_soft_opponent = False
+         self._profile_checked = False
++        self.is_rigid = False
++        self.last_pulse_step = 0
+ 
+         # v5.2 - noise adaptation
+         self.cc_pairs = 0
+@@ -369,10 +386,13 @@
+ 
+     # ---- v5.3 noise ladder ----
+     def _nl_noise_proven(self) -> bool:
+-        # Канальный шум доказывается только НАШИМИ флипами C->D: D оппонента
+-        # и наш шум не различить, а собственный флип — независимое доказательство.
+-        # При 0% nl_my_flips == 0 и лестница уснёт (поведение как в v5.2 без потерь).
+-        return self.nl_my_flips > 0
++        if self.nl_my_flips > 0:
++            return True
++        if self.features.symmetric_noise_sensor:
++            # Двусторонний сенсор 50/50: если в мирной фазе (CC) оппонент выдал >=2 unprovoked D
++            # при достаточном числе наблюдений (>=10 пар CC) - это статистическое доказательство шума
++            return (self.unprovoked_d >= 2 and self.cc_pairs >= 10)
++        return False
+ 
+     def _nl_active(self) -> bool:
+         # лестница работает только когда флаг on И доказан канальный шум
+@@ -417,7 +437,7 @@
+             self._pending_reason = "nl_deferred"
+             return True
+ 
+-        if self.nl_evidence == 2:
++        if self.nl_evidence >= 2 and self.nl_harvest_scheduled_at == 0 and self.nl_harvest_left == 0:
+             # Второй в окне: такое же чистое прощение, как и первый (вариант A:
+             # немедленный удар по необъяснимым D перезапускал войны 1-к-1 со
+             # строгими реципрокаторами). Долг снова растёт, очередь ударов не
+@@ -436,7 +456,7 @@
+             forg = self.opp_coops_after_my_D / max(1, self.my_D)
+             # v5.3-H: при my_D<3 дробь forg нестабильна и запускала акцию
+             # против жёстких наказателей (урок SlowTF2T2 seed 44)
+-            min_d = self.my_D >= 3
++            min_d = self.my_D >= 2
+             if self.features.profile_memory and self._known_soft_opponent:
+                 # уже знаем по прошлым раундам, что этот оппонент мягкий -
+                 # не ждём накопления my_D>=3 в текущем матче
+@@ -445,27 +465,51 @@
+                 self.features.tactical_prefilter
+                 and self.tactical in ("aggressor", "grudger")
+             )
+-            if self.features.adaptive_harvest:
+-                # v5.4: непрерывная вероятность/размер вместо бинарного 0.6-гейта
++            # v5.5: Warmup & Rigidity check
++            in_warmup = self.features.warmup_calibration and (step <= self.WARMUP_TURNS)
++            if self.my_D >= 2 and (self.opp_defects_after_my_D / self.my_D) > 0.50:
++                # Большинство ответов оппонента на наши D были D -> реципрокатор!
++                self.is_rigid = True
++
++            can_harvest = (
++                not in_warmup
++                and not self.is_rigid
++                and min_d
++                and not blocked_tactical
++                and self.nl_balance >= 0
++            )
++
++            is_noisy = self._is_noisy_regime()
++
++            if can_harvest and is_noisy and self.features.pulsed_harvest:
++                # v5.5: Импульсный харвест под шумом!
++                # Вместо пачки 3-4 D (которая вызывает войну), даём ровно 1 импульс D
++                # с обязательным кулдауном и проверкой реакции
+                 softness = (forg - self.NL_SOFTNESS_FLOOR) / (1.0 - self.NL_SOFTNESS_FLOOR)
+                 softness = max(0.0, min(1.0, softness))
+                 if (
+-                    softness > 0 and min_d and not blocked_tactical
+-                    and self.nl_balance >= 0 and not self._is_noisy_regime()
++                    softness > 0.4
++                    and (step - self.last_pulse_step >= self.PULSE_COOLDOWN)
+                     and self._random.random() < softness
+                 ):
+-                    size = int(round(
+-                        self.NL_HARVEST_MIN + softness * (self.NL_HARVEST_MAX - self.NL_HARVEST_MIN)
+-                    ))
+-                    self.nl_harvest_size = max(self.NL_HARVEST_MIN, size)
++                    self.nl_harvest_size = 1
+                     self.nl_harvest_left = 0
+                     self.nl_harvest_postponed = 0
+-                    self.nl_harvest_scheduled_at = step + self._random.randint(6, 10)
+-            else:
+-                if (
+-                    forg > 0.6 and min_d and not blocked_tactical
+-                    and self.nl_balance >= 0 and not self._is_noisy_regime()
+-                ):
++                    self.nl_harvest_scheduled_at = step + self._random.randint(4, 8)
++                    self.last_pulse_step = step
++            elif can_harvest and not is_noisy:
++                if self.features.adaptive_harvest:
++                    softness = (forg - self.NL_SOFTNESS_FLOOR) / (1.0 - self.NL_SOFTNESS_FLOOR)
++                    softness = max(0.0, min(1.0, softness))
++                    if softness > 0 and self._random.random() < softness:
++                        size = int(round(
++                            self.NL_HARVEST_MIN + softness * (self.NL_HARVEST_MAX - self.NL_HARVEST_MIN)
++                        ))
++                        self.nl_harvest_size = max(self.NL_HARVEST_MIN, size)
++                        self.nl_harvest_left = 0
++                        self.nl_harvest_postponed = 0
++                        self.nl_harvest_scheduled_at = step + self._random.randint(6, 10)
++                elif forg > 0.6:
+                     self.nl_harvest_size = self._random.randint(self.NL_HARVEST_MIN, self.NL_HARVEST_MAX)
+                     self.nl_harvest_left = 0
+                     self.nl_harvest_postponed = 0
+@@ -718,11 +762,25 @@
+                 if prof and prof.get("forgiveness") is not None and prof["forgiveness"] > 0.6:
+                     self._known_soft_opponent = True
+ 
+-        # v5.4: баланс ушёл в минус из-за нашей же эксплуатации - откатываем
+-        # запланированные удары/харвест и подталкиваем к примирению, не трогая
+-        # обычный debt/queue (это реакция на риск от НАШЕЙ инициативы, а не
+-        # капитуляция перед чужой агрессией)
+-        if self.features.balance_apology and self.nl_balance <= self.NL_BALANCE_FLOOR:
++        # v5.5: Аппаратный Стоп-кран (Circuit Breaker) + Balance Apology
++        # Если баланс ушёл в минус или оппонент наказал наш импульс дефекта
++        pulse_punished = (
++            self.features.circuit_breaker
++            and self.last_pulse_step > 0
++            and (step - self.last_pulse_step) <= 3
++            and opponent.history
++            and opponent.history[-1] == D
++        )
++        if pulse_punished:
++            self.is_rigid = True  # оппонент огрызнулся на импульс -> больше не трогаем!
++
++        trip_breaker = (
++            (self.features.circuit_breaker and self.nl_balance < 0 and self.last_pulse_step > 0)
++            or (self.features.balance_apology and self.nl_balance <= self.NL_BALANCE_FLOOR)
++            or pulse_punished
++        )
++
++        if trip_breaker:
+             self.nl_scheduled = []
+             self.nl_harvest_left = 0
+             self.nl_harvest_scheduled_at = 0
+@@ -731,8 +789,8 @@
+             self.nl_evidence = 0
+             self.nl_window.clear()
+             self.echo_forgive = max(self.echo_forgive, 2)
+-            self.warmth = max(self.warmth, 0.6)
+-            self.target_warmth = max(self.target_warmth, 0.6)
++            self.warmth = max(self.warmth, 0.65)
++            self.target_warmth = max(self.target_warmth, 0.65)
+ 
+         # --- детект моего шума по истории ---
+         if self.history:
+@@ -773,7 +831,7 @@
+                     # v5.2: обновление p_est каждые 5 пар; v5.3: при доказанном
+                     # шуме в числитель/знаменатель входят и наши флипы
+                     if self.cc_pairs % 5 == 0 and self.cc_pairs > 10:
+-                        if self._nl_active():
++                        if self.features.symmetric_noise_sensor or self._nl_active():
+                             total = self.cc_pairs + self.nl_my_obs
+                             est_n = self.unprovoked_d + self.nl_my_flips
+                         else:
+@@ -1093,10 +1151,20 @@
+ ZeroRespV5 = ZeroResp
+ ZeroRespV51 = ZeroResp
+ ZeroRespV52 = ZeroResp
+-
+-
+-def ZeroRespV54Full(**kw):
+-    """Прототип со всеми v5.4-экспериментами включёнными сразу."""
+-    feats = Features(adaptive_harvest=True, balance_apology=True,
+-                      tactical_prefilter=True, profile_memory=True)
++ZeroRespV54 = ZeroResp
++
++
++def ZeroRespV55Full(**kw):
++    """ZeroResp v5.5 с симметричным сенсором 50/50, фазой калибровки,
++    импульсным харвестом и аппаратным стоп-краном."""
++    feats = Features(
++        adaptive_harvest=True,
++        balance_apology=True,
++        tactical_prefilter=True,
++        profile_memory=True,
++        symmetric_noise_sensor=True,
++        warmup_calibration=True,
++        pulsed_harvest=True,
++        circuit_breaker=True,
++    )
+     return ZeroResp(features=feats, **kw)
+======================================================================
+DIFF: v5.5 -> v5.6
+======================================================================
+--- zeroresp_v55.py
++++ zeroresp_v56.py
+@@ -61,6 +61,7 @@
+         "warmup_calibration",
+         "pulsed_harvest",
+         "circuit_breaker",
++        "early_exit_warmup",
+     )
+ 
+     def __init__(
+@@ -84,6 +85,7 @@
+         warmup_calibration: bool = True,
+         pulsed_harvest: bool = True,
+         circuit_breaker: bool = True,
++        early_exit_warmup: bool = True,
+     ):
+         self.profiles = profiles
+         self.apology = apology
+@@ -104,6 +106,7 @@
+         self.warmup_calibration = warmup_calibration
+         self.pulsed_harvest = pulsed_harvest
+         self.circuit_breaker = circuit_breaker
++        self.early_exit_warmup = early_exit_warmup
+ 
+     def asdict(self):
+         return {k: getattr(self, k) for k in self.__slots__}
+@@ -114,7 +117,7 @@
+         return Features(**d)
+ 
+ class ZeroResp(Player):
+-    name = "ZeroResp v5.5"
++    name = "ZeroResp v5.6"
+     classifier = {
+         "memory_depth": float("inf"),
+         "stochastic": True,
+@@ -212,6 +215,7 @@
+         self._profile_checked = False
+         self.is_rigid = False
+         self.last_pulse_step = 0
++        self.warmup_early_exited = False
+ 
+         # v5.2 - noise adaptation
+         self.cc_pairs = 0
+@@ -466,7 +470,7 @@
+                 and self.tactical in ("aggressor", "grudger")
+             )
+             # v5.5: Warmup & Rigidity check
+-            in_warmup = self.features.warmup_calibration and (step <= self.WARMUP_TURNS)
++            in_warmup = self.features.warmup_calibration and (step <= self.WARMUP_TURNS) and not self.warmup_early_exited
+             if self.my_D >= 2 and (self.opp_defects_after_my_D / self.my_D) > 0.50:
+                 # Большинство ответов оппонента на наши D были D -> реципрокатор!
+                 self.is_rigid = True
+@@ -830,6 +834,9 @@
+                         self.unprovoked_d += 1
+                     # v5.2: обновление p_est каждые 5 пар; v5.3: при доказанном
+                     # шуме в числитель/знаменатель входят и наши флипы
++                    if self.features.early_exit_warmup and not self.warmup_early_exited:
++                        if self.cc_pairs >= 10 and self.unprovoked_d == 0 and self.nl_my_flips == 0:
++                            self.warmup_early_exited = True
+                     if self.cc_pairs % 5 == 0 and self.cc_pairs > 10:
+                         if self.features.symmetric_noise_sensor or self._nl_active():
+                             total = self.cc_pairs + self.nl_my_obs
+@@ -1152,10 +1159,28 @@
+ ZeroRespV51 = ZeroResp
+ ZeroRespV52 = ZeroResp
+ ZeroRespV54 = ZeroResp
++ZeroRespV55 = ZeroResp
++
++
++def ZeroRespV56Full(**kw):
++    """ZeroResp v5.6 с early-exit калибровкой, симметричным сенсором 50/50,
++    импульсным сбором и аппаратным стоп-краном."""
++    feats = Features(
++        adaptive_harvest=True,
++        balance_apology=True,
++        tactical_prefilter=True,
++        profile_memory=True,
++        symmetric_noise_sensor=True,
++        warmup_calibration=True,
++        pulsed_harvest=True,
++        circuit_breaker=True,
++        early_exit_warmup=True,
++    )
++    return ZeroResp(features=feats, **kw)
+ 
+ 
+ def ZeroRespV55Full(**kw):
+-    """ZeroResp v5.5 с симметричным сенсором 50/50, фазой калибровки,
++    """ZeroResp v5.6 с симметричным сенсором 50/50, фазой калибровки,
+     импульсным харвестом и аппаратным стоп-краном."""
+     feats = Features(
+         adaptive_harvest=True,
