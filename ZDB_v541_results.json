@@ -1,0 +1,71 @@
+{
+  "H1": {
+    "0.0": {
+      "mean_v53": 3.0269,
+      "mean_v541": 3.0195,
+      "delta": -0.0074,
+      "p_val": 0.14625,
+      "pass": false
+    },
+    "0.01": {
+      "mean_v53": 2.8872,
+      "mean_v541": 2.8901,
+      "delta": 0.0029,
+      "p_val": 0.7087,
+      "pass": true
+    }
+  },
+  "H2": {
+    "v53_mean": 2.2987,
+    "v541_mean": 2.6705,
+    "delta": 0.3718,
+    "v53_spin_rate": 0.2333,
+    "v541_spin_rate": 0.0,
+    "pass_spin": true,
+    "pass_delta": true,
+    "pass": true
+  },
+  "H3": {
+    "v53_mean": 2.0987,
+    "v541_mean": 2.3573,
+    "delta": 0.2587,
+    "v53_spin_rate": 0.3333,
+    "v541_spin_rate": 0.1,
+    "pass_spin": true,
+    "pass_delta": true,
+    "pass": true
+  },
+  "H4": {
+    "alternator_delta": 1.325,
+    "calculator_delta": 0.1782,
+    "random_delta": 0.0653,
+    "non_target_max_abs": 0.0,
+    "pass": true
+  },
+  "H5": {
+    "baseline": 2.535,
+    "max_shift": 0.0057,
+    "pass": true
+  },
+  "H6": {
+    "mean_delta": -0.555,
+    "min_delta": -1.495,
+    "pass": false
+  },
+  "H7": {
+    "v53_mean": 2.3126,
+    "v541_mean": 2.2824,
+    "delta": -0.0302,
+    "p_val": 0.00725,
+    "pass": false
+  },
+  "H8": {
+    "v53_mean": 2.7535,
+    "v541_mean": 2.6603,
+    "mean_delta": -0.0932,
+    "min_delta": -1.055,
+    "pass_mean": false,
+    "pass_min": false,
+    "pass": false
+  }
+}
