@@ -38,12 +38,18 @@
 ### Install
 
 ```bash
-git clone https://github.com/Evreu1pro/ZeroResp.git
-cd ZeroResp
-pip install -r requirements.txt   # axelrod>=4.12
+pip install git+https://github.com/Evreu1pro/ZeroResp.git   # pulls axelrod>=4.12
 ```
 
-There's no packaging yet (no `pyproject.toml`), so `zeroresp.py` is imported straight from the repo root — run your scripts from there or add it to `PYTHONPATH`.
+Or from a checkout (editable, handy if you want to poke at the strategy):
+
+```bash
+git clone https://github.com/Evreu1pro/ZeroResp.git
+cd ZeroResp
+pip install -e .
+```
+
+Tests: `python -m unittest discover -s tests` (31 tests). Not on PyPI yet.
 
 ### Quick start
 
@@ -68,7 +74,7 @@ ZeroResp(features=Features(noise_ladder=False))
 ### Evidence
 
 All results use `R=3, T=5, S=0, P=1, 200 turns`, and are reproducible from `benchmarks/`.
-Statistics and raw data: `docs/RESEARCH_v53.md`, `docs/BHNS_v53.md`, `docs/STRESS_v53.md`.
+Statistics and write-up: [`RESEARCH_v53.md`](RESEARCH_v53.md), raw runs in [`benchmarks/results/`](benchmarks/results/). (`BHNS_v53.md` / `STRESS_v53.md` aren't published yet — they'll land in `docs/` once the hold-out is done.)
 
 #### 1. Full library round-robin (222 strategies)
 

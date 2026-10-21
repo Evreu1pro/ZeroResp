@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zeroresp"
+version = "5.3.0"
+description = "ZeroResp: adaptive Iterated Prisoner's Dilemma strategy for Axelrod-Python (noise ladder)"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Evreu1pro" }]
+requires-python = ">=3.9"
+dependencies = ["axelrod>=4.12.0"]
+keywords = ["iterated-prisoners-dilemma", "game-theory", "axelrod"]
+
+[project.urls]
+Homepage = "https://evreu1pro.github.io/ZeroResp/"
+Source = "https://github.com/Evreu1pro/ZeroResp"
+
+[tool.setuptools]
+py-modules = ["zeroresp"]
