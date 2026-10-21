@@ -38,9 +38,12 @@
 ### Install
 
 ```bash
-pip install axelrod
-pip install -e .
+git clone https://github.com/Evreu1pro/ZeroResp.git
+cd ZeroResp
+pip install -r requirements.txt   # axelrod>=4.12
 ```
+
+There's no packaging yet (no `pyproject.toml`), so `zeroresp.py` is imported straight from the repo root — run your scripts from there or add it to `PYTHONPATH`.
 
 ### Quick start
 
