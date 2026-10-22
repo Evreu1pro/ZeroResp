@@ -186,25 +186,25 @@ Negative results are results. These were tried and rejected.
 ```
 .
 ├── zeroresp.py                          # Canonical v5.3 module
-├── axelrod/strategies/zeroresp.py       # Symlink → ../../zeroresp.py
+├── axelrod/                             # Drop-in copy for an Axelrod-Python checkout
+│   ├── strategies/zeroresp.py
+│   └── tests/strategies/test_zeroresp.py
 ├── tests/
 │   ├── test_zeroresp.py
 │   └── test_noise_ladder.py
 ├── benchmarks/
 │   ├── run_field.py
 │   ├── compare_runs.py
-│   ├── bhns_runner.py
-│   ├── bhns_analyze.py
-│   ├── bhns_config.json
-│   ├── split.json                       # Frozen train/hold-out split
-│   └── results/                         # Raw JSON/CSV (gitignored or LFS)
-├── docs/
-│   ├── RESEARCH_v53.md                  # v5.3 vs v5.2 evidence summary
-│   ├── BHNS_v53.md                      # Blind hold-out & noise-model stress
-│   ├── STRESS_v53.md                    # Full-library stress map
-│   └── REGISTRATION.md
-├── .github/
-│   └── workflows/tests.yml
+│   ├── trajectory_check.py
+│   ├── match_viewer.py
+│   ├── run_research.sh
+│   ├── RESULTS.md
+│   ├── data/                            # Summary excerpts + aggregate ranking CSV
+│   ├── results/                         # Raw field-run JSON/MD
+│   └── viewer/                          # Generated match HTML (match_*.html gitignored)
+├── docs/                                # GitHub Pages site (index.html)
+├── RESEARCH_v53.md                      # v5.3 vs v5.2 evidence summary
+├── REGISTRATION.md
 ├── CITATION.cff
 ├── LICENSE
 ├── pyproject.toml
@@ -217,11 +217,11 @@ Negative results are results. These were tried and rejected.
 
 ```bibtex
 @software{zeroresp_v53,
-  author = {},
+  author = {Evreu1pro},
   title = {ZeroResp v5.3: a long-memory IPD strategy with a noise ladder},
   year = {2026},
   version = {5.3.0},
-  url = {https://github.com/USER/zeroresp}
+  url = {https://github.com/Evreu1pro/ZeroResp}
 }
 ```
 
