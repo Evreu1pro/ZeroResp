@@ -108,6 +108,8 @@ The largest single effect at 5% noise is **self-match (+42 points)**: the ladder
 
 #### 3. Head-to-head: v5.3 vs v5.2 under matched noise (BHNS)
 
+> Scripts and raw data for this section aren't published yet (see [Reproduce](#reproduce-the-evidence)).
+
 Blind hold-out & noise-model stress, 30 seeds per key cell. Unit of analysis is the per-seed mean SPT, not per-opponent pairs — a naive pooled Wilcoxon over 990 correlated pairs inflates significance by ~7 orders of magnitude (p=7.5e-21 naive vs p=6.1e-04 correct). Holm–Bonferroni over the family of 15 tests; effect size is Cliff's δ.
 
 | Noise model | 10% | 20% |
@@ -139,15 +141,14 @@ python benchmarks/run_field.py --pack field --turns 200 --reps 8 --seed 42 --noi
 python benchmarks/run_field.py --pack field --turns 200 --reps 8 --seed 42 --noise 0 0.05 --no-ladder
 python benchmarks/compare_runs.py OLD.json NEW.json
 
-# Full BHNS battery + statistics
-python benchmarks/bhns_runner.py --config benchmarks/bhns_config.json
-python benchmarks/bhns_analyze.py --raw benchmarks/results/research/bhns/ --out docs/BHNS_v53.md
+# Sweep used for RESEARCH_v53.md (field / full / 1000-turn / top opponents, v5.3 vs v5.2)
+bash benchmarks/run_research.sh
 
 # Unit tests
 python -m unittest tests.test_zeroresp tests.test_noise_ladder -v
 ```
 
-The frozen train / hold-out split used by BHNS is in `benchmarks/split.json`. Raw per-seed data: `benchmarks/results/research/bhns/` (hosted on [Zenodo/OSF] — link TBD).
+**BHNS (section 3) — coming soon.** The BHNS runner/analysis scripts, the frozen train / hold-out split and the raw per-seed data are not in this repo yet, so section 3 can't be reproduced from here today. They'll be published together with `docs/BHNS_v53.md` once the hold-out is done. Sections 1–2 come from `run_field.py` (commands above); raw runs are in [`benchmarks/results/research/`](benchmarks/results/research/).
 
 ---
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-cd "E:/g/е/zerope/ZeroResp-main"
+cd "$(dirname "$0")/.."
 RF="python benchmarks/run_field.py"
 R="benchmarks/results/research"
 mkdir -p $R/v53_sweep $R/v52_sweep $R/full_v53_5 $R/full_v52_5 $R/long_v53 $R/long_v52 $R/tops_v53 $R/tops_v52
