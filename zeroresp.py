@@ -1,5 +1,7 @@
 """
-ZeroResp v5.3 - v5.2 + noise ladder (лестница эскалации по необъяснимым D)
+ZeroResp v5.4.4 production — v5.3 ladder + responsiveness gates + cycler contour
+# (historical v5.3 frozen in zeroresp_v53.py; research trail on branch research/v54x)
+# Was: ZeroResp v5.3 - v5.2 + noise ladder (лестница эскалации по необъяснимым D)
 
 Наследует v5.2:
 1. Full contrite: если мой intended=C но realized=D (шум), D оппонента не считается атакой
@@ -51,6 +53,12 @@ class Features:
         "red_line_cooldown",
         # v5.3 new
         "noise_ladder",
+        # v5.4 prototype new
+        "adaptive_harvest",
+        "balance_apology",
+        "tactical_prefilter",
+        "profile_memory",
+        "cycler_contour",
     )
 
     def __init__(
@@ -66,6 +74,11 @@ class Features:
         generous: bool = True,
         red_line_cooldown: bool = True,
         noise_ladder: bool = True,
+        adaptive_harvest: bool = True,
+        balance_apology: bool = True,
+        tactical_prefilter: bool = True,
+        profile_memory: bool = True,
+        cycler_contour: bool = True,
     ):
         self.profiles = profiles
         self.apology = apology
@@ -78,6 +91,11 @@ class Features:
         self.generous = generous
         self.red_line_cooldown = red_line_cooldown
         self.noise_ladder = noise_ladder
+        self.adaptive_harvest = adaptive_harvest
+        self.balance_apology = balance_apology
+        self.tactical_prefilter = tactical_prefilter
+        self.profile_memory = profile_memory
+        self.cycler_contour = cycler_contour
 
     def asdict(self):
         return {k: getattr(self, k) for k in self.__slots__}
@@ -88,7 +106,7 @@ class Features:
         return Features(**d)
 
 class ZeroResp(Player):
-    name = "ZeroResp v5.3"
+    name = "ZeroResp v5.4.4"
     classifier = {
         "memory_depth": float("inf"),
         "stochastic": True,
@@ -123,6 +141,10 @@ class ZeroResp(Player):
     NL_PARDON_STREAK = 3
     NL_HARVEST_MIN = 3
     NL_HARVEST_MAX = 4
+
+    # v5.4 prototype
+    NL_BALANCE_FLOOR = -4  # ниже этого баланса - принудительный откат в C
+    NL_SOFTNESS_FLOOR = 0.30  # ниже этого forg эксплуатация не пробуется
 
     _global_profiles: Dict[str, Dict] = {}
     _global_lengths: List[int] = []
@@ -176,11 +198,14 @@ class ZeroResp(Player):
         self._opp_hist = deque(maxlen=3)
         self._forgiveness_exploiter = 0
         self._opening_d = False
+        self._known_soft_opponent = False
+        self._profile_checked = False
 
         # v5.2 - noise adaptation
         self.cc_pairs = 0
         self.unprovoked_d = 0
         self.p_noise_est = 0.0
+        self._fixed_period_latch = False  # v5.4.4: доказанный циклик
         self._intended_prev = C
         self._realized_prev = C
         self._bad_standing = False
@@ -314,6 +339,42 @@ class ZeroResp(Player):
             return "oscillator"
         return "adaptive"
 
+    def _detect_fixed_period(self, opponent) -> bool:
+        """v5.4.4: детект фиксированной периодичности оппонента.
+
+        Периоды 2-6, окно до 18 последних ходов оппонента (минимум 12),
+        порог несовпадений ~15% (толерантность к канальному шуму).
+        Период 1 исключён (урок v5.3: так выглядит Grudger). Класс
+        залипает до конца матча: паттерн циклика не исчезает.
+        """
+        if self._fixed_period_latch:
+            return True
+        hist = list(opponent.history)
+        if len(hist) < 12:
+            return False
+        window = hist[-18:]
+        n = len(window)
+        # Зеркальная защита: реципрокаторы (TFT-класс) воспроизводят наш
+        # собственный паттерн с лагом 1 - их "период" производен от наших
+        # ходов (в т.ч. от периодических проб лестницы), это не
+        # самогенерируемый цикл. Совпадение с нашим лагом-1 >= 80% -
+        # периодический детект не засчитывается.
+        my_hist = list(self.history)
+        if len(my_hist) > n:
+            my_window = my_hist[-(n + 1):-1]
+            agree = sum(1 for i in range(n) if window[i] == my_window[i])
+            if agree >= int(n * 0.80):
+                return False
+        for p in range(2, 7):
+            cmp_pairs = n - p
+            if cmp_pairs < 8:
+                continue
+            mism = sum(1 for i in range(p, n) if window[i] != window[i - p])
+            if mism <= max(1, int(cmp_pairs * 0.15)):
+                self._fixed_period_latch = True
+                return True
+        return False
+
     def _update_target_warmth(self):
         if self.opp_len < 10:
             return
@@ -417,11 +478,40 @@ class ZeroResp(Player):
             forg = self.opp_coops_after_my_D / max(1, self.my_D)
             # v5.3-H: при my_D<3 дробь forg нестабильна и запускала акцию
             # против жёстких наказателей (урок SlowTF2T2 seed 44)
-            if forg > 0.6 and self.my_D >= 3 and self.nl_balance >= 0 and not self._is_noisy_regime():
-                self.nl_harvest_size = self._random.randint(self.NL_HARVEST_MIN, self.NL_HARVEST_MAX)
-                self.nl_harvest_left = 0
-                self.nl_harvest_postponed = 0
-                self.nl_harvest_scheduled_at = step + self._random.randint(6, 10)
+            min_d = self.my_D >= 3
+            if self.features.profile_memory and self._known_soft_opponent:
+                # уже знаем по прошлым раундам, что этот оппонент мягкий -
+                # не ждём накопления my_D>=3 в текущем матче
+                min_d = self.my_D >= 1
+            blocked_tactical = (
+                self.features.tactical_prefilter
+                and self.tactical in ("aggressor", "grudger")
+            )
+            if self.features.adaptive_harvest:
+                # v5.4: непрерывная вероятность/размер вместо бинарного 0.6-гейта
+                softness = (forg - self.NL_SOFTNESS_FLOOR) / (1.0 - self.NL_SOFTNESS_FLOOR)
+                softness = max(0.0, min(1.0, softness))
+                if (
+                    softness > 0 and min_d and not blocked_tactical
+                    and self.nl_balance >= 0 and not self._is_noisy_regime()
+                    and self._random.random() < softness
+                ):
+                    size = int(round(
+                        self.NL_HARVEST_MIN + softness * (self.NL_HARVEST_MAX - self.NL_HARVEST_MIN)
+                    ))
+                    self.nl_harvest_size = max(self.NL_HARVEST_MIN, size)
+                    self.nl_harvest_left = 0
+                    self.nl_harvest_postponed = 0
+                    self.nl_harvest_scheduled_at = step + self._random.randint(6, 10)
+            else:
+                if (
+                    forg > 0.6 and min_d and not blocked_tactical
+                    and self.nl_balance >= 0 and not self._is_noisy_regime()
+                ):
+                    self.nl_harvest_size = self._random.randint(self.NL_HARVEST_MIN, self.NL_HARVEST_MAX)
+                    self.nl_harvest_left = 0
+                    self.nl_harvest_postponed = 0
+                    self.nl_harvest_scheduled_at = step + self._random.randint(6, 10)
             return True
 
         # evidence >= 3: красная линия против агрессивного (низкий кооп).
@@ -643,6 +733,7 @@ class ZeroResp(Player):
     def _save_profile(self, opp_name: str):
         if not self.use_profiles or not opp_name:
             return
+        forgiveness = self.opp_coops_after_my_D / max(1, self.my_D)
         self.__class__._global_profiles[opp_name] = {
             "warmth": float(self.target_warmth),
             "coop_rate": self._live_coop_rate(),
@@ -650,6 +741,7 @@ class ZeroResp(Player):
             "defects": self.opp_defects,
             "len": self.opp_len,
             "p_noise": self.p_noise_est,
+            "forgiveness": forgiveness if self.my_D >= 3 else None,
         }
 
     def strategy(self, opponent: Player) -> Action:
@@ -658,6 +750,65 @@ class ZeroResp(Player):
         remaining = self._estimate_remaining(step)
         self._pending_reason = None # v5.3: одноразовый reason
         self._nl_step_hint = 0      # v5.3-G: шаг для иммунитета улик
+
+        # v5.4: один раз за матч смотрим в профиль с прошлых встреч - знаем
+        # ли мы уже, что этот оппонент мягкий (forgiveness>0.6 в прошлый раз)
+        if self.features.profile_memory and not self._profile_checked:
+            self._profile_checked = True
+            if self.use_profiles:
+                prof = self.__class__._global_profiles.get(self._last_opponent_name)
+                if prof and prof.get("forgiveness") is not None and prof["forgiveness"] > 0.6:
+                    self._known_soft_opponent = True
+
+        # v5.4: баланс ушёл в минус из-за нашей же эксплуатации - откатываем
+        # запланированные удары/харвест и подталкиваем к примирению, не трогая
+        # обычный debt/queue (это реакция на риск от НАШЕЙ инициативы, а не
+        # капитуляция перед чужой агрессией)
+        # v5.4.1: balance_apology защищён двойным гейтом:
+        # 1. Не капитулировать перед Random / дефекторами (live_coop_rate >= 0.60)
+        # 2. Не ломать детерминированную эксплуатацию на 0% шуме (требуется noisy_regime при короткой истории)
+        if self.features.balance_apology and self.nl_balance <= self.NL_BALANCE_FLOOR:
+            # v5.4.2 Responsiveness Gate:
+            # 1. 0% noise protection: never trigger balance_apology in deterministic matches
+            # 2. Overall coop rate floor: live_coop_rate >= 0.60 when history >= 15
+            # 3. Responsiveness condition: P(C|our C) - P(C|our D) >= 0.35 when our D >= 2
+            noise_attr = self.match_attributes.get("noise")
+            # v5.4.4 Cycler Contour: против доказанного фиксированного
+            # периодического паттерна извинение не запускается - периодические
+            # D это паттерн оппонента, эксплуатацию ведёт базовый контур v5.3
+            # (утечка v5.4.2: -1.16 SPT на CyclerCCD при 5% шума).
+            if self.features.cycler_contour and self._detect_fixed_period(opponent):
+                can_apologize = False
+            elif noise_attr == 0.0:
+                can_apologize = False
+            elif self.opp_len >= 15 and self._live_coop_rate() < 0.60:
+                can_apologize = False
+            else:
+                my_hist = self.history
+                opp_hist = opponent.history
+                n_c = sum(1 for i in range(len(my_hist) - 1) if my_hist[i] == C)
+                n_d = sum(1 for i in range(len(my_hist) - 1) if my_hist[i] == D)
+                if n_d >= 2:
+                    c_after_c = sum(1 for i in range(len(my_hist) - 1) if my_hist[i] == C and opp_hist[i + 1] == C)
+                    c_after_d = sum(1 for i in range(len(my_hist) - 1) if my_hist[i] == D and opp_hist[i + 1] == C)
+                    p_c_c = c_after_c / max(1, n_c)
+                    p_c_d = c_after_d / max(1, n_d)
+                    delta_p = p_c_c - p_c_d
+                    can_apologize = (delta_p >= 0.35)
+                else:
+                    can_apologize = True
+
+            if can_apologize:
+                self.nl_scheduled = []
+                self.nl_harvest_left = 0
+                self.nl_harvest_scheduled_at = 0
+                self.nl_harvest_postponed = 0
+                self.nl_harvest_size = 0
+                self.nl_evidence = 0
+                self.nl_window.clear()
+                self.echo_forgive = max(self.echo_forgive, 2)
+                self.warmth = max(self.warmth, 0.6)
+                self.target_warmth = max(self.target_warmth, 0.6)
 
         # --- детект моего шума по истории ---
         if self.history:
@@ -1018,3 +1169,15 @@ class ZeroResp(Player):
 ZeroRespV5 = ZeroResp
 ZeroRespV51 = ZeroResp
 ZeroRespV52 = ZeroResp
+
+
+def ZeroRespV544(**kw):
+    """ZeroResp v5.4.4: гейты v5.4.2 + контур цикликов (без извинений
+    против доказанной фиксированной периодики оппонента)."""
+    feats = Features(adaptive_harvest=True, balance_apology=True,
+                      tactical_prefilter=True, profile_memory=True,
+                      cycler_contour=True)
+    return ZeroResp(features=feats, **kw)
+
+
+ZeroRespV54Full = ZeroRespV544

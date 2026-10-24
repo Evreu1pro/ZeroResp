@@ -1,9 +1,9 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>ZeroResp v5.3</title>
-<meta name="description" content="ZeroResp v5.3 — adaptive Iterated Prisoner's Dilemma strategy for Axelrod-Python with a proven-noise ladder.">
+<!doctype html><html lang="en"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>ZeroResp v5.4.4</title>
+<meta name="description" content="ZeroResp v5.4.4 — current Iterated Prisoner's Dilemma strategy for Axelrod-Python. Cycler contour + responsiveness gates on the v5.3 noise ladder. Full-library #2 at 5% noise (seed 42).">
 <link rel="icon" href="logo.webp" type="image/webp">
-<meta property="og:title" content="ZeroResp v5.3">
-<meta property="og:description" content="Adaptive IPD strategy for Axelrod-Python. Field rank 1/33 at 0% and 5% noise.">
+<meta property="og:title" content="ZeroResp v5.4.4">
+<meta property="og:description" content="Current ZeroResp build. Full-library rank #2 at 5% channel noise. Model history from v5.2 through v5.4.4.">
 <meta property="og:image" content="logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -159,6 +159,22 @@ pre .c{color:#5f6e7d} pre .k{color:var(--cyan)} pre .n{color:#f1c27d}
 
 footer{margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 
+
+.tbl{width:100%;border-collapse:collapse;font-family:var(--f-mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+.tbl th{color:var(--muted);font-weight:500;text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);letter-spacing:.06em;text-transform:uppercase;font-size:11px}
+.tbl td{padding:7px 10px;border-bottom:1px solid color-mix(in srgb,var(--line) 55%,transparent)}
+.tbl td.num,.tbl th.num{text-align:right}
+.tbl tr.hl td{color:var(--cyan)}
+.tbl-wrap{overflow-x:auto}
+.timeline{display:flex;flex-direction:column;gap:12px}
+.tl-card{display:grid;grid-template-columns:auto 1fr;gap:12px 16px;align-items:start;padding:12px 0;border-bottom:1px solid color-mix(in srgb,currentColor 14%,transparent)}
+.tl-card:last-child{border-bottom:0;padding-bottom:0}
+.tl-ver{font-family:var(--f-display);font-weight:900;font-size:22px;line-height:1;letter-spacing:.02em;min-width:5.5ch}
+.tl-meta{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);margin-top:4px}
+.tl-body{font-size:14px}
+.tl-body .sub{margin-top:6px}
+a.link{color:inherit;text-decoration:none;border-bottom:1px solid color-mix(in srgb,currentColor 35%,transparent)}
+a.link:hover{border-bottom-color:currentColor}
 @media (prefers-reduced-motion:reduce){
   .tile,.tile:hover{transition:none;transform:none}
   .badge::before,.frozen:hover .flake b.on{animation:none}
@@ -170,7 +186,7 @@ footer{margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-
     <a class="brand" href="#top" aria-label="ZeroResp, back to top"><canvas id="miniZ" width="60" height="52" aria-hidden="true"></canvas>ZeroResp</a>
     <nav aria-label="Sections">
       <a href="#results">Results</a>
-      <a href="#robustness">Robustness</a>
+      <a href="#history">History</a>
       <a href="#method">Method</a>
       <a href="research.html">Research</a>
       <a href="https://github.com/Evreu1pro/ZeroResp" rel="noopener">GitHub</a>
@@ -182,11 +198,11 @@ footer{margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-
     <section class="tile cobalt hero" style="--c:7;--t:6" aria-labelledby="h">
       <div class="hero-head">
         <span class="eyebrow"><i></i>Iterated Prisoner's Dilemma</span>
-        <span class="badge">PRODUCTION</span>
+        <span class="badge">CURRENT</span>
       </div>
-      <h1 id="h"><span>ZERORESP</span><span>v5.3</span></h1>
-      <p class="lede">Long-memory Axelrod-Python player with a noise ladder that wakes only after proven channel noise. Field pack: 200 turns × 8 reps × seed 42.</p>
-      <div class="foot"><span>■ Axelrod-Python strategy</span><span>v5.3 production build</span></div>
+      <h1 id="h"><span>ZERORESP</span><span>v5.4.4</span></h1>
+      <p class="lede">Cycler contour and responsiveness gates on top of the v5.3 noise ladder. Best of our family at 5% channel noise in the full Axelrod library.</p>
+      <div class="foot"><span>■ Axelrod-Python strategy</span><span>v5.4.4 · current</span></div>
     </section>
 
     <!-- PIXEL Z -->
@@ -202,53 +218,133 @@ footer{margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-
       </div>
     </section>
 
-    <!-- METRICS -->
-    <section class="tile silver metric" style="--c:4;--t:3" aria-labelledby="m0h" data-scr>
-      <span class="eyebrow"><i></i><span id="m0h">Score per turn · 0% noise</span></span>
-      <div class="dot-num"><span data-v="3.0374">3.0374</span><span class="unit">SPT</span></div>
-      <span class="chip">Field rank 1 / 33</span>
+    <!-- HEADLINE METRICS -->
+    <section class="tile silver metric" style="--c:4;--t:3" aria-labelledby="m5h" data-scr>
+      <span class="eyebrow"><i></i><span id="m5h">Full library · 5% noise · seed 42</span></span>
+      <div class="dot-num"><span data-v="2">2</span><span class="unit">rank</span></div>
+      <span class="chip">v5.4.4 · best of ours · ~230 players</span>
       <dl class="kv">
-        <dt>Ladder dormant at 0%</dt><dd>matches v5.2</dd>
-        <dt>Points per 200-turn match</dt><dd>≈ 607.5</dd>
+        <dt>Next of ours (v5.4.3)</dt><dd>#3</dd>
+        <dt>v5.3 baseline</dt><dd>#4–#6</dd>
+        <dt>Leader SPT</dt><dd>592.2</dd>
       </dl>
     </section>
 
-    <section class="tile black metric" style="--c:3;--t:3" aria-labelledby="m5h" data-scr>
-      <span class="eyebrow"><i style="color:var(--cyan)"></i><span id="m5h">Score per turn · 5% noise</span></span>
-      <div class="dot-num" style="color:var(--cyan)"><span data-v="2.6504">2.6504</span><span class="unit">SPT</span></div>
-      <span class="chip">+0.006 vs v5.2</span>
+    <section class="tile black metric" style="--c:3;--t:3" aria-labelledby="m0h" data-scr>
+      <span class="eyebrow"><i style="color:var(--cyan)"></i><span id="m0h">Family stability · 5% noise</span></span>
+      <div class="dot-num" style="color:var(--cyan)"><span data-v="10">10</span><span class="unit">top</span></div>
+      <span class="chip">seeds 42 / 43 / 44</span>
       <dl class="kv">
-        <dt>Retained vs 0% noise</dt><dd>87.3%</dd>
-        <dt>Self-match (5%)</dt><dd>592.5 pts</dd>
+        <dt>v5.4.4 ranks</dt><dd>#2 · #5 · #11</dd>
+        <dt>v5.3 ranks</dt><dd>#6 · #6 · #4</dd>
+        <dt>Protocol</dt><dd>200×1 · paired</dd>
       </dl>
     </section>
 
-    <!-- ROBUSTNESS -->
-    <div class="sec-label" id="robustness">Robustness</div>
+    <!-- RESULTS -->
+    <div class="sec-label" id="results">Results</div>
 
-    <section class="tile black" style="--c:8;--t:6" aria-labelledby="sch">
-      <div class="row">
-        <h2 id="sch">Score per turn on the payoff scale</h2>
-        <span class="eyebrow">1 cell = 0.1 SPT</span>
-      </div>
-      <div class="scale-wrap">
-        <div class="scale" id="scale">
-          <span class="lbl">v5.3 · 0%</span><div class="track r0" data-val="3.0374"></div><span class="val">3.037</span>
-          <span class="lbl">v5.3 · 5%</span><div class="track r1" data-val="2.6504"></div><span class="val" style="color:var(--cyan)">2.650</span>
-          <span class="lbl">v5.2 · 5%</span><div class="track r2" data-val="2.6444"></div><span class="val" style="color:#7d97a5">2.644</span>
-          <span></span>
-          <div class="axis" aria-hidden="true">
-            <span style="left:0">0<br><em>S</em></span>
-            <span style="left:20%">1<br><em>P</em></span>
-            <span style="left:40%">2</span>
-            <span style="left:60%">3<br><em>R</em></span>
-            <span style="left:80%">4</span>
-            <span style="left:100%">5<br><em>T</em></span>
-          </div>
-          <span></span>
+    <section class="tile black" style="--c:7;--t:6" aria-labelledby="flh">
+      <div class="row"><h2 id="flh">Full-library ranks · our versions in the pool</h2><span class="eyebrow">200 turns · 1 rep · seed 42 · paired</span></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th>Noise</th><th class="num">v5.4.4</th><th class="num">v5.4.2</th><th class="num">v5.4.1</th><th class="num">v5.3</th><th class="num">leader SPT</th></tr></thead>
+        <tbody>
+          <tr><td>0%</td><td class="num">#9</td><td class="num">#10</td><td class="num">#16</td><td class="num hl">#6</td><td class="num">664.2</td></tr>
+          <tr><td>5%</td><td class="num hl">#2</td><td class="num">#8</td><td class="num">#4</td><td class="num">#5</td><td class="num">592.2</td></tr>
+          <tr><td>10%</td><td class="num">#3</td><td class="num">#8</td><td class="num">#5</td><td class="num">#4</td><td class="num">553.9</td></tr>
+        </tbody>
+      </table></div>
+      <p class="sub">Ranks inside our tight cluster shuffle across seeds; the family reliably sits top-10 at every noise level. Deep dive, loss analysis, and out-of-sample seeds: <a class="link" href="research.html">research notebook</a>.</p>
+    </section>
+
+    <section class="tile ice" style="--c:5;--t:6" aria-labelledby="cyh" data-scr>
+      <span class="eyebrow"><i></i><span id="cyh">What v5.4.4 adds</span></span>
+      <div class="dot-num" style="font-size:clamp(40px,5vw,64px)">cycler</div>
+      <dl class="kv">
+        <dt>Periods detected</dt><dd>2–6 · window 18</dd>
+        <dt>CyclerCCD leak (5%)</dt><dd>v5.3 3.369 → v5.4.2 2.207</dd>
+        <dt>Cycler fix vs v5.4.2</dt><dd>+0.36 SPT (fresh seeds)</dd>
+        <dt>Spin-out / TTFT (5%)</dt><dd>+0.3718 SPT</dd>
+      </dl>
+      <p class="sub">Noise-tolerant, mirror-guarded period detection blocks apology against fixed cyclers so the aggressive base contour keeps exploiting.</p>
+    </section>
+
+    <section class="tile silver" style="--c:6;--t:6" aria-labelledby="sth">
+      <div class="row"><h2 id="sth">Rank stability across independent draws</h2><span class="eyebrow">full library · 5% · seeds 42 / 43 / 44</span></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th>Version</th><th class="num">seed 42</th><th class="num">seed 43</th><th class="num">seed 44</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>v5.4.4</td><td class="num">#2</td><td class="num">#5</td><td class="num">#11</td></tr>
+          <tr><td>v5.4.2</td><td class="num">#8</td><td class="num">#3</td><td class="num">#7</td></tr>
+          <tr><td>v5.3</td><td class="num">#6</td><td class="num">#6</td><td class="num">#4</td></tr>
+          <tr><td>v5.2</td><td class="num">—</td><td class="num">#2</td><td class="num">#5</td></tr>
+        </tbody>
+      </table></div>
+      <p class="sub">Out-of-sample seeds 1000–1029: TTFT +0.23, Gradual +0.23, HardProber +0.20, cycler fix +0.36; Calculator lost significance, Random −0.08.</p>
+    </section>
+
+    <section class="tile black" style="--c:6;--t:6" aria-labelledby="f3h">
+      <div class="row"><h2 id="f3h">Historical field pack · v5.3 production</h2><span class="eyebrow">32 strategies · 200×8 · seed 42</span></div>
+      <dl class="kv">
+        <dt>0% noise SPT</dt><dd>3.037 · rank 1/33</dd>
+        <dt>5% noise SPT</dt><dd>2.650 vs v5.2 2.644</dd>
+        <dt>Peak Δ vs v5.2</dt><dd>+0.034 at 3%</dd>
+        <dt>Self-match @ 5%</dt><dd>+42 pts (592.5 → 550.2)</dd>
+      </dl>
+      <p class="sub">Kept as the v5.3 baseline numbers. Full-library ranks above are the current comparison protocol.</p>
+    </section>
+
+    <!-- HISTORY -->
+    <div class="sec-label" id="history">History</div>
+
+    <section class="tile cobalt" style="--c:12;--t:6" aria-labelledby="hih">
+      <div class="row"><h2 id="hih">Model timeline</h2><span class="eyebrow">what changed · key metric</span></div>
+      <div class="timeline">
+        <div class="tl-card">
+          <div><div class="tl-ver">v5.2</div><div class="tl-meta">pre-ladder</div></div>
+          <div class="tl-body">Pre-ladder production. Epoch debt, delayed retaliation, noise-aware forgiveness, opening disambiguation, finite-horizon harvest.<p class="sub">Field @ 5%: 2.644 SPT · self-match 550.2</p></div>
+        </div>
+        <div class="tl-card">
+          <div><div class="tl-ver">v5.3</div><div class="tl-meta">previous production</div></div>
+          <div class="tl-body">Noise ladder after proven channel noise. Bit-for-bit v5.2 when the ladder is off.<p class="sub">Field @ 5%: 2.650 SPT · self-match +42 · still a valid baseline</p></div>
+        </div>
+        <div class="tl-card">
+          <div><div class="tl-ver">v5.4</div><div class="tl-meta">dead end · not a release</div></div>
+          <div class="tl-body">Early prototype. Bit-identical to v5.3 on the 221×200×0–20% protocol (26 520 matches, 0 divergences).<p class="sub">Archived as a measurement dead end — not current, not buried as “the new site”</p></div>
+        </div>
+        <div class="tl-card">
+          <div><div class="tl-ver">v5.4.1</div><div class="tl-meta">spin-out fix</div></div>
+          <div class="tl-body"><code>balance_apology</code> vs TTFT &amp; Gradual. Cuts mutual spin-out; pays a Random cost.<p class="sub">Full-lib @ 5% seed 42: #4 · TTFT +0.3718 SPT</p></div>
+        </div>
+        <div class="tl-card">
+          <div><div class="tl-ver">v5.4.2</div><div class="tl-meta">responsiveness gate</div></div>
+          <div class="tl-body">Apology only when ΔP<sub>resp</sub> ≥ 0.35. Keeps the spin-out fix, halves the Random cost of v5.4.1.<p class="sub">Full-lib @ 5% seed 42: #8 · CyclerCCD regresses to 2.207</p></div>
+        </div>
+        <div class="tl-card">
+          <div><div class="tl-ver">v5.4.3</div><div class="tl-meta">honest negative</div></div>
+          <div class="tl-body">Noise-level contour switch (quiet → static gate, noisy → responsiveness). Under channel noise it converges to v5.4.2.<p class="sub">Published as a negative result — the responsiveness gate already is the right switch</p></div>
+        </div>
+        <div class="tl-card">
+          <div><div class="tl-ver">v5.4.4</div><div class="tl-meta">current</div></div>
+          <div class="tl-body">Cycler contour: periods 2–6, window 18, noise-tolerant, mirror-guarded. Blocks apology against fixed cyclers.<p class="sub">Best of ours at 5% · full-lib seed 42: <strong>#2</strong> · cycler fix +0.36 SPT vs v5.4.2</p></div>
         </div>
       </div>
-      <p class="sub">Dashed lines mark mutual defection (P = 1) and mutual cooperation (R = 3). At 5% noise v5.3 keeps 87.3% of its 0% SPT. Peak field gain vs v5.2 is +0.034 SPT at 3% noise.</p>
+      <div class="foot"><span>■ Full ZDB trail on research/v54x</span><span><a class="link" href="research.html">Open research notebook →</a></span></div>
+    </section>
+
+    <!-- METHOD -->
+    <div class="sec-label" id="method">Method</div>
+
+    <section class="tile black" style="--c:4;--t:3" aria-labelledby="ch">
+      <div class="row"><h2 id="ch">Quick start</h2><button type="button" class="btn" id="copy">Copy</button></div>
+<pre id="code"><span class="k">import</span> axelrod <span class="k">as</span> axl
+<span class="k">from</span> zeroresp <span class="k">import</span> ZeroResp
+
+match = axl.Match((ZeroResp(), axl.TitForTat()),
+    turns=<span class="n">200</span>, seed=<span class="n">0</span>)
+match.play()
+<span class="k">print</span>(match.final_score())</pre>
+      <p class="sub">Install via <code>pip install git+https://github.com/Evreu1pro/ZeroResp.git</code>. Display name: <code>ZeroResp v5.4.4</code>.</p>
     </section>
 
     <section class="tile silver noise" style="--c:4;--t:3" aria-labelledby="nh">
@@ -258,30 +354,17 @@ footer{margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-
         <span class="sub" id="nCount">Flipped: — / 400</span>
         <button type="button" class="btn" id="resample">Resample</button>
       </div>
-      <p class="sub">Each intended move is flipped with probability 0.05, so roughly 10 of every 200 turns arrive as the opposite action.</p>
+      <p class="sub">Each intended move is flipped with probability 0.05 — roughly 10 of every 200 turns arrive flipped.</p>
     </section>
 
-    <!-- RESULTS -->
-    <div class="sec-label" id="results">Results</div>
-
-    <section class="tile ice" style="--c:4;--t:3" aria-labelledby="seth" data-scr>
-      <span class="eyebrow"><i></i><span id="seth">Tournament setup</span></span>
-      <div class="pair">
-        <div><span class="dot-num" data-v="33">33</span><small>Field pack size</small></div>
-        <div><span class="dot-num" data-v="200">200</span><small>Turns / match</small></div>
-      </div>
-      <p class="sub">8 reps · seed 42 · noise ladder on by default.</p>
+    <section class="tile ice frozen" style="--c:4;--t:6" aria-labelledby="fh">
+      <span class="eyebrow"><i></i><span id="fh">Status</span></span>
+      <div class="flake" id="flake" aria-hidden="true"></div>
+      <h2 style="font-family:var(--f-display);font-weight:900;font-size:34px;letter-spacing:.02em">CURRENT</h2>
+      <p class="sub">v5.4.4 is the production build on <code>main</code>. v5.3 kept as <code>zeroresp_v53.py</code>. Research trail: branch <code>research/v54x</code>.</p>
     </section>
 
-    <section class="tile cobalt" style="--c:4;--t:3" aria-labelledby="gth" data-scr>
-      <span class="eyebrow"><i></i><span id="gth">Self-match · 5% noise</span></span>
-      <div class="pair" style="grid-template-columns:1fr">
-        <div><span class="dot-num" data-v="+42">+42</span><small>Points vs v5.2 (592.5 → 550.2)</small></div>
-      </div>
-      <p class="sub">The ladder’s main win: ZeroResp stops fighting itself under noise. Field rank stays 1 / 33 at 0% and 5%.</p>
-    </section>
-
-    <section class="tile black" style="--c:4;--t:6" aria-labelledby="pmh">
+    <section class="tile black" style="--c:5;--t:6" aria-labelledby="pmh">
       <div class="row"><h2 id="pmh">Payoff matrix</h2><span class="eyebrow">Row player, column player</span></div>
       <div class="matrix" role="table" aria-label="Prisoner's Dilemma payoffs">
         <div class="h" role="columnheader"></div><div class="h" role="columnheader">C</div><div class="h" role="columnheader">D</div>
@@ -295,45 +378,15 @@ footer{margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-
       <p class="sub">Axelrod-Python defaults. SPT is read against this scale.</p>
     </section>
 
-    <section class="tile black" style="--c:5;--t:6" aria-labelledby="dh" data-scr>
-      <span class="eyebrow"><i style="color:var(--cyan)"></i><span id="dh">Peak field delta · 3% noise</span></span>
-      <div class="dot-num" style="font-size:clamp(64px,8vw,112px);color:var(--cyan)"><span data-v="+0.034">+0.034</span><span class="unit">SPT</span></div>
-      <dl class="kv">
-        <dt>v5.2 → v5.3 at 3%</dt><dd>2.734 → 2.768</dd>
-        <dt>At 5% field SPT</dt><dd>+0.006</dd>
-        <dt>Library rank @ 5%</dt><dd>4 / 222</dd>
-      </dl>
-    </section>
-
-    <section class="tile ice frozen" style="--c:3;--t:3" aria-labelledby="fh">
-      <span class="eyebrow"><i></i><span id="fh">Status</span></span>
-      <div class="flake" id="flake" aria-hidden="true"></div>
-      <h2 style="font-family:var(--f-display);font-weight:900;font-size:34px;letter-spacing:.02em">SHIPPED</h2>
-      <p class="sub">v5.3 is the production build.</p>
-    </section>
-
-    <!-- METHOD -->
-    <section class="tile black" style="--c:4;--t:3" aria-labelledby="ch" id="method">
-      <div class="row"><h2 id="ch">Quick start</h2><button type="button" class="btn" id="copy">Copy</button></div>
-<pre id="code"><span class="k">import</span> axelrod <span class="k">as</span> axl
-<span class="k">from</span> zeroresp <span class="k">import</span> ZeroResp
-
-match = axl.Match((ZeroResp(), axl.TitForTat()),
-    turns=<span class="n">200</span>, seed=<span class="n">0</span>)
-match.play()
-<span class="k">print</span>(match.final_score())</pre>
-      <p class="sub">Install Axelrod, drop in <code>zeroresp.py</code>, run a match. Ladder is on by default.</p>
-    </section>
-
     <section class="tile cobalt specimen" style="--c:12;--t:6" aria-label="Score glyphs">
       <span class="eyebrow"><i></i>Score per turn, the unit of every figure on this page</span>
       <div class="dot-num">SPT 0123456789</div>
       <div class="glyphs">C · D · R · T · S · P · ± · %</div>
-      <div class="foot"><span>■ ZeroResp v5.3</span><span>33 field · 200 turns · self-match +42 @ 5%</span></div>
+      <div class="foot"><span>■ ZeroResp v5.4.4</span><span>full library · 200 turns · #2 @ 5% seed 42</span></div>
     </section>
   </main>
 
-  <footer><span>ZeroResp v5.3 · Production</span><span><a href="https://github.com/Evreu1pro/ZeroResp" style="color:inherit">GitHub</a> · Axelrod-Python strategy</span></footer>
+  <footer><span>ZeroResp v5.4.4 · current</span><span><a href="research.html" style="color:inherit">Research deep dive</a> · <a href="https://github.com/Evreu1pro/ZeroResp" style="color:inherit">GitHub</a></span></footer>
 </div>
 
 <script>
@@ -490,7 +543,7 @@ if(!RM) document.querySelectorAll('[data-scr]').forEach(tile=>{
 });
 
 /* ---------- scale tracks ---------- */
-document.querySelectorAll('.track').forEach(tr=>{
+document.querySelectorAll('.track').forEach(tr=>{ if(!tr) return;
   const v=+tr.dataset.val, cells=v/0.1;
   for(let i=0;i<50;i++){
     const b=document.createElement('b');
@@ -502,7 +555,7 @@ document.querySelectorAll('.track').forEach(tr=>{
 // sweep on hover
 (() => {
   const sc=document.getElementById('scale'); let busy=false;
-  if(RM) return;
+  if(RM || !sc) return;
   sc.closest('.tile').addEventListener('pointerenter',()=>{
     if(busy) return; busy=true;
     const rows=[...sc.querySelectorAll('.track')].map(t=>[...t.children].filter(b=>b.classList.contains('on')));

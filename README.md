@@ -6,11 +6,23 @@
 [![axelrod](https://img.shields.io/badge/axelrod-compatible-orange)](https://axelrod.readthedocs.io)
 [![Site](https://img.shields.io/badge/site-evreu1pro.github.io%2FZeroResp-2fd6f2.svg)](https://evreu1pro.github.io/ZeroResp/)
 
-**Project site:** [evreu1pro.github.io/ZeroResp](https://evreu1pro.github.io/ZeroResp/)
+**Project site:** [evreu1pro.github.io/ZeroResp](https://evreu1pro.github.io/ZeroResp/) · **Research notebook:** [v5.4.x deep dive](https://evreu1pro.github.io/ZeroResp/research.html)
 
 **ZeroResp is an Iterated Prisoner's Dilemma player built around epoch debt, delayed retaliation, noise-aware forgiveness, opening disambiguation, and finite-horizon harvest.**
 
-`v5.3 = v5.2 + a noise ladder` that activates only after channel noise has been proven. With the ladder disabled, v5.3 is bit-for-bit v5.2.
+**Current version: 5.4.4** — the v5.3 noise ladder, plus responsiveness-gated apology and a cycler contour (periods 2–6, noise-tolerant, mirror-guarded). Display name: `ZeroResp v5.4.4`.
+
+| Version | Role | One-line |
+| :--- | :--- | :--- |
+| **v5.4.4** | **current** | Cycler contour; best of ours at 5% noise (full library #2, seed 42) |
+| v5.4.3 | honest negative | Noise-level contour switch; under channel noise converges to v5.4.2 |
+| v5.4.2 | research | Responsiveness gate ΔP_resp ≥ 0.35 |
+| v5.4.1 | research | Spin-out / `balance_apology` vs TTFT & Gradual |
+| v5.4 | dead end | Bit-identical to v5.3 on 26 520 matches — not a release |
+| v5.3 | previous production | Proven-noise ladder; still a valid baseline (`zeroresp_v53.py`) |
+| v5.2 | pre-ladder | Base long-memory player |
+
+The full ZDB trail (pre-registrations, JSON artifacts, runners) lives on branch [`research/v54x`](https://github.com/Evreu1pro/ZeroResp/tree/research/v54x) — that branch is the research notebook, not an archive of “the current site”.
 
 ---
 
@@ -19,17 +31,12 @@
 > **Read this first.** ZeroResp's ladder is a cooperation mechanism for a noisy channel between two fallible players. It is not a shield against one-sided exploitation, and it is not a general-purpose "better than TFT".
 
 **✅ Works in:**
-- mutual channel noise ≥10%, long horizon (≥200 turns), standard PD payoffs (R=3, T=5, S=0, P=1)
+- mutual channel noise ≥5–10%, long horizon (≥200 turns), standard PD payoffs (R=3, T=5, S=0, P=1)
 
 **❌ Fails in:**
-- **one-sided noise** (only ZeroResp perturbed, opponents clean). In that regime both v5.3 and v5.2 fall behind TitForTat and Grudger.
-- **perception-flip noise.** The ladder detects its own C→D flips; if the flips are on the input side, it never activates, and the v5.3 advantage is exactly 0.00.
-- **clean environments.** TitForTat ≥ ZeroResp at 0% noise on the full library (rank 12/222 for both v5.3 and v5.2).
-
-**⚠️ Caveats:**
-- Rank-neutral on the full library. At 10% noise both v5.3 and v5.2 are #2/222. The improvement is measurable in SPT, not in rank.
-- `trembling-hand` at 10% is on the significance boundary (BH q=0.096). Likely needs n>30 to settle.
-- External hold-out is not yet done. All reported results use the same 221-strategy pool used for tuning. This affects H1 (top-5 hold-out) only, not H2/H3/H5.
+- **one-sided noise** (only ZeroResp perturbed, opponents clean)
+- **perception-flip noise** (ladder detects own C→D flips)
+- **clean environments** at the very top of the full library (handwritten families still compete; Evolved ANN Noise variants lead under noise)
 
 > If you need a strategy for a clean or one-sided-noise environment, use TitForTat. ZeroResp is for the mutual-noise regime.
 
@@ -41,7 +48,7 @@
 pip install git+https://github.com/Evreu1pro/ZeroResp.git   # pulls axelrod>=4.12
 ```
 
-Or from a checkout (editable, handy if you want to poke at the strategy):
+Or from a checkout:
 
 ```bash
 git clone https://github.com/Evreu1pro/ZeroResp.git
@@ -49,7 +56,7 @@ cd ZeroResp
 pip install -e .
 ```
 
-Tests: `python -m unittest discover -s tests` (31 tests). Not on PyPI yet.
+Tests: `python -m unittest discover -s tests`. Not on PyPI yet.
 
 ### Quick start
 
@@ -60,125 +67,70 @@ from zeroresp import ZeroResp
 match = axl.Match((ZeroResp(), axl.TitForTat()), turns=200, seed=0)
 match.play()
 print(match.final_score())
+# ZeroResp().name == "ZeroResp v5.4.4"
 ```
 
-Disable the v5.3 ladder (recover v5.2 behavior exactly):
+Disable the noise ladder (recover pre-ladder base behaviour):
 
 ```python
 from zeroresp import Features, ZeroResp
 ZeroResp(features=Features(noise_ladder=False))
 ```
 
+Historical v5.3 freeze: `from zeroresp_v53 import ZeroResp`.
+
 ---
 
-### Evidence
+### Evidence (headline)
 
-All results use `R=3, T=5, S=0, P=1, 200 turns`, and are reproducible from `benchmarks/`.
-Statistics and write-up: [`RESEARCH_v53.md`](RESEARCH_v53.md), raw runs in [`benchmarks/results/`](benchmarks/results/). (`BHNS_v53.md` / `STRESS_v53.md` aren't published yet — they'll land in `docs/` once the hold-out is done.)
+Full-library round-robin with our versions inside the pool (~230 players, 200 turns × 1 rep, paired seeds). Seed 42:
 
-#### 1. Full library round-robin (222 strategies)
+| Noise | v5.4.4 | v5.4.2 | v5.4.1 | v5.3 | leader SPT |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 0% | #9 | #10 | #16 | #6 | 664.2 |
+| 5% | **#2** | #8 | #4 | #5 | 592.2 |
+| 10% | #3 | #8 | #5 | #4 | 553.9 |
 
-Score-per-turn (SPT) and rank. Round-robin over the full Axelrod library with all players subject to the same channel noise.
+Rank stability at 5% (seeds 42 / 43 / 44): v5.4.4 #2 / #5 / #11; family holds top-10 on every draw. Cycler contour recovers +0.36 SPT vs v5.4.2 on CyclerCCD (fresh seeds). Details and honesty audit: [research page](https://evreu1pro.github.io/ZeroResp/research.html).
 
-| Noise | v5.3 rank | v5.2 rank | v5.3 SPT | v5.2 SPT |
-| :--- | :--- | :--- | :--- | :--- |
-| 0% | 12 / 222 | 12 / 222 | 627.2 | 627.2 |
-| 1% | 5 / 222 | 5 / 222 | 575.9 | 575.2 |
-| 3% | 5 / 222 | 5 / 222 | 549.3 | 548.0 |
-| 5% | 4 / 222 | 3 / 222 | 536.9 | 539.7 |
-| 10% | 2 / 222 | 2 / 222 | 516.5 | 513.3 |
+#### Historical field pack (v5.3 production)
 
-Reading: the dirtier the channel, the higher ZeroResp ranks. At 10% only one strategy sits above it — **Evolved ANN 5 Noise 05**, an evolutionary machine trained specifically for noise. Every handwritten family (TFT, Grudger, ZD, Prober) is below.
-
-#### 2. Field pack (32 strategies)
-
-Mean SPT over the field pack, `200 turns × 8 reps × seed 42`.
+Mean SPT, 32-strategy pack, `200 turns × 8 reps × seed 42`:
 
 | Noise | v5.3 | v5.2 | Δ | Self-match v5.3 → v5.2 |
 | :--- | :--- | :--- | :--- | :--- |
 | 0% | 3.0374 | 3.0371 | +0.0003 | 598 → 598 |
-| 1% | 2.8871 | 2.8856 | +0.0016 | 590 → 591 |
 | 3% | 2.7681 | 2.7338 | +0.0342 | 592 → 590 |
-| 5% | 2.6504 | 2.6444 | +0.0060 | 592.5 → 550.2 |
-| 10% | 2.4845 | 2.4787 | +0.0058 | 544 → 539 |
+| 5% | 2.6504 | 2.6444 | +0.0060 | **592.5 → 550.2** |
 
-> Round-robin rank on the field pack: 1/33 at 0% and 5% for both builds.
-
-The largest single effect at 5% noise is **self-match (+42 points)**: the ladder stops the strategy from fighting itself. HardProber improves by ~+0.35 SPT; the known soft regression is TrickyCooperator (−0.24 SPT).
-
-#### 3. Head-to-head: v5.3 vs v5.2 under matched noise (BHNS)
-
-> Scripts and raw data for this section aren't published yet (see [Reproduce](#reproduce-the-evidence)).
-
-Blind hold-out & noise-model stress, 30 seeds per key cell. Unit of analysis is the per-seed mean SPT, not per-opponent pairs — a naive pooled Wilcoxon over 990 correlated pairs inflates significance by ~7 orders of magnitude (p=7.5e-21 naive vs p=6.1e-04 correct). Holm–Bonferroni over the family of 15 tests; effect size is Cliff's δ.
-
-| Noise model | 10% | 20% |
-| :--- | :--- | :--- |
-| **action flip** | +0.02 (p_Holm=0.007, δ=0.19) | +0.05 (p_Holm=0.041) |
-| **random move** | +0.01 (p_Holm<0.0001, δ=0.21) | +0.02 (p_Holm=0.0014) |
-| **trembling hand** | ns (BH q=0.096) | +0.07 (p_Holm=0.0033) |
-| **perception flip** | 0.00 (p=0.38–0.88) | 0.00 |
-
-Values are median Δ score-per-turn between v5.3 and v5.2 (positive = v5.3 better). At 1–5% noise, both models are at parity — the ladder does not activate, and there is nothing to gain.
-
-**Falsifiable prediction (perception flip):** the ladder detects the strategy's own C→D flips. Under perception-flip noise those flips never happen, so the ladder should never activate, so the v5.3 advantage should be zero. Measured result: Δ = 0.00 across all noise levels. This is the strongest single piece of evidence that the effect is a mechanism and not a parameter artifact.
-
-**Robustness.** Jackknife over opponents: the sign of Δ is stable in 32/32 leave-one-out folds across all six key cells. The effect does not rest on one or two convenient opponents.
-
-**Practical significance — honest version.** At 10% noise, Δ ≈ +0.025 score-per-turn ≈ +5 points per 200-turn match ≈ +0.95% of base SPT. On the full library this does not change the rank (both versions #2/222). The value is concentrated in specific head-to-heads and grows with match length (e.g. HardProber: +0.71 SPT at 1000 turns). This is an academic result with targeted practical value, not a general performance leap.
-
-#### Why trembling-hand 10% does not survive correction
-
-Working hypothesis was "the ladder requires action-flip noise." Data disproves it: the effect size is the same as for action flip (median +0.016 vs +0.025, δ=+0.19 in both). The failure to survive Holm is a variance story: std 0.083 vs 0.065, negative seeds 8/30 vs 5/30. Mechanism: trembling-hand flips are all C→D and fully detectable, but each one is a pure loss (no "useful" random D→C), which inflates variance across seeds. Prediction: with n>30 this cell should settle positive. Status: hypothesis, not result.
+Older library tables and BHNS protocol notes: [`RESEARCH_v53.md`](RESEARCH_v53.md), raw runs in [`benchmarks/results/`](benchmarks/results/).
 
 ---
 
-### Reproduce the evidence
+### Reproduce
 
 ```bash
-# Field pack benchmark
-python benchmarks/run_field.py --pack field --turns 200 --reps 8 --seed 42 --noise 0 0.05
-python benchmarks/run_field.py --pack field --turns 200 --reps 8 --seed 42 --noise 0 0.05 --no-ladder
-python benchmarks/compare_runs.py OLD.json NEW.json
-
-# Sweep used for RESEARCH_v53.md (field / full / 1000-turn / top opponents, v5.3 vs v5.2)
-bash benchmarks/run_research.sh
-
 # Unit tests
 python -m unittest tests.test_zeroresp tests.test_noise_ladder -v
+
+# Field pack benchmark
+python benchmarks/run_field.py --pack field --turns 200 --reps 8 --seed 42 --noise 0 0.05
 ```
 
-**BHNS (section 3) — coming soon.** The BHNS runner/analysis scripts, the frozen train / hold-out split and the raw per-seed data are not in this repo yet, so section 3 can't be reproduced from here today. They'll be published together with `docs/BHNS_v53.md` once the hold-out is done. Sections 1–2 come from `run_field.py` (commands above); raw runs are in [`benchmarks/results/research/`](benchmarks/results/research/).
+Full-library / ZDB runners and JSON: branch `research/v54x`.
 
 ---
 
-### Algorithm
+### Algorithm (current)
 
-**ZeroResp v5.3 = ZeroResp v5.2 + noise ladder.** `--no-ladder` recovers v5.2 bit-for-bit; every claimed effect is a paired difference under identical seed and noise.
+**ZeroResp v5.4.4 = v5.3 ladder + responsiveness-gated apology + cycler contour.**
 
-**Base (v5.2):**
-- Opening D retort — answer an opening D on turn 2; resync with C if their second move was C.
-- Contrite / bad standing — if our intended C was realized as D by match noise, the opponent's reply D is not treated as an attack.
-- Generous forgiveness — under estimated noise, stochastic forgive; hard-forgive very high cooperation rates.
-- Red-line cooldown — under noise, grim is temporary with periodic C probes.
-- End-game harvest — only with known finite length and a short remaining window.
-- Profiles — class-level memory across rematches in a tournament process.
+- **Base (v5.2):** opening D retort, contrite / bad standing, generous forgiveness, red-line cooldown, end-game harvest, class-level profiles.
+- **v5.3 — noise ladder:** proven-noise gate; unexplained-D evidence; delayed pardonable retaliation.
+- **v5.4.1–2 — apology gates:** `balance_apology` with ΔP_resp ≥ 0.35 so Random does not trigger spin-out recovery.
+- **v5.4.4 — cycler contour:** fixed-period detection (2–6, window 18) blocks apology against proven cyclers.
 
-**New in v5.3 — noise ladder:**
-- Proven-noise gate. The ladder stays dormant at 0% noise; behavior matches v5.2 exactly.
-- Unexplained-D evidence ladder. Opponent D after our realized C accumulates evidence; early strikes are deferred and pardonable.
-- Delayed pardonable retaliation (v5.3-I). Planned strike with random delay; cancelled if the opponent clears with a clean C streak.
-
-#### What we did not ship
-
-Negative results are results. These were tried and rejected.
-
-| Idea | Why it died |
-| :--- | :--- |
-| Handshake = play C,D after their C | +~400 vs Handshake, grim-triggers Grudger |
-| Cycle-break D on turn ~20 vs AllC | Calculator hunter; Joss-lock / 5% self-match collapse |
-| WSLS "C after DD" | Nukes Alternator / Negation |
-| v5.3 cycle-break when opp_defects == 0 | Grudger 602 → 239 |
+Negative results (shipped as such): v5.4 bit-identical dead end; v5.4.3 noise-level contour converges to v5.4.2 under channel noise.
 
 ---
 
@@ -186,47 +138,37 @@ Negative results are results. These were tried and rejected.
 
 ```
 .
-├── zeroresp.py                          # Canonical v5.3 module
+├── zeroresp.py                          # Canonical v5.4.4 module
+├── zeroresp_v544.py                     # Same as research v5.4.4 source
+├── zeroresp_v53.py                      # Frozen previous production
 ├── axelrod/                             # Drop-in copy for an Axelrod-Python checkout
-│   ├── strategies/zeroresp.py
-│   └── tests/strategies/test_zeroresp.py
 ├── tests/
-│   ├── test_zeroresp.py
-│   └── test_noise_ladder.py
 ├── benchmarks/
-│   ├── run_field.py
-│   ├── compare_runs.py
-│   ├── trajectory_check.py
-│   ├── match_viewer.py
-│   ├── run_research.sh
-│   ├── RESULTS.md
-│   ├── data/                            # Summary excerpts + aggregate ranking CSV
-│   ├── results/                         # Raw field-run JSON/MD
-│   └── viewer/                          # Generated match HTML (match_*.html gitignored)
-├── docs/                                # GitHub Pages site (index.html)
+├── docs/                                # GitHub Pages (index = current, research = deep dive)
 ├── RESEARCH_v53.md                      # v5.3 vs v5.2 evidence summary
-├── REGISTRATION.md
 ├── CITATION.cff
 ├── LICENSE
 ├── pyproject.toml
 └── README.md
 ```
 
+Research artifacts for the v5.4.x cycle: [`research/v54x`](https://github.com/Evreu1pro/ZeroResp/tree/research/v54x).
+
 ---
 
 ### Citation
 
 ```bibtex
-@software{zeroresp_v53,
+@software{zeroresp_v544,
   author = {Evreu1pro},
-  title = {ZeroResp v5.3: a long-memory IPD strategy with a noise ladder},
+  title = {ZeroResp v5.4.4: noise ladder, responsiveness gates, and cycler contour},
   year = {2026},
-  version = {5.3.0},
+  version = {5.4.4},
   url = {https://github.com/Evreu1pro/ZeroResp}
 }
 ```
 
-If you use the BHNS protocol or the perception-flip control in your own work, please cite the repository directly. See `CITATION.cff` for a machine-readable entry.
+See `CITATION.cff` for a machine-readable entry. The v5.4.x research cycle was developed with GLM (Z.ai) under human direction; see the [research page](https://evreu1pro.github.io/ZeroResp/research.html) attribution section.
 
 ### License
 

@@ -1,10 +1,10 @@
 cff-version: 1.2.0
 message: "If you use ZeroResp, the BHNS protocol or the perception-flip control in your work, please cite it as below."
-title: "ZeroResp v5.3: a long-memory IPD strategy with a noise ladder"
+title: "ZeroResp v5.4.4: noise ladder, responsiveness gates, and cycler contour"
 type: software
 authors:
   - alias: Evreu1pro
-version: 5.3.0
+version: 5.4.4
 license: MIT
 repository-code: "https://github.com/Evreu1pro/ZeroResp"
 url: "https://evreu1pro.github.io/ZeroResp/"
