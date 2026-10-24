@@ -26,6 +26,18 @@ The full ZDB trail (pre-registrations, JSON artifacts, runners) lives on branch 
 
 ---
 
+### Attribution / Use of AI tools
+
+**Basis.** Production through v5.3 is the human-directed ZeroResp line (noise ladder).
+
+**v5.4.x.** Built on that v5.3 basis with AI coding agents under human direction: the human set hypotheses, review criteria, and every release decision; agents implemented runners, ran batteries, and drafted reports.
+
+**Tools.** Primary coding agent for the v5.4.x cycle: **GLM (Z.ai)**. Site updates, GitHub packaging, CI/monitoring and publication support: **Grok Bot**. Autocomplete and spelling fixes do not count.
+
+The maintainer of this repo is responsible for the contribution and can explain the strategy decisions.
+
+---
+
 ### Scope & Limitations
 
 > **Read this first.** ZeroResp's ladder is a cooperation mechanism for a noisy channel between two fallible players. It is not a shield against one-sided exploitation, and it is not a general-purpose "better than TFT".

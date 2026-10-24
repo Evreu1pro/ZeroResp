@@ -221,9 +221,14 @@ a.link:hover{border-bottom-color:var(--cyan)}
     </section>
 
     <section class="tile black" style="--c:5;--t:6" aria-labelledby="ath">
-      <div class="row"><h2 id="ath">Attribution</h2></div>
-      <p class="sub">The v5.4.x research cycle — ZDB validation, full-library tournaments, loss analysis, hybrid contours v5.4.3/v5.4.4, stability audit — was developed <strong>with GLM (Z.ai) as the primary coding agent, under human direction</strong>: the human set hypotheses, review criteria and every release decision; the agent implemented runners, ran the batteries and drafted the reports. v5.3 was the previous production release; <strong>v5.4.4 is current</strong> on the main site. This page keeps the full research notebook for the cycle that produced it.</p>
-      <p class="sub">Full provenance lives in the repository: pre-registration files are committed before their test runs, and the git history separates the research branches from the release line.</p>
+      <div class="row"><h2 id="ath">Attribution / Use of AI tools</h2></div>
+      <dl class="kv">
+        <dt>Basis</dt><dd>Production through v5.3 is the human-directed ZeroResp line (noise ladder).</dd>
+        <dt>v5.4.x</dt><dd>Built on that v5.3 basis with AI coding agents under human direction: the human set hypotheses, review criteria, and every release decision; agents implemented runners, ran batteries, and drafted reports.</dd>
+        <dt>Tools</dt><dd>Primary coding agent for the v5.4.x cycle: <strong>GLM (Z.ai)</strong>. Site updates, GitHub packaging, CI/monitoring and publication support: <strong>Grok Bot</strong>. Autocomplete and spelling fixes do not count.</dd>
+        <dt>Responsibility</dt><dd>The maintainer of this repo is responsible for the contribution and can explain the strategy decisions. v5.4.4 is current on the main site; this page keeps the research notebook for the cycle that produced it.</dd>
+      </dl>
+      <p class="sub">Full provenance lives in the repository: pre-registration files are committed before their test runs, and the git history separates the research branches from the release line. One disclosure block is enough — no per-line AI markers.</p>
       <div class="foot"><span>■ Honest by design</span><span>check the commits</span></div>
     </section>
   </main>
