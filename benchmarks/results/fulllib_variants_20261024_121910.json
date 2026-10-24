@@ -1,0 +1,1413 @@
+{
+ "config": {
+  "noises": [
+   0.05
+  ],
+  "turns": 200,
+  "reps": 1,
+  "seed": 44
+ },
+ "regimes": [
+  {
+   "noise": 0.05,
+   "turns": 200,
+   "reps": 1,
+   "seed": 44,
+   "players": 230,
+   "rows": [
+    {
+     "pos": 1,
+     "idx": 59,
+     "name": "Evolved ANN 5 Noise 05",
+     "spt": 591.975
+    },
+    {
+     "pos": 2,
+     "idx": 4,
+     "name": "v5.4.3",
+     "spt": 572.135
+    },
+    {
+     "pos": 3,
+     "idx": 2,
+     "name": "v5.4.1",
+     "spt": 569.695
+    },
+    {
+     "pos": 4,
+     "idx": 0,
+     "name": "v5.3",
+     "spt": 568.18
+    },
+    {
+     "pos": 5,
+     "idx": 8,
+     "name": "v5.2",
+     "spt": 563.475
+    },
+    {
+     "pos": 6,
+     "idx": 1,
+     "name": "v5.4",
+     "spt": 561.815
+    },
+    {
+     "pos": 7,
+     "idx": 3,
+     "name": "v5.4.2",
+     "spt": 560.66
+    },
+    {
+     "pos": 8,
+     "idx": 61,
+     "name": "Evolved FSM 16 Noise 05",
+     "spt": 558.86
+    },
+    {
+     "pos": 9,
+     "idx": 57,
+     "name": "Evolved ANN",
+     "spt": 558.58
+    },
+    {
+     "pos": 10,
+     "idx": 6,
+     "name": "v5.5",
+     "spt": 556.745
+    },
+    {
+     "pos": 11,
+     "idx": 5,
+     "name": "v5.4.4",
+     "spt": 556.1
+    },
+    {
+     "pos": 12,
+     "idx": 157,
+     "name": "Second by Borufsen",
+     "spt": 554.245
+    },
+    {
+     "pos": 13,
+     "idx": 7,
+     "name": "v5.6",
+     "spt": 553.42
+    },
+    {
+     "pos": 14,
+     "idx": 170,
+     "name": "Second by RichardHufford",
+     "spt": 552.59
+    },
+    {
+     "pos": 15,
+     "idx": 171,
+     "name": "Second by Rowsam",
+     "spt": 548.925
+    },
+    {
+     "pos": 16,
+     "idx": 115,
+     "name": "Level Punisher",
+     "spt": 545.73
+    },
+    {
+     "pos": 17,
+     "idx": 176,
+     "name": "Second by White",
+     "spt": 545.175
+    },
+    {
+     "pos": 18,
+     "idx": 127,
+     "name": "Omega TFT",
+     "spt": 539.935
+    },
+    {
+     "pos": 19,
+     "idx": 152,
+     "name": "Revised Downing",
+     "spt": 537.825
+    },
+    {
+     "pos": 20,
+     "idx": 169,
+     "name": "Second by Mikkelson",
+     "spt": 537.055
+    },
+    {
+     "pos": 21,
+     "idx": 50,
+     "name": "DoubleCrosser",
+     "spt": 535.9
+    },
+    {
+     "pos": 22,
+     "idx": 63,
+     "name": "Evolved FSM 6",
+     "spt": 535.72
+    },
+    {
+     "pos": 23,
+     "idx": 158,
+     "name": "Second by Cave",
+     "spt": 533.995
+    },
+    {
+     "pos": 24,
+     "idx": 174,
+     "name": "Second by Tranquilizer",
+     "spt": 533.485
+    },
+    {
+     "pos": 25,
+     "idx": 52,
+     "name": "Doubler",
+     "spt": 531.915
+    },
+    {
+     "pos": 26,
+     "idx": 178,
+     "name": "Second by Yamachi",
+     "spt": 531.34
+    },
+    {
+     "pos": 27,
+     "idx": 100,
+     "name": "Grumpy",
+     "spt": 530.45
+    },
+    {
+     "pos": 28,
+     "idx": 166,
+     "name": "Second by Harrington",
+     "spt": 530.24
+    },
+    {
+     "pos": 29,
+     "idx": 167,
+     "name": "Second by Kluepfel",
+     "spt": 529.995
+    },
+    {
+     "pos": 30,
+     "idx": 93,
+     "name": "Soft Go By Majority: 40",
+     "spt": 528.865
+    },
+    {
+     "pos": 31,
+     "idx": 164,
+     "name": "Second by GraaskampKatzen",
+     "spt": 528.73
+    },
+    {
+     "pos": 32,
+     "idx": 91,
+     "name": "Soft Go By Majority: 10",
+     "spt": 527.51
+    },
+    {
+     "pos": 33,
+     "idx": 133,
+     "name": "PSO Gambler 2_2_2 Noise 05",
+     "spt": 527.335
+    },
+    {
+     "pos": 34,
+     "idx": 130,
+     "name": "Original Gradual",
+     "spt": 526.845
+    },
+    {
+     "pos": 35,
+     "idx": 70,
+     "name": "First by Downing",
+     "spt": 526.23
+    },
+    {
+     "pos": 36,
+     "idx": 161,
+     "name": "Second by Eatherley",
+     "spt": 525.07
+    },
+    {
+     "pos": 37,
+     "idx": 199,
+     "name": "Tit For 2 Tats",
+     "spt": 524.135
+    },
+    {
+     "pos": 38,
+     "idx": 77,
+     "name": "First by Stein and Rapoport",
+     "spt": 522.695
+    },
+    {
+     "pos": 39,
+     "idx": 221,
+     "name": "ZD-GTFT-2",
+     "spt": 522.23
+    },
+    {
+     "pos": 40,
+     "idx": 55,
+     "name": "EugineNier",
+     "spt": 522.015
+    },
+    {
+     "pos": 41,
+     "idx": 173,
+     "name": "Second by Tideman and Chieruzzi",
+     "spt": 521.93
+    },
+    {
+     "pos": 42,
+     "idx": 227,
+     "name": "Memory Decay",
+     "spt": 521.64
+    },
+    {
+     "pos": 43,
+     "idx": 184,
+     "name": "Soft Joss",
+     "spt": 521.405
+    },
+    {
+     "pos": 44,
+     "idx": 90,
+     "name": "Soft Go By Majority",
+     "spt": 521.215
+    },
+    {
+     "pos": 45,
+     "idx": 84,
+     "name": "Forgiving Tit For Tat",
+     "spt": 521.075
+    },
+    {
+     "pos": 46,
+     "idx": 35,
+     "name": "Contrite Tit For Tat",
+     "spt": 521.005
+    },
+    {
+     "pos": 47,
+     "idx": 189,
+     "name": "Stalker",
+     "spt": 520.705
+    },
+    {
+     "pos": 48,
+     "idx": 53,
+     "name": "Dynamic Two Tits For Tat",
+     "spt": 520.665
+    },
+    {
+     "pos": 49,
+     "idx": 180,
+     "name": "ShortMem",
+     "spt": 520.485
+    },
+    {
+     "pos": 50,
+     "idx": 207,
+     "name": "VeryBad",
+     "spt": 520.415
+    },
+    {
+     "pos": 51,
+     "idx": 122,
+     "name": "Momentum",
+     "spt": 519.55
+    },
+    {
+     "pos": 52,
+     "idx": 88,
+     "name": "GTFT",
+     "spt": 519.455
+    },
+    {
+     "pos": 53,
+     "idx": 187,
+     "name": "Spiteful Tit For Tat",
+     "spt": 518.665
+    },
+    {
+     "pos": 54,
+     "idx": 156,
+     "name": "Second by Black",
+     "spt": 518.485
+    },
+    {
+     "pos": 55,
+     "idx": 92,
+     "name": "Soft Go By Majority: 20",
+     "spt": 518.465
+    },
+    {
+     "pos": 56,
+     "idx": 18,
+     "name": "Alexei",
+     "spt": 517.345
+    },
+    {
+     "pos": 57,
+     "idx": 177,
+     "name": "Second by WmAdams",
+     "spt": 513.825
+    },
+    {
+     "pos": 58,
+     "idx": 96,
+     "name": "Gradual",
+     "spt": 513.79
+    },
+    {
+     "pos": 59,
+     "idx": 14,
+     "name": "Adaptive Tit For Tat",
+     "spt": 513.275
+    },
+    {
+     "pos": 60,
+     "idx": 159,
+     "name": "Second by Champion",
+     "spt": 512.82
+    },
+    {
+     "pos": 61,
+     "idx": 222,
+     "name": "ZD-GEN-2",
+     "spt": 512.775
+    },
+    {
+     "pos": 62,
+     "idx": 120,
+     "name": "Math Constant Hunter",
+     "spt": 511.845
+    },
+    {
+     "pos": 63,
+     "idx": 94,
+     "name": "Soft Go By Majority: 5",
+     "spt": 511.8
+    },
+    {
+     "pos": 64,
+     "idx": 128,
+     "name": "Once Bitten",
+     "spt": 511.695
+    },
+    {
+     "pos": 65,
+     "idx": 181,
+     "name": "Slow Tit For Two Tats 2",
+     "spt": 511.56
+    },
+    {
+     "pos": 66,
+     "idx": 162,
+     "name": "Second by Getzler",
+     "spt": 511.27
+    },
+    {
+     "pos": 67,
+     "idx": 26,
+     "name": "BackStabber",
+     "spt": 510.895
+    },
+    {
+     "pos": 68,
+     "idx": 108,
+     "name": "Hard Tit For 2 Tats",
+     "spt": 510.735
+    },
+    {
+     "pos": 69,
+     "idx": 51,
+     "name": "DoubleResurrection",
+     "spt": 510.075
+    },
+    {
+     "pos": 70,
+     "idx": 200,
+     "name": "Tit For Tat",
+     "spt": 510.045
+    },
+    {
+     "pos": 71,
+     "idx": 165,
+     "name": "Second by Grofman",
+     "spt": 509.95
+    },
+    {
+     "pos": 72,
+     "idx": 148,
+     "name": "Resurrection",
+     "spt": 509.42
+    },
+    {
+     "pos": 73,
+     "idx": 71,
+     "name": "First by Feld",
+     "spt": 509.28
+    },
+    {
+     "pos": 74,
+     "idx": 107,
+     "name": "Hard Prober",
+     "spt": 508.715
+    },
+    {
+     "pos": 75,
+     "idx": 145,
+     "name": "Random Hunter",
+     "spt": 508.25
+    },
+    {
+     "pos": 76,
+     "idx": 67,
+     "name": "Firm But Fair",
+     "spt": 507.175
+    },
+    {
+     "pos": 77,
+     "idx": 175,
+     "name": "Second by Weiner",
+     "spt": 506.97
+    },
+    {
+     "pos": 78,
+     "idx": 137,
+     "name": "Prober",
+     "spt": 505.885
+    },
+    {
+     "pos": 79,
+     "idx": 72,
+     "name": "First by Graaskamp",
+     "spt": 505.61
+    },
+    {
+     "pos": 80,
+     "idx": 62,
+     "name": "Evolved FSM 4",
+     "spt": 505.215
+    },
+    {
+     "pos": 81,
+     "idx": 123,
+     "name": "N Tit(s) For M Tat(s)",
+     "spt": 503.475
+    },
+    {
+     "pos": 82,
+     "idx": 172,
+     "name": "Second by Tester",
+     "spt": 503.255
+    },
+    {
+     "pos": 83,
+     "idx": 168,
+     "name": "Second by Leyvraz",
+     "spt": 502.905
+    },
+    {
+     "pos": 84,
+     "idx": 32,
+     "name": "CAPRI",
+     "spt": 501.535
+    },
+    {
+     "pos": 85,
+     "idx": 81,
+     "name": "Forgetful Fool Me Once",
+     "spt": 501.21
+    },
+    {
+     "pos": 86,
+     "idx": 147,
+     "name": "Remorseful Prober",
+     "spt": 500.685
+    },
+    {
+     "pos": 87,
+     "idx": 126,
+     "name": "Nice Average Copier",
+     "spt": 500.45
+    },
+    {
+     "pos": 88,
+     "idx": 160,
+     "name": "Second by Colbert",
+     "spt": 499.995
+    },
+    {
+     "pos": 89,
+     "idx": 80,
+     "name": "Fool Me Once",
+     "spt": 499.905
+    },
+    {
+     "pos": 90,
+     "idx": 155,
+     "name": "Second by Appold",
+     "spt": 499.785
+    },
+    {
+     "pos": 91,
+     "idx": 143,
+     "name": "Raider",
+     "spt": 499.68
+    },
+    {
+     "pos": 92,
+     "idx": 192,
+     "name": "Suspicious Tit For Tat",
+     "spt": 499.625
+    },
+    {
+     "pos": 93,
+     "idx": 15,
+     "name": "AdaptorBrief",
+     "spt": 499.5
+    },
+    {
+     "pos": 94,
+     "idx": 75,
+     "name": "First by Nydegger",
+     "spt": 499.395
+    },
+    {
+     "pos": 95,
+     "idx": 74,
+     "name": "First by Joss",
+     "spt": 499.19
+    },
+    {
+     "pos": 96,
+     "idx": 29,
+     "name": "Burn Both Ends",
+     "spt": 498.255
+    },
+    {
+     "pos": 97,
+     "idx": 78,
+     "name": "First by Tideman and Chieruzzi",
+     "spt": 498.155
+    },
+    {
+     "pos": 98,
+     "idx": 64,
+     "name": "Evolved HMM 5",
+     "spt": 496.455
+    },
+    {
+     "pos": 99,
+     "idx": 76,
+     "name": "First by Shubik",
+     "spt": 496.245
+    },
+    {
+     "pos": 100,
+     "idx": 163,
+     "name": "Second by Gladstein",
+     "spt": 495.865
+    },
+    {
+     "pos": 101,
+     "idx": 139,
+     "name": "Prober 3",
+     "spt": 495.695
+    },
+    {
+     "pos": 102,
+     "idx": 13,
+     "name": "Adaptive",
+     "spt": 495.025
+    },
+    {
+     "pos": 103,
+     "idx": 215,
+     "name": "Worse and Worse 3",
+     "spt": 494.695
+    },
+    {
+     "pos": 104,
+     "idx": 31,
+     "name": "Calculator",
+     "spt": 493.36
+    },
+    {
+     "pos": 105,
+     "idx": 105,
+     "name": "Hard Go By Majority: 40",
+     "spt": 493.26
+    },
+    {
+     "pos": 106,
+     "idx": 73,
+     "name": "First by Grofman",
+     "spt": 493.025
+    },
+    {
+     "pos": 107,
+     "idx": 138,
+     "name": "Prober 2",
+     "spt": 492.935
+    },
+    {
+     "pos": 108,
+     "idx": 183,
+     "name": "Soft Grudger",
+     "spt": 492.465
+    },
+    {
+     "pos": 109,
+     "idx": 25,
+     "name": "Average Copier",
+     "spt": 492.43
+    },
+    {
+     "pos": 110,
+     "idx": 49,
+     "name": "Detective",
+     "spt": 492.305
+    },
+    {
+     "pos": 111,
+     "idx": 60,
+     "name": "Evolved FSM 16",
+     "spt": 491.005
+    },
+    {
+     "pos": 112,
+     "idx": 83,
+     "name": "Forgiver",
+     "spt": 490.875
+    },
+    {
+     "pos": 113,
+     "idx": 124,
+     "name": "Naive Prober",
+     "spt": 490.81
+    },
+    {
+     "pos": 114,
+     "idx": 121,
+     "name": "Michaelos",
+     "spt": 490.25
+    },
+    {
+     "pos": 115,
+     "idx": 114,
+     "name": "Knowledgeable Worse and Worse",
+     "spt": 489.555
+    },
+    {
+     "pos": 116,
+     "idx": 214,
+     "name": "Worse and Worse 2",
+     "spt": 489.42
+    },
+    {
+     "pos": 117,
+     "idx": 223,
+     "name": "ZD-Mem2",
+     "spt": 489.335
+    },
+    {
+     "pos": 118,
+     "idx": 89,
+     "name": "General Soft Grudger",
+     "spt": 489.265
+    },
+    {
+     "pos": 119,
+     "idx": 153,
+     "name": "Ripoff",
+     "spt": 488.81
+    },
+    {
+     "pos": 120,
+     "idx": 11,
+     "name": "Adaptive Pavlov 2006",
+     "spt": 488.695
+    },
+    {
+     "pos": 121,
+     "idx": 195,
+     "name": "TF3",
+     "spt": 488.31
+    },
+    {
+     "pos": 122,
+     "idx": 87,
+     "name": "FrequencyAnalyzer",
+     "spt": 487.915
+    },
+    {
+     "pos": 123,
+     "idx": 58,
+     "name": "Evolved ANN 5",
+     "spt": 487.255
+    },
+    {
+     "pos": 124,
+     "idx": 79,
+     "name": "First by Tullock",
+     "spt": 487.145
+    },
+    {
+     "pos": 125,
+     "idx": 141,
+     "name": "Pun1",
+     "spt": 485.915
+    },
+    {
+     "pos": 126,
+     "idx": 228,
+     "name": "Meta Hunter",
+     "spt": 485.91
+    },
+    {
+     "pos": 127,
+     "idx": 134,
+     "name": "PSO Gambler Mem1",
+     "spt": 485.77
+    },
+    {
+     "pos": 128,
+     "idx": 182,
+     "name": "Sneaky Tit For Tat",
+     "spt": 485.685
+    },
+    {
+     "pos": 129,
+     "idx": 66,
+     "name": "EvolvedLookerUp2_2_2",
+     "spt": 485.675
+    },
+    {
+     "pos": 130,
+     "idx": 119,
+     "name": "MEM2",
+     "spt": 484.5
+    },
+    {
+     "pos": 131,
+     "idx": 208,
+     "name": "Willing",
+     "spt": 484.28
+    },
+    {
+     "pos": 132,
+     "idx": 104,
+     "name": "Hard Go By Majority: 20",
+     "spt": 483.81
+    },
+    {
+     "pos": 133,
+     "idx": 103,
+     "name": "Hard Go By Majority: 10",
+     "spt": 483.735
+    },
+    {
+     "pos": 134,
+     "idx": 112,
+     "name": "Inverse",
+     "spt": 483.625
+    },
+    {
+     "pos": 135,
+     "idx": 102,
+     "name": "Hard Go By Majority",
+     "spt": 482.4
+    },
+    {
+     "pos": 136,
+     "idx": 188,
+     "name": "SpitefulCC",
+     "spt": 482.32
+    },
+    {
+     "pos": 137,
+     "idx": 131,
+     "name": "PSO Gambler 1_1_1",
+     "spt": 480.685
+    },
+    {
+     "pos": 138,
+     "idx": 129,
+     "name": "Opposite Grudger",
+     "spt": 479.615
+    },
+    {
+     "pos": 139,
+     "idx": 69,
+     "name": "First by Davis",
+     "spt": 479.495
+    },
+    {
+     "pos": 140,
+     "idx": 132,
+     "name": "PSO Gambler 2_2_2",
+     "spt": 479.155
+    },
+    {
+     "pos": 141,
+     "idx": 98,
+     "name": "Grudger",
+     "spt": 479.115
+    },
+    {
+     "pos": 142,
+     "idx": 65,
+     "name": "EvolvedLookerUp1_1_1",
+     "spt": 478.2
+    },
+    {
+     "pos": 143,
+     "idx": 154,
+     "name": "Risky QLearner",
+     "spt": 477.67
+    },
+    {
+     "pos": 144,
+     "idx": 109,
+     "name": "Hard Tit For Tat",
+     "spt": 477.665
+    },
+    {
+     "pos": 145,
+     "idx": 33,
+     "name": "Cautious QLearner",
+     "spt": 477.53
+    },
+    {
+     "pos": 146,
+     "idx": 106,
+     "name": "Hard Go By Majority: 5",
+     "spt": 477.195
+    },
+    {
+     "pos": 147,
+     "idx": 213,
+     "name": "Worse and Worse",
+     "spt": 476.96
+    },
+    {
+     "pos": 148,
+     "idx": 99,
+     "name": "GrudgerAlternator",
+     "spt": 476.925
+    },
+    {
+     "pos": 149,
+     "idx": 110,
+     "name": "Hesitant QLearner",
+     "spt": 476.57
+    },
+    {
+     "pos": 150,
+     "idx": 10,
+     "name": "AON2",
+     "spt": 476.135
+    },
+    {
+     "pos": 151,
+     "idx": 204,
+     "name": "Two Tits For Tat",
+     "spt": 476.005
+    },
+    {
+     "pos": 152,
+     "idx": 46,
+     "name": "Defector Hunter",
+     "spt": 475.77
+    },
+    {
+     "pos": 153,
+     "idx": 211,
+     "name": "Winner12",
+     "spt": 475.635
+    },
+    {
+     "pos": 154,
+     "idx": 140,
+     "name": "Prober 4",
+     "spt": 475.34
+    },
+    {
+     "pos": 155,
+     "idx": 20,
+     "name": "Alternator Hunter",
+     "spt": 474.885
+    },
+    {
+     "pos": 156,
+     "idx": 38,
+     "name": "Cycle Hunter",
+     "spt": 474.67
+    },
+    {
+     "pos": 157,
+     "idx": 146,
+     "name": "Random Tit for Tat",
+     "spt": 474.395
+    },
+    {
+     "pos": 158,
+     "idx": 56,
+     "name": "Eventual Cycle Hunter",
+     "spt": 474.305
+    },
+    {
+     "pos": 159,
+     "idx": 12,
+     "name": "Adaptive Pavlov 2011",
+     "spt": 473.73
+    },
+    {
+     "pos": 160,
+     "idx": 40,
+     "name": "Cycler CCCD",
+     "spt": 473.66
+    },
+    {
+     "pos": 161,
+     "idx": 24,
+     "name": "Arrogant QLearner",
+     "spt": 473.25
+    },
+    {
+     "pos": 162,
+     "idx": 36,
+     "name": "Cooperator",
+     "spt": 472.16
+    },
+    {
+     "pos": 163,
+     "idx": 198,
+     "name": "Thumper",
+     "spt": 471.605
+    },
+    {
+     "pos": 164,
+     "idx": 116,
+     "name": "Limited Retaliate",
+     "spt": 471.555
+    },
+    {
+     "pos": 165,
+     "idx": 149,
+     "name": "Retaliate",
+     "spt": 471.515
+    },
+    {
+     "pos": 166,
+     "idx": 142,
+     "name": "Punisher",
+     "spt": 470.61
+    },
+    {
+     "pos": 167,
+     "idx": 86,
+     "name": "Fortress4",
+     "spt": 470.45
+    },
+    {
+     "pos": 168,
+     "idx": 117,
+     "name": "Limited Retaliate 2",
+     "spt": 470.025
+    },
+    {
+     "pos": 169,
+     "idx": 118,
+     "name": "Limited Retaliate 3",
+     "spt": 469.96
+    },
+    {
+     "pos": 170,
+     "idx": 217,
+     "name": "ZD-Extort-2 v2",
+     "spt": 468.885
+    },
+    {
+     "pos": 171,
+     "idx": 16,
+     "name": "AdaptorLong",
+     "spt": 467.095
+    },
+    {
+     "pos": 172,
+     "idx": 85,
+     "name": "Fortress3",
+     "spt": 467.0
+    },
+    {
+     "pos": 173,
+     "idx": 113,
+     "name": "Inverse Punisher",
+     "spt": 466.505
+    },
+    {
+     "pos": 174,
+     "idx": 190,
+     "name": "Stochastic Cooperator",
+     "spt": 465.805
+    },
+    {
+     "pos": 175,
+     "idx": 179,
+     "name": "SelfSteem",
+     "spt": 465.5
+    },
+    {
+     "pos": 176,
+     "idx": 186,
+     "name": "SolutionB5",
+     "spt": 464.155
+    },
+    {
+     "pos": 177,
+     "idx": 229,
+     "name": "Meta Hunter Aggressive",
+     "spt": 462.57
+    },
+    {
+     "pos": 178,
+     "idx": 205,
+     "name": "UsuallyCooperates",
+     "spt": 462.56
+    },
+    {
+     "pos": 179,
+     "idx": 151,
+     "name": "Retaliate 3",
+     "spt": 462.045
+    },
+    {
+     "pos": 180,
+     "idx": 206,
+     "name": "UsuallyDefects",
+     "spt": 461.985
+    },
+    {
+     "pos": 181,
+     "idx": 34,
+     "name": "CollectiveStrategy",
+     "spt": 461.885
+    },
+    {
+     "pos": 182,
+     "idx": 82,
+     "name": "Forgetful Grudger",
+     "spt": 461.035
+    },
+    {
+     "pos": 183,
+     "idx": 17,
+     "name": "Aggravater",
+     "spt": 460.24
+    },
+    {
+     "pos": 184,
+     "idx": 203,
+     "name": "Tricky Level Punisher",
+     "spt": 460.055
+    },
+    {
+     "pos": 185,
+     "idx": 218,
+     "name": "ZD-Extort3",
+     "spt": 459.895
+    },
+    {
+     "pos": 186,
+     "idx": 216,
+     "name": "ZD-Extort-2",
+     "spt": 459.62
+    },
+    {
+     "pos": 187,
+     "idx": 39,
+     "name": "Cycler CCCCCD",
+     "spt": 459.58
+    },
+    {
+     "pos": 188,
+     "idx": 209,
+     "name": "Win-Shift Lose-Stay",
+     "spt": 459.58
+    },
+    {
+     "pos": 189,
+     "idx": 41,
+     "name": "Cycler CCCDCD",
+     "spt": 459.185
+    },
+    {
+     "pos": 190,
+     "idx": 150,
+     "name": "Retaliate 2",
+     "spt": 458.53
+    },
+    {
+     "pos": 191,
+     "idx": 42,
+     "name": "Cycler CCD",
+     "spt": 456.695
+    },
+    {
+     "pos": 192,
+     "idx": 136,
+     "name": "Predator",
+     "spt": 456.545
+    },
+    {
+     "pos": 193,
+     "idx": 45,
+     "name": "Defector",
+     "spt": 456.355
+    },
+    {
+     "pos": 194,
+     "idx": 54,
+     "name": "EasyGo",
+     "spt": 456.35
+    },
+    {
+     "pos": 195,
+     "idx": 201,
+     "name": "Tricky Cooperator",
+     "spt": 455.56
+    },
+    {
+     "pos": 196,
+     "idx": 21,
+     "name": "AntiCycler",
+     "spt": 455.035
+    },
+    {
+     "pos": 197,
+     "idx": 224,
+     "name": "ZD-Mischief",
+     "spt": 454.45
+    },
+    {
+     "pos": 198,
+     "idx": 225,
+     "name": "ZD-SET-2",
+     "spt": 454.26
+    },
+    {
+     "pos": 199,
+     "idx": 185,
+     "name": "SolutionB1",
+     "spt": 453.83
+    },
+    {
+     "pos": 200,
+     "idx": 220,
+     "name": "ZD-Extortion",
+     "spt": 452.95
+    },
+    {
+     "pos": 201,
+     "idx": 27,
+     "name": "Better and Better",
+     "spt": 451.455
+    },
+    {
+     "pos": 202,
+     "idx": 219,
+     "name": "ZD-Extort-4",
+     "spt": 451.35
+    },
+    {
+     "pos": 203,
+     "idx": 9,
+     "name": "ALLCorALLD",
+     "spt": 450.71
+    },
+    {
+     "pos": 204,
+     "idx": 23,
+     "name": "Appeaser",
+     "spt": 450.16
+    },
+    {
+     "pos": 205,
+     "idx": 193,
+     "name": "TF1",
+     "spt": 450.09
+    },
+    {
+     "pos": 206,
+     "idx": 212,
+     "name": "Winner21",
+     "spt": 450.07
+    },
+    {
+     "pos": 207,
+     "idx": 37,
+     "name": "Cooperator Hunter",
+     "spt": 447.64
+    },
+    {
+     "pos": 208,
+     "idx": 135,
+     "name": "$\\pi$",
+     "spt": 447.07
+    },
+    {
+     "pos": 209,
+     "idx": 19,
+     "name": "Alternator",
+     "spt": 447.055
+    },
+    {
+     "pos": 210,
+     "idx": 210,
+     "name": "Win-Stay Lose-Shift",
+     "spt": 446.57
+    },
+    {
+     "pos": 211,
+     "idx": 194,
+     "name": "TF2",
+     "spt": 444.945
+    },
+    {
+     "pos": 212,
+     "idx": 197,
+     "name": "ThueMorseInverse",
+     "spt": 442.66
+    },
+    {
+     "pos": 213,
+     "idx": 191,
+     "name": "Stochastic WSLS",
+     "spt": 442.285
+    },
+    {
+     "pos": 214,
+     "idx": 101,
+     "name": "Handshake",
+     "spt": 441.13
+    },
+    {
+     "pos": 215,
+     "idx": 144,
+     "name": "Random",
+     "spt": 438.11
+    },
+    {
+     "pos": 216,
+     "idx": 202,
+     "name": "Tricky Defector",
+     "spt": 437.795
+    },
+    {
+     "pos": 217,
+     "idx": 30,
+     "name": "Bush Mosteller",
+     "spt": 437.71
+    },
+    {
+     "pos": 218,
+     "idx": 226,
+     "name": "$e$",
+     "spt": 437.34
+    },
+    {
+     "pos": 219,
+     "idx": 43,
+     "name": "Cycler DC",
+     "spt": 436.355
+    },
+    {
+     "pos": 220,
+     "idx": 44,
+     "name": "Cycler DDC",
+     "spt": 435.94
+    },
+    {
+     "pos": 221,
+     "idx": 48,
+     "name": "Desperate",
+     "spt": 434.735
+    },
+    {
+     "pos": 222,
+     "idx": 47,
+     "name": "Delayed AON1",
+     "spt": 434.545
+    },
+    {
+     "pos": 223,
+     "idx": 68,
+     "name": "First by Anonymous",
+     "spt": 433.445
+    },
+    {
+     "pos": 224,
+     "idx": 111,
+     "name": "Hopeless",
+     "spt": 432.145
+    },
+    {
+     "pos": 225,
+     "idx": 196,
+     "name": "ThueMorse",
+     "spt": 430.95
+    },
+    {
+     "pos": 226,
+     "idx": 125,
+     "name": "Negation",
+     "spt": 427.645
+    },
+    {
+     "pos": 227,
+     "idx": 22,
+     "name": "Anti Tit For Tat",
+     "spt": 423.59
+    },
+    {
+     "pos": 228,
+     "idx": 95,
+     "name": "$\\phi$",
+     "spt": 421.71
+    },
+    {
+     "pos": 229,
+     "idx": 97,
+     "name": "Gradual Killer",
+     "spt": 420.9
+    },
+    {
+     "pos": 230,
+     "idx": 28,
+     "name": "Bully",
+     "spt": 417.985
+    }
+   ],
+   "our_names": [
+    "v5.2",
+    "v5.3",
+    "v5.4",
+    "v5.4.1",
+    "v5.4.2",
+    "v5.4.3",
+    "v5.4.4",
+    "v5.5",
+    "v5.6"
+   ]
+  }
+ ],
+ "elapsed_sec": 88.7
+}

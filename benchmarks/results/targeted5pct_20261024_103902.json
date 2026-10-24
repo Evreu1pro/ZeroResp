@@ -1,0 +1,195 @@
+{
+ "config": {
+  "noise": 0.05,
+  "turns": 200,
+  "seed0": 42,
+  "seeds": 30,
+  "variants": [
+   "v5.4.1",
+   "v5.4.2"
+  ]
+ },
+ "results": {
+  "v5.4.1|TwoTitsForTat|paired": {
+   "v53_mean": 2.2987,
+   "v5.4.1_mean": 2.6705,
+   "delta": 0.3718,
+   "v53_spin_rate": 0.233,
+   "v5.4.1_spin_rate": 0.0,
+   "wilcoxon_p": 9.813707606944297e-06,
+   "seeds_negative_delta": 2
+  },
+  "v5.4.1|TwoTitsForTat|zdb": {
+   "v53_mean": 2.2987,
+   "v5.4.1_mean": 2.6705,
+   "delta": 0.3718,
+   "v53_spin_rate": 0.233,
+   "v5.4.1_spin_rate": 0.0,
+   "wilcoxon_p": 9.813707606944297e-06,
+   "seeds_negative_delta": 2
+  },
+  "v5.4.1|Gradual|paired": {
+   "v53_mean": 2.0952,
+   "v5.4.1_mean": 2.3573,
+   "delta": 0.2622,
+   "v53_spin_rate": 0.333,
+   "v5.4.1_spin_rate": 0.1,
+   "wilcoxon_p": 3.883801501287102e-05,
+   "seeds_negative_delta": 3
+  },
+  "v5.4.1|Gradual|zdb": {
+   "v53_mean": 2.0987,
+   "v5.4.1_mean": 2.3573,
+   "delta": 0.2587,
+   "v53_spin_rate": 0.333,
+   "v5.4.1_spin_rate": 0.1,
+   "wilcoxon_p": 3.8802688769973726e-05,
+   "seeds_negative_delta": 3
+  },
+  "v5.4.1|HardProber|paired": {
+   "v53_mean": 2.3687,
+   "v5.4.1_mean": 2.5125,
+   "delta": 0.1438,
+   "v53_spin_rate": null,
+   "v5.4.1_spin_rate": null,
+   "wilcoxon_p": 5.8861368777312084e-05,
+   "seeds_negative_delta": 2
+  },
+  "v5.4.1|HardProber|zdb": {
+   "v53_mean": 2.3687,
+   "v5.4.1_mean": 2.5125,
+   "delta": 0.1438,
+   "v53_spin_rate": null,
+   "v5.4.1_spin_rate": null,
+   "wilcoxon_p": 5.8861368777312084e-05,
+   "seeds_negative_delta": 2
+  },
+  "v5.4.1|Calculator|paired": {
+   "v53_mean": 2.209,
+   "v5.4.1_mean": 2.6158,
+   "delta": 0.4068,
+   "v53_spin_rate": null,
+   "v5.4.1_spin_rate": null,
+   "wilcoxon_p": 0.00602833091649715,
+   "seeds_negative_delta": 6
+  },
+  "v5.4.1|Calculator|zdb": {
+   "v53_mean": 2.209,
+   "v5.4.1_mean": 2.6158,
+   "delta": 0.4068,
+   "v53_spin_rate": null,
+   "v5.4.1_spin_rate": null,
+   "wilcoxon_p": 0.00602833091649715,
+   "seeds_negative_delta": 6
+  },
+  "v5.4.1|Random|paired": {
+   "v53_mean": 2.7535,
+   "v5.4.1_mean": 2.6603,
+   "delta": -0.0932,
+   "v53_spin_rate": null,
+   "v5.4.1_spin_rate": null,
+   "wilcoxon_p": 0.00029133231050973,
+   "seeds_negative_delta": 17
+  },
+  "v5.4.1|Random|zdb": {
+   "v53_mean": 2.7535,
+   "v5.4.1_mean": 2.6603,
+   "delta": -0.0932,
+   "v53_spin_rate": null,
+   "v5.4.1_spin_rate": null,
+   "wilcoxon_p": 0.00029133231050973,
+   "seeds_negative_delta": 17
+  },
+  "v5.4.2|TwoTitsForTat|paired": {
+   "v53_mean": 2.2987,
+   "v5.4.2_mean": 2.6705,
+   "delta": 0.3718,
+   "v53_spin_rate": 0.233,
+   "v5.4.2_spin_rate": 0.0,
+   "wilcoxon_p": 9.813707606944297e-06,
+   "seeds_negative_delta": 2
+  },
+  "v5.4.2|TwoTitsForTat|zdb": {
+   "v53_mean": 2.2987,
+   "v5.4.2_mean": 2.6705,
+   "delta": 0.3718,
+   "v53_spin_rate": 0.233,
+   "v5.4.2_spin_rate": 0.0,
+   "wilcoxon_p": 9.813707606944297e-06,
+   "seeds_negative_delta": 2
+  },
+  "v5.4.2|Gradual|paired": {
+   "v53_mean": 2.0952,
+   "v5.4.2_mean": 2.3573,
+   "delta": 0.2622,
+   "v53_spin_rate": 0.333,
+   "v5.4.2_spin_rate": 0.1,
+   "wilcoxon_p": 3.883801501287102e-05,
+   "seeds_negative_delta": 3
+  },
+  "v5.4.2|Gradual|zdb": {
+   "v53_mean": 2.0987,
+   "v5.4.2_mean": 2.3573,
+   "delta": 0.2587,
+   "v53_spin_rate": 0.333,
+   "v5.4.2_spin_rate": 0.1,
+   "wilcoxon_p": 3.8802688769973726e-05,
+   "seeds_negative_delta": 3
+  },
+  "v5.4.2|HardProber|paired": {
+   "v53_mean": 2.3687,
+   "v5.4.2_mean": 2.4682,
+   "delta": 0.0995,
+   "v53_spin_rate": null,
+   "v5.4.2_spin_rate": null,
+   "wilcoxon_p": 0.00011618428127880778,
+   "seeds_negative_delta": 2
+  },
+  "v5.4.2|HardProber|zdb": {
+   "v53_mean": 2.3687,
+   "v5.4.2_mean": 2.4682,
+   "delta": 0.0995,
+   "v53_spin_rate": null,
+   "v5.4.2_spin_rate": null,
+   "wilcoxon_p": 0.00011618428127880778,
+   "seeds_negative_delta": 2
+  },
+  "v5.4.2|Calculator|paired": {
+   "v53_mean": 2.209,
+   "v5.4.2_mean": 2.6158,
+   "delta": 0.4068,
+   "v53_spin_rate": null,
+   "v5.4.2_spin_rate": null,
+   "wilcoxon_p": 0.00602833091649715,
+   "seeds_negative_delta": 6
+  },
+  "v5.4.2|Calculator|zdb": {
+   "v53_mean": 2.209,
+   "v5.4.2_mean": 2.6158,
+   "delta": 0.4068,
+   "v53_spin_rate": null,
+   "v5.4.2_spin_rate": null,
+   "wilcoxon_p": 0.00602833091649715,
+   "seeds_negative_delta": 6
+  },
+  "v5.4.2|Random|paired": {
+   "v53_mean": 2.7535,
+   "v5.4.2_mean": 2.7063,
+   "delta": -0.0472,
+   "v53_spin_rate": null,
+   "v5.4.2_spin_rate": null,
+   "wilcoxon_p": 0.00028905006410405866,
+   "seeds_negative_delta": 17
+  },
+  "v5.4.2|Random|zdb": {
+   "v53_mean": 2.7535,
+   "v5.4.2_mean": 2.7063,
+   "delta": -0.0472,
+   "v53_spin_rate": null,
+   "v5.4.2_spin_rate": null,
+   "wilcoxon_p": 0.00028905006410405866,
+   "seeds_negative_delta": 17
+  }
+ },
+ "elapsed_sec": 6.7
+}

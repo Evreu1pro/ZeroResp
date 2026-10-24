@@ -1,0 +1,96 @@
+{
+  "config": {
+    "pack": "field",
+    "vs": null,
+    "turns": 20,
+    "reps": 1,
+    "seed": 42,
+    "noise": [
+      0.05
+    ],
+    "out": "benchmarks/results/research/debug",
+    "no_ladder": false
+  },
+  "runs": [
+    {
+      "noise": 0.05,
+      "round_robin": {
+        "rank": 1,
+        "of": 33,
+        "spt_round_robin": 83.8,
+        "ranked_head": [
+          [
+            "ZeroResp v5.2: 25, True",
+            0
+          ],
+          [
+            "Gradual",
+            1
+          ],
+          [
+            "Firm But Fair",
+            2
+          ],
+          [
+            "Calculator",
+            3
+          ],
+          [
+            "Tit For Tat",
+            4
+          ],
+          [
+            "Grudger",
+            5
+          ],
+          [
+            "Contrite Tit For Tat",
+            6
+          ],
+          [
+            "Punisher",
+            7
+          ]
+        ]
+      },
+      "h2h_spt": {
+        "Cooperator": 3.0,
+        "Defector": 1.4,
+        "TitForTat": 2.55,
+        "Grudger": 1.45,
+        "Random": 2.85,
+        "Alternator": 2.25,
+        "TitFor2Tats": 3.05,
+        "TwoTitsForTat": 2.2,
+        "SuspiciousTitForTat": 2.35,
+        "Bully": 2.45,
+        "GTFT": 2.9,
+        "SoftJoss": 2.9,
+        "Prober": 2.65,
+        "Prober2": 2.9,
+        "Prober3": 2.35,
+        "Calculator": 2.5,
+        "Handshake": 1.45,
+        "OnceBitten": 1.65,
+        "Punisher": 2.2,
+        "HardTitForTat": 2.05,
+        "HardTitFor2Tats": 3.0,
+        "SoftGrudger": 2.05,
+        "FirmButFair": 2.7,
+        "TrickyCooperator": 3.1,
+        "FirstByGrofman": 2.4,
+        "ContriteTitForTat": 2.55,
+        "SlowTitForTwoTats2": 2.85,
+        "Gradual": 2.2,
+        "ShortMem": 2.7,
+        "GrudgerAlternator": 2.25,
+        "HardProber": 2.55,
+        "TrickyDefector": 2.5
+      },
+      "self_match_spt": 2.9,
+      "self_match_total_mean": 58.0,
+      "reciprocators_mean_spt": 2.43
+    }
+  ],
+  "elapsed_sec": 0.5
+}

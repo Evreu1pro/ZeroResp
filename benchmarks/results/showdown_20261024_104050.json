@@ -1,0 +1,900 @@
+{
+ "config": {
+  "noises": [
+   0.0,
+   0.05,
+   0.1
+  ],
+  "turns": 200,
+  "reps": 3,
+  "seed": 42,
+  "h2h_seeds": 30
+ },
+ "round_robin": {
+  "0.0": {
+   "noise": 0.0,
+   "players": 36,
+   "rows": [
+    {
+     "name": "ZeroResp v5.3",
+     "spt": 101.8833,
+     "pos": 2
+    },
+    {
+     "name": "ZeroResp v5.4-proto",
+     "spt": 97.7217,
+     "pos": 15
+    },
+    {
+     "name": "ZeroResp v5.4.1",
+     "spt": 101.39,
+     "pos": 4
+    },
+    {
+     "name": "ZeroResp v5.4.2",
+     "spt": 101.1933,
+     "pos": 5
+    },
+    {
+     "name": "ZeroResp v5.5",
+     "spt": 98.5717,
+     "pos": 11
+    },
+    {
+     "name": "ZeroResp v5.6",
+     "spt": 100.105,
+     "pos": 6
+    },
+    {
+     "name": "ZeroResp v5.2 (ladder off)",
+     "spt": 101.5767,
+     "pos": 3
+    },
+    {
+     "name": "Evolved ANN 5 Noise 05",
+     "spt": 94.345,
+     "pos": 25
+    },
+    {
+     "name": "Evolved FSM 16 Noise 05",
+     "spt": 98.4433,
+     "pos": 12
+    },
+    {
+     "name": "Second by RichardHufford",
+     "spt": 97.6517,
+     "pos": 16
+    },
+    {
+     "name": "Evolved FSM 6",
+     "spt": 102.3133,
+     "pos": 1
+    },
+    {
+     "name": "EvolvedLookerUp2_2_2",
+     "spt": 99.82,
+     "pos": 7
+    },
+    {
+     "name": "Evolved FSM 16",
+     "spt": 98.6317,
+     "pos": 10
+    },
+    {
+     "name": "Evolved HMM 5",
+     "spt": 99.3633,
+     "pos": 8
+    },
+    {
+     "name": "PSO Gambler 1_1_1",
+     "spt": 97.4617,
+     "pos": 17
+    },
+    {
+     "name": "Evolved ANN 5",
+     "spt": 95.8083,
+     "pos": 20
+    },
+    {
+     "name": "Evolved ANN",
+     "spt": 96.97,
+     "pos": 18
+    },
+    {
+     "name": "PSO Gambler Mem1",
+     "spt": 96.95,
+     "pos": 19
+    },
+    {
+     "name": "PSO Gambler 2_2_2",
+     "spt": 97.7767,
+     "pos": 14
+    },
+    {
+     "name": "Evolved FSM 4",
+     "spt": 95.3433,
+     "pos": 22
+    },
+    {
+     "name": "First by Downing",
+     "spt": 82.8467,
+     "pos": 30
+    },
+    {
+     "name": "Revised Downing",
+     "spt": 95.08,
+     "pos": 24
+    },
+    {
+     "name": "Tit For Tat",
+     "spt": 98.2267,
+     "pos": 13
+    },
+    {
+     "name": "Two Tits For Tat",
+     "spt": 95.8,
+     "pos": 21
+    },
+    {
+     "name": "Gradual",
+     "spt": 98.7383,
+     "pos": 9
+    },
+    {
+     "name": "Hard Prober",
+     "spt": 90.73,
+     "pos": 27
+    },
+    {
+     "name": "Calculator",
+     "spt": 86.0617,
+     "pos": 28
+    },
+    {
+     "name": "Tricky Cooperator",
+     "spt": 27.3017,
+     "pos": 36
+    },
+    {
+     "name": "ZD-Extort-2",
+     "spt": 73.4417,
+     "pos": 31
+    },
+    {
+     "name": "Grudger",
+     "spt": 95.1433,
+     "pos": 23
+    },
+    {
+     "name": "Win-Stay Lose-Shift",
+     "spt": 91.9,
+     "pos": 26
+    },
+    {
+     "name": "Alternator",
+     "spt": 59.14,
+     "pos": 33
+    },
+    {
+     "name": "Random",
+     "spt": 50.82,
+     "pos": 35
+    },
+    {
+     "name": "Cycler CCD",
+     "spt": 57.4883,
+     "pos": 34
+    },
+    {
+     "name": "Cooperator",
+     "spt": 83.66,
+     "pos": 29
+    },
+    {
+     "name": "Defector",
+     "spt": 62.02,
+     "pos": 32
+    }
+   ],
+   "elapsed_sec": null
+  },
+  "0.05": {
+   "noise": 0.05,
+   "players": 36,
+   "rows": [
+    {
+     "name": "ZeroResp v5.3",
+     "spt": 85.325,
+     "pos": 6
+    },
+    {
+     "name": "ZeroResp v5.4-proto",
+     "spt": 83.2533,
+     "pos": 9
+    },
+    {
+     "name": "ZeroResp v5.4.1",
+     "spt": 83.6817,
+     "pos": 8
+    },
+    {
+     "name": "ZeroResp v5.4.2",
+     "spt": 85.9733,
+     "pos": 4
+    },
+    {
+     "name": "ZeroResp v5.5",
+     "spt": 80.83,
+     "pos": 16
+    },
+    {
+     "name": "ZeroResp v5.6",
+     "spt": 81.5267,
+     "pos": 14
+    },
+    {
+     "name": "ZeroResp v5.2 (ladder off)",
+     "spt": 85.475,
+     "pos": 5
+    },
+    {
+     "name": "Evolved ANN 5 Noise 05",
+     "spt": 91.3983,
+     "pos": 2
+    },
+    {
+     "name": "Evolved FSM 16 Noise 05",
+     "spt": 82.74,
+     "pos": 11
+    },
+    {
+     "name": "Second by RichardHufford",
+     "spt": 92.175,
+     "pos": 1
+    },
+    {
+     "name": "Evolved FSM 6",
+     "spt": 80.095,
+     "pos": 18
+    },
+    {
+     "name": "EvolvedLookerUp2_2_2",
+     "spt": 59.8833,
+     "pos": 30
+    },
+    {
+     "name": "Evolved FSM 16",
+     "spt": 69.81,
+     "pos": 23
+    },
+    {
+     "name": "Evolved HMM 5",
+     "spt": 69.8367,
+     "pos": 22
+    },
+    {
+     "name": "PSO Gambler 1_1_1",
+     "spt": 68.5983,
+     "pos": 26
+    },
+    {
+     "name": "Evolved ANN 5",
+     "spt": 69.7733,
+     "pos": 24
+    },
+    {
+     "name": "Evolved ANN",
+     "spt": 82.4283,
+     "pos": 12
+    },
+    {
+     "name": "PSO Gambler Mem1",
+     "spt": 69.1267,
+     "pos": 25
+    },
+    {
+     "name": "PSO Gambler 2_2_2",
+     "spt": 65.7983,
+     "pos": 27
+    },
+    {
+     "name": "Evolved FSM 4",
+     "spt": 61.8067,
+     "pos": 29
+    },
+    {
+     "name": "First by Downing",
+     "spt": 80.47,
+     "pos": 17
+    },
+    {
+     "name": "Revised Downing",
+     "spt": 74.2033,
+     "pos": 19
+    },
+    {
+     "name": "Tit For Tat",
+     "spt": 86.12,
+     "pos": 3
+    },
+    {
+     "name": "Two Tits For Tat",
+     "spt": 82.9883,
+     "pos": 10
+    },
+    {
+     "name": "Gradual",
+     "spt": 84.3433,
+     "pos": 7
+    },
+    {
+     "name": "Hard Prober",
+     "spt": 81.7733,
+     "pos": 13
+    },
+    {
+     "name": "Calculator",
+     "spt": 81.37,
+     "pos": 15
+    },
+    {
+     "name": "Tricky Cooperator",
+     "spt": 39.1183,
+     "pos": 36
+    },
+    {
+     "name": "ZD-Extort-2",
+     "spt": 72.565,
+     "pos": 20
+    },
+    {
+     "name": "Grudger",
+     "spt": 72.1717,
+     "pos": 21
+    },
+    {
+     "name": "Win-Stay Lose-Shift",
+     "spt": 57.0417,
+     "pos": 35
+    },
+    {
+     "name": "Alternator",
+     "spt": 59.4183,
+     "pos": 31
+    },
+    {
+     "name": "Random",
+     "spt": 57.4683,
+     "pos": 34
+    },
+    {
+     "name": "Cycler CCD",
+     "spt": 59.16,
+     "pos": 32
+    },
+    {
+     "name": "Cooperator",
+     "spt": 58.9933,
+     "pos": 33
+    },
+    {
+     "name": "Defector",
+     "spt": 65.465,
+     "pos": 28
+    }
+   ],
+   "elapsed_sec": null
+  },
+  "0.1": {
+   "noise": 0.1,
+   "players": 36,
+   "rows": [
+    {
+     "name": "ZeroResp v5.3",
+     "spt": 80.9033,
+     "pos": 6
+    },
+    {
+     "name": "ZeroResp v5.4-proto",
+     "spt": 75.39,
+     "pos": 16
+    },
+    {
+     "name": "ZeroResp v5.4.1",
+     "spt": 78.3517,
+     "pos": 11
+    },
+    {
+     "name": "ZeroResp v5.4.2",
+     "spt": 79.9167,
+     "pos": 8
+    },
+    {
+     "name": "ZeroResp v5.5",
+     "spt": 76.595,
+     "pos": 14
+    },
+    {
+     "name": "ZeroResp v5.6",
+     "spt": 78.3267,
+     "pos": 12
+    },
+    {
+     "name": "ZeroResp v5.2 (ladder off)",
+     "spt": 79.7333,
+     "pos": 9
+    },
+    {
+     "name": "Evolved ANN 5 Noise 05",
+     "spt": 83.5367,
+     "pos": 2
+    },
+    {
+     "name": "Evolved FSM 16 Noise 05",
+     "spt": 73.23,
+     "pos": 19
+    },
+    {
+     "name": "Second by RichardHufford",
+     "spt": 81.8683,
+     "pos": 4
+    },
+    {
+     "name": "Evolved FSM 6",
+     "spt": 71.6867,
+     "pos": 21
+    },
+    {
+     "name": "EvolvedLookerUp2_2_2",
+     "spt": 59.8217,
+     "pos": 34
+    },
+    {
+     "name": "Evolved FSM 16",
+     "spt": 73.3017,
+     "pos": 17
+    },
+    {
+     "name": "Evolved HMM 5",
+     "spt": 68.1633,
+     "pos": 25
+    },
+    {
+     "name": "PSO Gambler 1_1_1",
+     "spt": 66.425,
+     "pos": 27
+    },
+    {
+     "name": "Evolved ANN 5",
+     "spt": 69.3717,
+     "pos": 23
+    },
+    {
+     "name": "Evolved ANN",
+     "spt": 80.4867,
+     "pos": 7
+    },
+    {
+     "name": "PSO Gambler Mem1",
+     "spt": 66.5767,
+     "pos": 26
+    },
+    {
+     "name": "PSO Gambler 2_2_2",
+     "spt": 64.7383,
+     "pos": 28
+    },
+    {
+     "name": "Evolved FSM 4",
+     "spt": 60.5433,
+     "pos": 32
+    },
+    {
+     "name": "First by Downing",
+     "spt": 75.645,
+     "pos": 15
+    },
+    {
+     "name": "Revised Downing",
+     "spt": 73.2467,
+     "pos": 18
+    },
+    {
+     "name": "Tit For Tat",
+     "spt": 82.44,
+     "pos": 3
+    },
+    {
+     "name": "Two Tits For Tat",
+     "spt": 81.7383,
+     "pos": 5
+    },
+    {
+     "name": "Gradual",
+     "spt": 84.0817,
+     "pos": 1
+    },
+    {
+     "name": "Hard Prober",
+     "spt": 79.13,
+     "pos": 10
+    },
+    {
+     "name": "Calculator",
+     "spt": 77.1183,
+     "pos": 13
+    },
+    {
+     "name": "Tricky Cooperator",
+     "spt": 48.795,
+     "pos": 36
+    },
+    {
+     "name": "ZD-Extort-2",
+     "spt": 70.94,
+     "pos": 22
+    },
+    {
+     "name": "Grudger",
+     "spt": 72.2383,
+     "pos": 20
+    },
+    {
+     "name": "Win-Stay Lose-Shift",
+     "spt": 59.98,
+     "pos": 33
+    },
+    {
+     "name": "Alternator",
+     "spt": 62.1883,
+     "pos": 29
+    },
+    {
+     "name": "Random",
+     "spt": 61.1183,
+     "pos": 31
+    },
+    {
+     "name": "Cycler CCD",
+     "spt": 62.105,
+     "pos": 30
+    },
+    {
+     "name": "Cooperator",
+     "spt": 58.8483,
+     "pos": 35
+    },
+    {
+     "name": "Defector",
+     "spt": 68.4483,
+     "pos": 24
+    }
+   ],
+   "elapsed_sec": null
+  }
+ },
+ "h2h": {
+  "0.0": {
+   "v5.3 vs v5.4": {
+    "spt_v5.3": 2.99,
+    "spt_v5.4": 2.99,
+    "delta_v5.3_minus_v5.4": 0.0
+   },
+   "v5.3 vs v5.4.1": {
+    "spt_v5.3": 2.99,
+    "spt_v5.4.1": 2.99,
+    "delta_v5.3_minus_v5.4.1": 0.0
+   },
+   "v5.3 vs v5.4.2": {
+    "spt_v5.3": 2.99,
+    "spt_v5.4.2": 2.99,
+    "delta_v5.3_minus_v5.4.2": 0.0
+   },
+   "v5.3 vs v5.5": {
+    "spt_v5.3": 2.99,
+    "spt_v5.5": 2.99,
+    "delta_v5.3_minus_v5.5": 0.0
+   },
+   "v5.3 vs v5.6": {
+    "spt_v5.3": 2.99,
+    "spt_v5.6": 2.99,
+    "delta_v5.3_minus_v5.6": 0.0
+   },
+   "v5.3 vs v5.2": {
+    "spt_v5.3": 2.99,
+    "spt_v5.2": 2.99,
+    "delta_v5.3_minus_v5.2": 0.0
+   },
+   "v5.4 vs v5.4.1": {
+    "spt_v5.4": 2.99,
+    "spt_v5.4.1": 2.99,
+    "delta_v5.4_minus_v5.4.1": 0.0
+   },
+   "v5.4 vs v5.4.2": {
+    "spt_v5.4": 2.99,
+    "spt_v5.4.2": 2.99,
+    "delta_v5.4_minus_v5.4.2": 0.0
+   },
+   "v5.4 vs v5.5": {
+    "spt_v5.4": 2.99,
+    "spt_v5.5": 2.99,
+    "delta_v5.4_minus_v5.5": 0.0
+   },
+   "v5.4 vs v5.6": {
+    "spt_v5.4": 2.99,
+    "spt_v5.6": 2.99,
+    "delta_v5.4_minus_v5.6": 0.0
+   },
+   "v5.4 vs v5.2": {
+    "spt_v5.4": 2.99,
+    "spt_v5.2": 2.99,
+    "delta_v5.4_minus_v5.2": 0.0
+   },
+   "v5.4.1 vs v5.4.2": {
+    "spt_v5.4.1": 2.99,
+    "spt_v5.4.2": 2.99,
+    "delta_v5.4.1_minus_v5.4.2": 0.0
+   },
+   "v5.4.1 vs v5.5": {
+    "spt_v5.4.1": 2.99,
+    "spt_v5.5": 2.99,
+    "delta_v5.4.1_minus_v5.5": 0.0
+   },
+   "v5.4.1 vs v5.6": {
+    "spt_v5.4.1": 2.99,
+    "spt_v5.6": 2.99,
+    "delta_v5.4.1_minus_v5.6": 0.0
+   },
+   "v5.4.1 vs v5.2": {
+    "spt_v5.4.1": 2.99,
+    "spt_v5.2": 2.99,
+    "delta_v5.4.1_minus_v5.2": 0.0
+   },
+   "v5.4.2 vs v5.5": {
+    "spt_v5.4.2": 2.99,
+    "spt_v5.5": 2.99,
+    "delta_v5.4.2_minus_v5.5": 0.0
+   },
+   "v5.4.2 vs v5.6": {
+    "spt_v5.4.2": 2.99,
+    "spt_v5.6": 2.99,
+    "delta_v5.4.2_minus_v5.6": 0.0
+   },
+   "v5.4.2 vs v5.2": {
+    "spt_v5.4.2": 2.99,
+    "spt_v5.2": 2.99,
+    "delta_v5.4.2_minus_v5.2": 0.0
+   },
+   "v5.5 vs v5.6": {
+    "spt_v5.5": 2.99,
+    "spt_v5.6": 2.99,
+    "delta_v5.5_minus_v5.6": 0.0
+   },
+   "v5.5 vs v5.2": {
+    "spt_v5.5": 2.99,
+    "spt_v5.2": 2.99,
+    "delta_v5.5_minus_v5.2": 0.0
+   },
+   "v5.6 vs v5.2": {
+    "spt_v5.6": 2.99,
+    "spt_v5.2": 2.99,
+    "delta_v5.6_minus_v5.2": 0.0
+   }
+  },
+  "0.05": {
+   "v5.3 vs v5.4": {
+    "spt_v5.3": 2.9447,
+    "spt_v5.4": 2.9288,
+    "delta_v5.3_minus_v5.4": 0.0158
+   },
+   "v5.3 vs v5.4.1": {
+    "spt_v5.3": 2.9447,
+    "spt_v5.4.1": 2.9288,
+    "delta_v5.3_minus_v5.4.1": 0.0158
+   },
+   "v5.3 vs v5.4.2": {
+    "spt_v5.3": 2.9422,
+    "spt_v5.4.2": 2.9305,
+    "delta_v5.3_minus_v5.4.2": 0.0117
+   },
+   "v5.3 vs v5.5": {
+    "spt_v5.3": 2.9447,
+    "spt_v5.5": 2.9288,
+    "delta_v5.3_minus_v5.5": 0.0158
+   },
+   "v5.3 vs v5.6": {
+    "spt_v5.3": 2.9447,
+    "spt_v5.6": 2.9288,
+    "delta_v5.3_minus_v5.6": 0.0158
+   },
+   "v5.3 vs v5.2": {
+    "spt_v5.3": 2.882,
+    "spt_v5.2": 2.882,
+    "delta_v5.3_minus_v5.2": 0.0
+   },
+   "v5.4 vs v5.4.1": {
+    "spt_v5.4": 2.941,
+    "spt_v5.4.1": 2.9343,
+    "delta_v5.4_minus_v5.4.1": 0.0067
+   },
+   "v5.4 vs v5.4.2": {
+    "spt_v5.4": 2.939,
+    "spt_v5.4.2": 2.9357,
+    "delta_v5.4_minus_v5.4.2": 0.0033
+   },
+   "v5.4 vs v5.5": {
+    "spt_v5.4": 2.941,
+    "spt_v5.5": 2.9343,
+    "delta_v5.4_minus_v5.5": 0.0067
+   },
+   "v5.4 vs v5.6": {
+    "spt_v5.4": 2.941,
+    "spt_v5.6": 2.9343,
+    "delta_v5.4_minus_v5.6": 0.0067
+   },
+   "v5.4 vs v5.2": {
+    "spt_v5.4": 2.9305,
+    "spt_v5.2": 2.9413,
+    "delta_v5.4_minus_v5.2": -0.0108
+   },
+   "v5.4.1 vs v5.4.2": {
+    "spt_v5.4.1": 2.939,
+    "spt_v5.4.2": 2.9357,
+    "delta_v5.4.1_minus_v5.4.2": 0.0033
+   },
+   "v5.4.1 vs v5.5": {
+    "spt_v5.4.1": 2.941,
+    "spt_v5.5": 2.9343,
+    "delta_v5.4.1_minus_v5.5": 0.0067
+   },
+   "v5.4.1 vs v5.6": {
+    "spt_v5.4.1": 2.941,
+    "spt_v5.6": 2.9343,
+    "delta_v5.4.1_minus_v5.6": 0.0067
+   },
+   "v5.4.1 vs v5.2": {
+    "spt_v5.4.1": 2.9305,
+    "spt_v5.2": 2.9413,
+    "delta_v5.4.1_minus_v5.2": -0.0108
+   },
+   "v5.4.2 vs v5.5": {
+    "spt_v5.4.2": 2.9413,
+    "spt_v5.5": 2.9338,
+    "delta_v5.4.2_minus_v5.5": 0.0075
+   },
+   "v5.4.2 vs v5.6": {
+    "spt_v5.4.2": 2.9413,
+    "spt_v5.6": 2.9338,
+    "delta_v5.4.2_minus_v5.6": 0.0075
+   },
+   "v5.4.2 vs v5.2": {
+    "spt_v5.4.2": 2.9315,
+    "spt_v5.2": 2.9398,
+    "delta_v5.4.2_minus_v5.2": -0.0083
+   },
+   "v5.5 vs v5.6": {
+    "spt_v5.5": 2.941,
+    "spt_v5.6": 2.9343,
+    "delta_v5.5_minus_v5.6": 0.0067
+   },
+   "v5.5 vs v5.2": {
+    "spt_v5.5": 2.9305,
+    "spt_v5.2": 2.9413,
+    "delta_v5.5_minus_v5.2": -0.0108
+   },
+   "v5.6 vs v5.2": {
+    "spt_v5.6": 2.9305,
+    "spt_v5.2": 2.9413,
+    "delta_v5.6_minus_v5.2": -0.0108
+   }
+  },
+  "0.1": {
+   "v5.3 vs v5.4": {
+    "spt_v5.3": 2.862,
+    "spt_v5.4": 2.8045,
+    "delta_v5.3_minus_v5.4": 0.0575
+   },
+   "v5.3 vs v5.4.1": {
+    "spt_v5.3": 2.862,
+    "spt_v5.4.1": 2.8045,
+    "delta_v5.3_minus_v5.4.1": 0.0575
+   },
+   "v5.3 vs v5.4.2": {
+    "spt_v5.3": 2.8492,
+    "spt_v5.4.2": 2.8092,
+    "delta_v5.3_minus_v5.4.2": 0.04
+   },
+   "v5.3 vs v5.5": {
+    "spt_v5.3": 2.8645,
+    "spt_v5.5": 2.8037,
+    "delta_v5.3_minus_v5.5": 0.0608
+   },
+   "v5.3 vs v5.6": {
+    "spt_v5.3": 2.8645,
+    "spt_v5.6": 2.8037,
+    "delta_v5.3_minus_v5.6": 0.0608
+   },
+   "v5.3 vs v5.2": {
+    "spt_v5.3": 2.8205,
+    "spt_v5.2": 2.8172,
+    "delta_v5.3_minus_v5.2": 0.0033
+   },
+   "v5.4 vs v5.4.1": {
+    "spt_v5.4": 2.851,
+    "spt_v5.4.1": 2.8293,
+    "delta_v5.4_minus_v5.4.1": 0.0217
+   },
+   "v5.4 vs v5.4.2": {
+    "spt_v5.4": 2.8418,
+    "spt_v5.4.2": 2.8327,
+    "delta_v5.4_minus_v5.4.2": 0.0092
+   },
+   "v5.4 vs v5.5": {
+    "spt_v5.4": 2.8515,
+    "spt_v5.5": 2.829,
+    "delta_v5.4_minus_v5.5": 0.0225
+   },
+   "v5.4 vs v5.6": {
+    "spt_v5.4": 2.8515,
+    "spt_v5.6": 2.829,
+    "delta_v5.4_minus_v5.6": 0.0225
+   },
+   "v5.4 vs v5.2": {
+    "spt_v5.4": 2.8117,
+    "spt_v5.2": 2.8525,
+    "delta_v5.4_minus_v5.2": -0.0408
+   },
+   "v5.4.1 vs v5.4.2": {
+    "spt_v5.4.1": 2.8418,
+    "spt_v5.4.2": 2.8327,
+    "delta_v5.4.1_minus_v5.4.2": 0.0092
+   },
+   "v5.4.1 vs v5.5": {
+    "spt_v5.4.1": 2.8515,
+    "spt_v5.5": 2.829,
+    "delta_v5.4.1_minus_v5.5": 0.0225
+   },
+   "v5.4.1 vs v5.6": {
+    "spt_v5.4.1": 2.8515,
+    "spt_v5.6": 2.829,
+    "delta_v5.4.1_minus_v5.6": 0.0225
+   },
+   "v5.4.1 vs v5.2": {
+    "spt_v5.4.1": 2.8117,
+    "spt_v5.2": 2.8525,
+    "delta_v5.4.1_minus_v5.2": -0.0408
+   },
+   "v5.4.2 vs v5.5": {
+    "spt_v5.4.2": 2.8605,
+    "spt_v5.5": 2.8105,
+    "delta_v5.4.2_minus_v5.5": 0.05
+   },
+   "v5.4.2 vs v5.6": {
+    "spt_v5.4.2": 2.8605,
+    "spt_v5.6": 2.8105,
+    "delta_v5.4.2_minus_v5.6": 0.05
+   },
+   "v5.4.2 vs v5.2": {
+    "spt_v5.4.2": 2.8222,
+    "spt_v5.2": 2.8263,
+    "delta_v5.4.2_minus_v5.2": -0.0042
+   },
+   "v5.5 vs v5.6": {
+    "spt_v5.5": 2.8498,
+    "spt_v5.6": 2.8315,
+    "delta_v5.5_minus_v5.6": 0.0183
+   },
+   "v5.5 vs v5.2": {
+    "spt_v5.5": 2.8108,
+    "spt_v5.2": 2.855,
+    "delta_v5.5_minus_v5.2": -0.0442
+   },
+   "v5.6 vs v5.2": {
+    "spt_v5.6": 2.8108,
+    "spt_v5.2": 2.855,
+    "delta_v5.6_minus_v5.2": -0.0442
+   }
+  }
+ },
+ "elapsed_sec": 35.5
+}

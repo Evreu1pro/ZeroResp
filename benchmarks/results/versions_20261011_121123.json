@@ -1,0 +1,27 @@
+{
+  "config": {
+    "pack": "full",
+    "turns": 50,
+    "reps": 1,
+    "seed": 42,
+    "noise": 0.1,
+    "only": [
+      "v5.3",
+      "v5.6"
+    ]
+  },
+  "pack_size": 221,
+  "variants": {
+    "v5.3": {
+      "rank": 4,
+      "of": 222,
+      "spt": 526.28
+    },
+    "v5.6": {
+      "rank": 14,
+      "of": 222,
+      "spt": 516.62
+    }
+  },
+  "elapsed_sec": 111.2
+}

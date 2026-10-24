@@ -1,0 +1,162 @@
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+C:\Users\Yehor\AppData\Local\Programs\Python\Python314\Lib\site-packages\axelrod\player.py:201: UserWarning: Initializing player with seed from Axelrod module random number generator. Results may not be seed reproducible.
+  warnings.warn(
+{
+  "config": {
+    "pack": "field",
+    "vs": null,
+    "turns": 200,
+    "reps": 8,
+    "seed": 42,
+    "noise": [
+      0.0,
+      0.01,
+      0.03,
+      0.05,
+      0.1
+    ],
+    "out": "benchmarks/results/research/v53_sweep",
+    "no_ladder": false
+  },
+  "runs": [
+    {
+      "noise": 0.0,
+      "round_robin": {
+        "rank": 1,
+        "of": 33,
+        "spt_round_robin": 96.4794,
+        "ranked_head": [
+          [
+            "ZeroResp v5.2: 25, True",
+            0
+          ],
+          [
+            "Gradual",
+            1
+          ],
+          [
+            "Soft Grudger",
+            2
+          ],
+          [
+            "Soft Joss: 0.9",
+            3
+          ],
+          [
+            "Contrite Tit For Tat",
+            4
+          ],
+          [
+            "Tit For Tat",
+            5
+          ],
+          [
+            "Grudger",
+            6
+          ],
+          [
+            "GrudgerAlternator",
+            7
+          ]
+        ]
+      },
+      "h2h_spt": {
+        "Cooperator": 3.01,
+        "Defector": 0.995,
+        "TitForTat": 3.01,
+        "Grudger": 3.01,
+        "Random": 2.7475,
+        "Alternator": 2.935,
+        "TitFor2Tats": 3.01,
+        "TwoTitsForTat": 3.01,
+        "SuspiciousTitForTat": 2.9662,
+        "Bully": 4.875,
+        "GTFT": 3.01,
+        "SoftJoss": 3.01,
+        "Prober": 2.9775,
+        "Prober2": 3.0388,
+        "Prober3": 2.9656,
+        "Calculator": 2.7231,
+        "Handshake": 1.0,
+        "OnceBitten": 3.01,
+        "Punisher": 3.01,
+        "HardTitForTat": 3.01,
+        "HardTitFor2Tats": 3.01,
+        "SoftGrudger": 3.01,
+        "FirmButFair": 3.01,
+        "TrickyCooperator": 4.9,
+        "FirstByGrofman": 3.01,
+        "ContriteTitForTat": 3.01,
+        "SlowTitForTwoTats2": 3.01,
+        "Gradual": 3.01,
+        "ShortMem": 3.01,
+        "GrudgerAlternator": 3.01,
+        "HardProber": 2.9687,
+        "TrickyDefector": 4.915
+      },
+      "self_match_spt": 2.99,
+      "self_match_total_mean": 598.0,
+      "reciprocators_mean_spt": 3.01
+    },
+    {
+      "noise": 0.01,
+      "round_robin": {
+        "rank": 1,
+        "of": 33,
+        "spt_round_robin": 93.1787,
+        "ranked_head": [
+          [
+            "ZeroResp v5.2: 25, True",
+            0
+          ],
+          [
+            "Gradual",
+            1
+          ],
+          [
+            "Soft Joss: 0.9",
+            2
+          ],
+          [
+            "Hard Prober",
+            3
+          ],
+          [
+            "GTFT: 0.33",
+            4
+          ],
+          [
+            "Contrite Tit For Tat",
+            5
+          ],
+          [
+            "Tit For Tat",
+            6
+          ],
+          [
+            "Once Bitten",
+            7
+          ]
+        ]
+      },
+      "h2h_spt": {
+        "Cooperator": 3.015,
+        "Defector": 1.0231,
+        "TitForTat": 2.945,
+        "Grudger": 1.7519,
+        "Random": 2.7175,
+        "Alternator": 2.9212,
+        "TitFor2Tats": 2.9944,
+        "Tw
+
+Saved: benchmarks\results\research\v53_sweep\field_20261004_204622.json
+Saved: benchmarks\results\research\v53_sweep\field_20261004_204622.md

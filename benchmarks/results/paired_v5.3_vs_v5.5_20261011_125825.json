@@ -1,0 +1,25 @@
+{
+  "config": {
+    "a": "v5.3",
+    "b": "v5.5",
+    "pack": "full",
+    "turns": 50,
+    "seeds": 2,
+    "seed0": 42,
+    "noise": 0.1
+  },
+  "pack_size": 221,
+  "seeds": [
+    42,
+    43
+  ],
+  "mean_a": 2.3481,
+  "mean_b": 2.3121,
+  "delta_b_minus_a": -0.03597,
+  "ci95": [
+    -0.04145,
+    -0.0305
+  ],
+  "wilcoxon_p": 0.5,
+  "elapsed_sec": 1.2
+}

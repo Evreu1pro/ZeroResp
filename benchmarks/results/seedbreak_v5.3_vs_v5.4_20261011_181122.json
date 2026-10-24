@@ -1,0 +1,1814 @@
+{
+  "config": {
+    "a": "v5.3",
+    "b": "v5.4",
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71
+    ],
+    "pack": "full",
+    "turns": 200,
+    "noise": 0.2
+  },
+  "seeds": {
+    "42": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "43": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "44": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "45": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "46": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "47": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "48": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "49": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "50": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "51": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "52": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "53": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "54": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "55": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "56": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "57": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "58": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "59": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "60": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "61": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "62": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "63": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "64": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "65": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "66": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "67": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "68": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "69": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "70": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    },
+    "71": {
+      "identical_history_count": 221,
+      "opponents": 221,
+      "mean_d": 0.0,
+      "worst5": [
+        {
+          "opp": "ALLCorALLD",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "AON2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "Adaptive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ZDSet2",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "e",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MemoryDecay",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunter",
+          "d": 0.0,
+          "identical_history": true
+        },
+        {
+          "opp": "MetaHunterAggressive",
+          "d": 0.0,
+          "identical_history": true
+        }
+      ]
+    }
+  },
+  "elapsed_sec": 235.9
+}

@@ -1,0 +1,194 @@
+{
+  "config": {
+    "a": "v5.3",
+    "b": "v5.5",
+    "seeds": [
+      43,
+      61,
+      71
+    ],
+    "pack": "full",
+    "turns": 200,
+    "noise": 0.1
+  },
+  "seeds": {
+    "43": {
+      "identical_history_count": 38,
+      "opponents": 221,
+      "mean_d": -0.00717,
+      "worst5": [
+        {
+          "opp": "FirstByNydegger",
+          "d": -1.695,
+          "identical_history": false
+        },
+        {
+          "opp": "EvolvedFSM16",
+          "d": -1.6,
+          "identical_history": false
+        },
+        {
+          "opp": "AntiCycler",
+          "d": -1.41,
+          "identical_history": false
+        },
+        {
+          "opp": "Fortress4",
+          "d": -1.22,
+          "identical_history": false
+        },
+        {
+          "opp": "Alternator",
+          "d": -1.165,
+          "identical_history": false
+        }
+      ],
+      "best5": [
+        {
+          "opp": "SecondByRichardHufford",
+          "d": 1.1,
+          "identical_history": false
+        },
+        {
+          "opp": "APavlov2006",
+          "d": 1.49,
+          "identical_history": false
+        },
+        {
+          "opp": "APavlov2011",
+          "d": 1.49,
+          "identical_history": false
+        },
+        {
+          "opp": "Forgiver",
+          "d": 1.53,
+          "identical_history": false
+        },
+        {
+          "opp": "CycleHunter",
+          "d": 1.685,
+          "identical_history": false
+        }
+      ]
+    },
+    "61": {
+      "identical_history_count": 81,
+      "opponents": 221,
+      "mean_d": 0.00088,
+      "worst5": [
+        {
+          "opp": "Hopeless",
+          "d": -2.275,
+          "identical_history": false
+        },
+        {
+          "opp": "EvolvedFSM16",
+          "d": -1.845,
+          "identical_history": false
+        },
+        {
+          "opp": "e",
+          "d": -1.47,
+          "identical_history": false
+        },
+        {
+          "opp": "FirstByNydegger",
+          "d": -1.375,
+          "identical_history": false
+        },
+        {
+          "opp": "CyclerCCD",
+          "d": -1.25,
+          "identical_history": false
+        }
+      ],
+      "best5": [
+        {
+          "opp": "ForgivingTitForTat",
+          "d": 0.9,
+          "identical_history": false
+        },
+        {
+          "opp": "Resurrection",
+          "d": 0.935,
+          "identical_history": false
+        },
+        {
+          "opp": "TwoTitsForTat",
+          "d": 1.005,
+          "identical_history": false
+        },
+        {
+          "opp": "SecondByGraaskampKatzen",
+          "d": 1.095,
+          "identical_history": false
+        },
+        {
+          "opp": "OmegaTFT",
+          "d": 1.175,
+          "identical_history": false
+        }
+      ]
+    },
+    "71": {
+      "identical_history_count": 40,
+      "opponents": 221,
+      "mean_d": 0.08025,
+      "worst5": [
+        {
+          "opp": "Hopeless",
+          "d": -2.475,
+          "identical_history": false
+        },
+        {
+          "opp": "EvolvedLookerUp2_2_2",
+          "d": -1.97,
+          "identical_history": false
+        },
+        {
+          "opp": "EvolvedFSM16",
+          "d": -1.535,
+          "identical_history": false
+        },
+        {
+          "opp": "MathConstantHunter",
+          "d": -1.435,
+          "identical_history": false
+        },
+        {
+          "opp": "EasyGo",
+          "d": -1.375,
+          "identical_history": false
+        }
+      ],
+      "best5": [
+        {
+          "opp": "HardGoByMajority",
+          "d": 1.525,
+          "identical_history": false
+        },
+        {
+          "opp": "HardGoByMajority40",
+          "d": 1.525,
+          "identical_history": false
+        },
+        {
+          "opp": "HardGoByMajority20",
+          "d": 1.64,
+          "identical_history": false
+        },
+        {
+          "opp": "HardGoByMajority10",
+          "d": 1.66,
+          "identical_history": false
+        },
+        {
+          "opp": "HardGoByMajority5",
+          "d": 1.68,
+          "identical_history": false
+        }
+      ]
+    }
+  },
+  "elapsed_sec": 5.8
+}

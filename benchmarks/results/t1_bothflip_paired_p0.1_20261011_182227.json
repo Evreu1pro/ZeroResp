@@ -1,0 +1,15 @@
+{
+  "part": "paired",
+  "noise": 0.1,
+  "seeds": [
+    42,
+    43
+  ],
+  "mean_v53": 2.2379,
+  "mean_ladder_off": 2.2382,
+  "mean_v55": 2.1986,
+  "delta_ladder_off_minus_v53": 0.00023,
+  "delta_v55_minus_v53": -0.03933,
+  "pack_size": 221,
+  "elapsed_sec": 29.8
+}

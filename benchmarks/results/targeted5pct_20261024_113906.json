@@ -1,0 +1,104 @@
+{
+ "config": {
+  "noise": 0.05,
+  "turns": 200,
+  "seed0": 42,
+  "seeds": 30,
+  "variants": [
+   "v5.4.4"
+  ]
+ },
+ "results": {
+  "v5.4.4|TwoTitsForTat|paired": {
+   "v53_mean": 2.2987,
+   "v5.4.4_mean": 2.5987,
+   "delta": 0.3,
+   "v53_spin_rate": 0.233,
+   "v5.4.4_spin_rate": 0.0,
+   "wilcoxon_p": 0.003428656540830027,
+   "seeds_negative_delta": 3
+  },
+  "v5.4.4|TwoTitsForTat|zdb": {
+   "v53_mean": 2.2987,
+   "v5.4.4_mean": 2.5987,
+   "delta": 0.3,
+   "v53_spin_rate": 0.233,
+   "v5.4.4_spin_rate": 0.0,
+   "wilcoxon_p": 0.003428656540830027,
+   "seeds_negative_delta": 3
+  },
+  "v5.4.4|Gradual|paired": {
+   "v53_mean": 2.0952,
+   "v5.4.4_mean": 2.1913,
+   "delta": 0.0962,
+   "v53_spin_rate": 0.333,
+   "v5.4.4_spin_rate": 0.3,
+   "wilcoxon_p": 0.021663316798207995,
+   "seeds_negative_delta": 5
+  },
+  "v5.4.4|Gradual|zdb": {
+   "v53_mean": 2.0987,
+   "v5.4.4_mean": 2.1913,
+   "delta": 0.0927,
+   "v53_spin_rate": 0.333,
+   "v5.4.4_spin_rate": 0.3,
+   "wilcoxon_p": 0.021663316798207995,
+   "seeds_negative_delta": 5
+  },
+  "v5.4.4|HardProber|paired": {
+   "v53_mean": 2.3687,
+   "v5.4.4_mean": 2.4588,
+   "delta": 0.0902,
+   "v53_spin_rate": null,
+   "v5.4.4_spin_rate": null,
+   "wilcoxon_p": 0.023698724430496913,
+   "seeds_negative_delta": 3
+  },
+  "v5.4.4|HardProber|zdb": {
+   "v53_mean": 2.3687,
+   "v5.4.4_mean": 2.4588,
+   "delta": 0.0902,
+   "v53_spin_rate": null,
+   "v5.4.4_spin_rate": null,
+   "wilcoxon_p": 0.023698724430496913,
+   "seeds_negative_delta": 3
+  },
+  "v5.4.4|Calculator|paired": {
+   "v53_mean": 2.209,
+   "v5.4.4_mean": 2.6018,
+   "delta": 0.3928,
+   "v53_spin_rate": null,
+   "v5.4.4_spin_rate": null,
+   "wilcoxon_p": 0.01911832013289492,
+   "seeds_negative_delta": 5
+  },
+  "v5.4.4|Calculator|zdb": {
+   "v53_mean": 2.209,
+   "v5.4.4_mean": 2.6018,
+   "delta": 0.3928,
+   "v53_spin_rate": null,
+   "v5.4.4_spin_rate": null,
+   "wilcoxon_p": 0.01911832013289492,
+   "seeds_negative_delta": 5
+  },
+  "v5.4.4|Random|paired": {
+   "v53_mean": 2.7535,
+   "v5.4.4_mean": 2.7063,
+   "delta": -0.0472,
+   "v53_spin_rate": null,
+   "v5.4.4_spin_rate": null,
+   "wilcoxon_p": 0.00028905006410405866,
+   "seeds_negative_delta": 17
+  },
+  "v5.4.4|Random|zdb": {
+   "v53_mean": 2.7535,
+   "v5.4.4_mean": 2.7063,
+   "delta": -0.0472,
+   "v53_spin_rate": null,
+   "v5.4.4_spin_rate": null,
+   "wilcoxon_p": 0.00028905006410405866,
+   "seeds_negative_delta": 17
+  }
+ },
+ "elapsed_sec": 9.0
+}
