@@ -1,6 +1,6 @@
 # ZeroResp — a long-memory IPD strategy with a noise ladder
 
-[![tests](https://img.shields.io/badge/tests-passing-brightgreen)](#)
+[![tests](https://img.shields.io/badge/tests-31%20passing%20%28unittest%29-brightgreen)](tests/)
 [![python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 [![axelrod](https://img.shields.io/badge/axelrod-compatible-orange)](https://axelrod.readthedocs.io)
@@ -68,7 +68,7 @@ cd ZeroResp
 pip install -e .
 ```
 
-Tests: `python -m unittest discover -s tests`. Not on PyPI yet — see [PUBLISH.md](PUBLISH.md) for the upload checklist.
+Tests: `python -m unittest discover -s tests` (31 tests, ~0.3 s; `pytest tests` works too). Not on PyPI yet — see [PUBLISH.md](PUBLISH.md) for the upload checklist.
 
 ### Quick start
 
