@@ -68,7 +68,7 @@ cd ZeroResp
 pip install -e .
 ```
 
-Tests: `python -m unittest discover -s tests`. Not on PyPI yet.
+Tests: `python -m unittest discover -s tests`. Not on PyPI yet — see [PUBLISH.md](PUBLISH.md) for the upload checklist.
 
 ### Quick start
 
