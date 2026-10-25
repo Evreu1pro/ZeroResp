@@ -115,7 +115,9 @@ Mean SPT, 32-strategy pack, `200 turns × 8 reps × seed 42`:
 | 3% | 2.7681 | 2.7338 | +0.0342 | 592 → 590 |
 | 5% | 2.6504 | 2.6444 | +0.0060 | **592.5 → 550.2** |
 
-Older library tables and BHNS protocol notes: [`RESEARCH_v53.md`](RESEARCH_v53.md), raw runs in [`benchmarks/results/`](benchmarks/results/).
+Older library tables: [`RESEARCH_v53.md`](RESEARCH_v53.md), raw runs in [`benchmarks/results/`](benchmarks/results/).
+
+BHNS (blind hold-out + noise-model stress, v5.3 vs v5.2: frozen 40-strategy hold-out, action / random / trembling / perception noise at 1–20%, 10–30 seeds) is on branch `research/v54x`: results in [`BHNS_v53.md`](https://github.com/Evreu1pro/ZeroResp/blob/research/v54x/BHNS_v53.md) (Russian), runner [`benchmarks/run_bhns.py`](https://github.com/Evreu1pro/ZeroResp/blob/research/v54x/benchmarks/run_bhns.py), analysis [`benchmarks/analyze_bhns.py`](https://github.com/Evreu1pro/ZeroResp/blob/research/v54x/benchmarks/analyze_bhns.py), frozen split [`split.json`](https://github.com/Evreu1pro/ZeroResp/blob/research/v54x/benchmarks/results/research/bhns/split.json). Full-library stress map: [`STRESS_v53.md`](https://github.com/Evreu1pro/ZeroResp/blob/research/v54x/STRESS_v53.md).
 
 ---
 
@@ -129,7 +131,16 @@ python -m unittest tests.test_zeroresp tests.test_noise_ladder -v
 python benchmarks/run_field.py --pack field --turns 200 --reps 8 --seed 42 --noise 0 0.05
 ```
 
-Full-library / ZDB runners and JSON: branch `research/v54x`.
+Full-library / ZDB runners and JSON: branch `research/v54x`. BHNS from there:
+
+```bash
+git checkout research/v54x
+pip install scipy                     # analyze_bhns.py needs it
+python benchmarks/analyze_bhns.py     # rebuilds BHNS_v53.md from the stored JSON
+python benchmarks/run_bhns.py         # resumable: skips runs whose JSON already exists
+```
+
+Sanity check (2026-10-25, axelrod 4.14.0): `analyze_bhns.py` regenerates `BHNS_v53.md` byte-for-byte; re-running two hold-out round-robins from scratch (`action` 10% seed 0, `random` 5% seed 1) gives the same ranks for both versions, SPT within 0.05 of the stored runs.
 
 ---
 
