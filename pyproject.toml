@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,7 +7,8 @@ name = "zeroresp"
 version = "5.4.4"
 description = "ZeroResp v5.4.4: adaptive IPD strategy for Axelrod-Python (noise ladder + cycler contour)"
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Evreu1pro" }]
 requires-python = ">=3.9"
 dependencies = ["axelrod>=4.12.0"]
@@ -15,7 +16,6 @@ keywords = ["iterated-prisoners-dilemma", "game-theory", "axelrod", "ipd"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.9",
